@@ -1,0 +1,111 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model UserProfile {
+  id            String   @id @default(cuid())
+  userId        String   @unique  // Clerk user id
+  email         String
+  displayName   String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  orgMemberships OrgMember[]
+  preferences   Json?
+
+  @@map("user_profiles")
+}
+
+model Org {
+  id          String      @id @default(cuid())
+  clerkOrgId  String      @unique
+  name        String
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  members     OrgMember[]
+  apiKeys     ApiKey[]
+  presentations PresentationMirror[]
+  dubbing     DubbingMirror[]
+  auditLogs   AuditLog[]
+
+  @@map("orgs")
+}
+
+model OrgMember {
+  id        String   @id @default(cuid())
+  orgId     String
+  userId    String   // Clerk user id
+  role      String   // owner|admin|member
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  org       Org      @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  user      UserProfile @relation(fields: [userId], references: [userId], onDelete: Cascade)
+
+  @@unique([orgId, userId])
+  @@map("org_members")
+}
+
+model PresentationMirror {
+  id           String   @id @default(cuid())
+  planId       String   @unique
+  orgId        String
+  title        String
+  language     String
+  slidesCount  Int
+  status       String    // queued|running|completed|failed
+  lastEventAt  DateTime?
+  artifacts    Json?     // { deck_html, pptx, pdf, zip }
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  org          Org       @relation(fields: [orgId], references: [id], onDelete: Cascade)
+
+  @@map("presentation_mirrors")
+}
+
+model DubbingMirror {
+  id           String   @id @default(cuid())
+  jobId        String   @unique
+  orgId        String
+  sourceUrl    String
+  sourceLang   String
+  targetLang   String
+  voice        String
+  status       String
+  lastEventAt  DateTime?
+  artifacts    Json?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  org          Org       @relation(fields: [orgId], references: [id], onDelete: Cascade)
+
+  @@map("dubbing_mirrors")
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  orgId     String
+  userId    String
+  action    String   // create_presentation, edit_title, start_dub, download_export, etc.
+  meta      Json?
+  createdAt DateTime @default(now())
+  org       Org      @relation(fields: [orgId], references: [id], onDelete: Cascade)
+
+  @@map("audit_logs")
+}
+
+model ApiKey {
+  id        String   @id @default(cuid())
+  orgId     String
+  name      String
+  hash      String   @unique
+  createdAt DateTime @default(now())
+  org       Org      @relation(fields: [orgId], references: [id], onDelete: Cascade)
+
+  @@map("api_keys")
+}

@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  frontend:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      # Backend API
+      - NEXT_PUBLIC_API_BASE=http://localhost:8000
+      - NEXT_PUBLIC_ARTIFACTS_BASE=http://localhost:8000/artifacts
+      
+      # Clerk (replace with your keys)
+      - NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=${CLERK_PUBLISHABLE_KEY}
+      - CLERK_SECRET_KEY=${CLERK_SECRET_KEY}
+      - CLERK_SIGN_IN_URL=/sign-in
+      - CLERK_SIGN_UP_URL=/sign-up
+      
+      # Database
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/frontend
+      
+      # Security
+      - NEXT_PUBLIC_ALLOWED_FILE_EXT=mp4,pdf,pptx,zip
+      - NEXT_PUBLIC_MAX_UPLOAD_MB=200
+      
+      # Node
+      - NODE_ENV=production
+    depends_on:
+      - db
+    volumes:
+      - ./.env:/app/.env:ro
+    networks:
+      - agentic-network
+
+  db:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=frontend
+    ports:
+      - "5434:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - agentic-network
+
+volumes:
+  postgres_data:
+
+networks:
+  agentic-network:
+    driver: bridge
