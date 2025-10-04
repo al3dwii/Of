@@ -1,6 +1,6 @@
 'use client'
 
-import { Breadcrumb } from '../../components/navigation/breadcrumb'
+import { Breadcrumb } from '@/components/navigation/breadcrumb'
 
 export default function DashboardLayout({
   children,

@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { apiClient } from '../../../lib/api/client'
+import { apiClient } from '@/lib/api/client'
 
 export default function DashboardPage() {
   const [stats, setStats] = useState({
