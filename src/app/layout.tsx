@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Inter, Tajawal } from 'next/font/google'
 import { ClerkProvider } from '@clerk/nextjs'
 import { Navbar } from '../components/navigation/navbar'
 import { Footer } from '../components/navigation/footer'
@@ -8,7 +8,12 @@ import { LocaleProvider } from '../components/locale-provider'
 // import { ThemeProvider } from 'next-themes'
 import './globals.css'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
+const tajawal = Tajawal({ 
+  subsets: ['arabic', 'latin'],
+  weight: ['300', '400', '500', '700', '800'],
+  variable: '--font-tajawal'
+})
 
 export const metadata: Metadata = {
   title: 'Agentic - AI Content Creation Platform',
@@ -22,8 +27,8 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider>
-      <html suppressHydrationWarning>
-        <body className={inter.className}>
+      <html suppressHydrationWarning className={`${inter.variable} ${tajawal.variable}`}>
+        <body>
           <LocaleProvider>
             <div className="min-h-screen flex flex-col">
               <Navbar />
