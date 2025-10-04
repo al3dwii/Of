@@ -113,7 +113,7 @@ export function Navbar() {
 
   return (
     <header
-      className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-black/40 bg-black/60 border-b border-white/10"
+      className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-black bg-black border-b border-white/10"
       dir={isAr ? "rtl" : "ltr"}
     >
       <nav className="container mx-auto px-4 h-16 flex items-center justify-between">
