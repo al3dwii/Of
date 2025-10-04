@@ -7,10 +7,12 @@ import { LOCALES, type Locale } from "@/data/locales";
 
 
 interface NavItem {
-  name: string
   href: string
+  labelEn: string
+  labelAr: string
   icon: string
   description?: string
+  descriptionAr?: string
 }
 
 export function Navbar() {
@@ -19,7 +21,6 @@ export function Navbar() {
   const router = useRouter();
   const pathname = usePathname() || "/";
   const search = useSearchParams();
-  const [open, setOpen] = useState(false);
 
   // Determine current locale from the first segment (fallback to 'en')
   const currentLocale = useMemo<Locale>(() => {
@@ -66,85 +67,133 @@ export function Navbar() {
   };
 
 
-  const navigation: NavItem[] = [
-    { name: 'Dashboard', href: '/dashboard', icon: '📊', description: 'Overview and stats' },
-    { name: 'Presentations', href: '/dashboard/presentations', icon: '📄', description: 'AI-generated slides' },
-    { name: 'Video Dubbing', href: '/dashboard/dubbing', icon: '🎥', description: 'Multilingual dubbing' },
-    { name: 'Analytics', href: '/dashboard/analytics', icon: '📈', description: 'Performance insights' },
-    { name: 'Settings', href: '/dashboard/settings', icon: '⚙️', description: 'Account settings' },
-  ]
-
-  // Nav items (add/remove as needed)
-  const items: { href: string; labelEn: string; labelAr: string }[] = [
-    // { href: "", labelEn: "Home", labelAr: "الرئيسية" },
-    { href: "slides", labelEn: "Slides", labelAr: "الشرائح" },
-    { href: "video", labelEn: "Video", labelAr: "الفيديو" },
-    // { href: "pricing", labelEn: "Pricing", labelAr: "الأسعار" },
-    // { href: "faq", labelEn: "FAQ", labelAr: "الأسئلة" },
+  // Unified navigation items with multi-language support
+  const navigationItems: NavItem[] = [
+    { 
+      href: "slides", 
+      labelEn: "Slides", 
+      labelAr: "الشرائح", 
+      icon: "📄", 
+      description: "AI-generated slides",
+      descriptionAr: "الشرائح المولدة بالذكاء الاصطناعي"
+    },
+    { 
+      href: "video", 
+      labelEn: "Video", 
+      labelAr: "الفيديو", 
+      icon: "🎥", 
+      description: "Multilingual dubbing",
+      descriptionAr: "الدبلجة متعددة اللغات"
+    },
+    { 
+      href: "dashboard", 
+      labelEn: "Dashboard", 
+      labelAr: "لوحة التحكم", 
+      icon: "📊", 
+      description: "Overview and stats",
+      descriptionAr: "نظرة عامة وإحصائيات"
+    },
+    { 
+      href: "dashboard/presentations", 
+      labelEn: "Presentations", 
+      labelAr: "العروض التقديمية", 
+      icon: "📑", 
+      description: "Manage presentations",
+      descriptionAr: "إدارة العروض التقديمية"
+    },
+    { 
+      href: "dashboard/analytics", 
+      labelEn: "Analytics", 
+      labelAr: "التحليلات", 
+      icon: "📈", 
+      description: "Performance insights",
+      descriptionAr: "رؤى الأداء"
+    },
   ];
 
-  // const isActive = (href: string) => {
-  //   if (href === '/dashboard') {
-  //     return pathname === '/dashboard'
-  //   }
-  //   return pathname.startsWith(href)
-  // }
-
   return (
-    <>
-     <header
+    <header
       className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-black/40 bg-black/60 border-b border-white/10"
       dir={isAr ? "rtl" : "ltr"}
     >
-      <nav className="container mx-auto px-4 h-14 flex items-center justify-between">
+      <nav className="container mx-auto px-4 h-16 flex items-center justify-between">
         {/* Left: Brand */}
         <div className="flex items-center gap-3">
           <Link
             href={hrefFor(currentLocale)}
-            className="flex items-center gap-2 font-semibold hover:opacity-90"
+            className="flex items-center gap-2 hover:opacity-90"
             aria-label={isAr ? "الصفحة الرئيسية" : "Home"}
           >
-            {/* Minimal logo (SVG) */}
-            <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
-              <path
-                d="M4 7.5A3.5 3.5 0 0 1 7.5 4h9A3.5 3.5 0 0 1 20 7.5v9A3.5 3.5 0 0 1 16.5 20h-9A3.5 3.5 0 0 1 4 16.5v-9Z"
-                className="fill-white/10"
-              />
-              <path
-                d="M8 8h8v2H8zm0 4h6v2H8z"
-                className="fill-white/80"
-              />
-            </svg>
-            <span className="text-sm md:text-base">
-              {isAr ? " O " : "O"}
-            </span>
+            <div className="w-9 h-9 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
+              <span className="text-white font-bold text-sm">O</span>
+            </div>
+            <div className="hidden sm:block">
+              <h1 className="text-base font-bold text-white">
+                {isAr ? "أولد" : "Oold"}
+              </h1>
+              <p className="text-xs text-white/60 -mt-0.5">
+                {isAr ? "منصة محتوى الذكاء الاصطناعي" : "AI Content Platform"}
+              </p>
+            </div>
           </Link>
         </div>
 
         {/* Center: Desktop links */}
-        <ul className="hidden md:flex items-center gap-3">
-          {items.map((it) => {
-            const href = hrefFor(currentLocale, it.href);
-            const active = isActive(it.href);
+        <ul className="hidden md:flex items-center gap-2">
+          {navigationItems.map((item) => {
+            const href = hrefFor(currentLocale, item.href);
+            const active = isActive(item.href);
             return (
-              <li key={it.href}>
+              <li key={item.href}>
                 <Link
                   href={href}
-                  className={`px-3 py-1.5 rounded-md text-sm border transition ${
+                  className={`group relative px-3 py-2 rounded-md text-sm border transition flex items-center gap-2 ${
                     active
                       ? "bg-white text-black border-white"
                       : "border-white/10 bg-white/5 text-white hover:border-white/30"
                   }`}
                 >
-                  {isAr ? it.labelAr : it.labelEn}
+                  <span className="text-base">{item.icon}</span>
+                  <span>{isAr ? item.labelAr : item.labelEn}</span>
+                  
+                  {/* Tooltip */}
+                  <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-gray-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
+                    {isAr ? (item.descriptionAr || item.description) : item.description}
+                  </div>
                 </Link>
               </li>
             );
           })}
         </ul>
 
-        {/* Right: Lang toggle + mobile button */}
+        {/* Right: Actions + Lang toggle + mobile button */}
         <div className="flex items-center gap-2">
+          {/* Search Button - Desktop only */}
+          <button 
+            className="hidden sm:flex p-2 text-white/60 hover:text-white rounded-lg hover:bg-white/10 transition-colors"
+            aria-label={isAr ? "بحث" : "Search"}
+          >
+            <span className="text-lg">🔍</span>
+          </button>
+
+          {/* Notifications - Desktop only */}
+          <button 
+            className="hidden sm:flex relative p-2 text-white/60 hover:text-white rounded-lg hover:bg-white/10 transition-colors"
+            aria-label={isAr ? "الإشعارات" : "Notifications"}
+          >
+            <span className="text-lg">🔔</span>
+            <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+          </button>
+
+          {/* User Profile - Desktop only */}
+          <div className="hidden sm:block relative">
+            <button className="flex items-center gap-2 p-2 rounded-lg hover:bg-white/10 transition-colors">
+              <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
+                <span className="text-sm font-medium text-white">U</span>
+              </div>
+            </button>
+          </div>
+
           {/* Language toggle */}
           <button
             type="button"
@@ -173,10 +222,13 @@ export function Navbar() {
           <button
             className="md:hidden inline-flex items-center justify-center w-9 h-9 rounded-md border border-white/15 bg-white/5 hover:border-white/40"
             aria-label={isAr ? "فتح القائمة" : "Open menu"}
-            onClick={() => setOpen((v) => !v)}
+            onClick={() => setIsMobileMenuOpen((v) => !v)}
           >
             <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
-              <path className="fill-white/80" d="M4 7h16v2H4zm0 4h16v2H4zm0 4h16v2H4z" />
+              <path 
+                className="fill-white/80" 
+                d={isMobileMenuOpen ? "M18 6L6 18M6 6l12 12" : "M4 7h16v2H4zm0 4h16v2H4zm0 4h16v2H4z"} 
+              />
             </svg>
           </button>
         </div>
@@ -185,36 +237,62 @@ export function Navbar() {
       {/* Mobile drawer */}
       <div
         className={`md:hidden border-t border-white/10 bg-black/70 transition-[max-height] overflow-hidden ${
-          open ? "max-h-96" : "max-h-0"
+          isMobileMenuOpen ? "max-h-[600px]" : "max-h-0"
         }`}
       >
         <ul className="px-4 py-3 space-y-2">
-          {items.map((it) => {
-            const href = hrefFor(currentLocale, it.href);
-            const active = isActive(it.href);
+          {navigationItems.map((item) => {
+            const href = hrefFor(currentLocale, item.href);
+            const active = isActive(item.href);
             return (
-              <li key={it.href}>
+              <li key={item.href}>
                 <Link
                   href={href}
-                  className={`block px-3 py-2 rounded-md text-sm border ${
+                  className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm border ${
                     active
                       ? "bg-white text-black border-white"
                       : "border-white/10 bg-white/5 text-white hover:border-white/30"
                   }`}
-                  onClick={() => setOpen(false)}
+                  onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  {isAr ? it.labelAr : it.labelEn}
+                  <span className="text-lg">{item.icon}</span>
+                  <div>
+                    <div>{isAr ? item.labelAr : item.labelEn}</div>
+                    <div className="text-xs opacity-70">
+                      {isAr ? (item.descriptionAr || item.description) : item.description}
+                    </div>
+                  </div>
                 </Link>
               </li>
             );
           })}
 
+          {/* Mobile-only actions */}
+          <li className="pt-2 border-t border-white/10">
+            <div className="flex gap-2">
+              <button 
+                className="flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-md border border-white/15 bg-white/5 text-sm text-white hover:border-white/40"
+                aria-label={isAr ? "بحث" : "Search"}
+              >
+                <span>🔍</span>
+                <span>{isAr ? "بحث" : "Search"}</span>
+              </button>
+              <button 
+                className="flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-md border border-white/15 bg-white/5 text-sm text-white hover:border-white/40"
+                aria-label={isAr ? "الإشعارات" : "Notifications"}
+              >
+                <span>🔔</span>
+                <span>{isAr ? "الإشعارات" : "Notifications"}</span>
+              </button>
+            </div>
+          </li>
+
           {/* Language toggle duplicated in drawer */}
-          <li className="pt-2">
+          <li>
             <button
               type="button"
               onClick={() => {
-                setOpen(false);
+                setIsMobileMenuOpen(false);
                 toggleLanguage();
               }}
               className="w-full inline-flex items-center justify-center gap-2 rounded-md border border-white/15 bg-white/5 text-sm px-3 py-2 hover:border-white/40"
@@ -228,115 +306,5 @@ export function Navbar() {
         </ul>
       </div>
     </header>
-    <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
-          {/* Logo and Brand */}
-          <div className="flex items-center">
-            <Link href="/dashboard" className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">A</span>
-              </div>
-              <div className="hidden sm:block">
-                <h1 className="text-xl font-bold text-gray-900">Agentic</h1>
-                <p className="text-xs text-gray-500 -mt-1">AI Content Platform</p>
-              </div>
-            </Link>
-          </div>
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-1">
-            {navigation.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className={`group relative px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  isActive(item.href)
-                    ? 'bg-blue-50 text-blue-700'
-                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
-                }`}
-              >
-                <div className="flex items-center space-x-2">
-                  <span className="text-base">{item.icon}</span>
-                  <span>{item.name}</span>
-                </div>
-                
-                {/* Tooltip */}
-                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-gray-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
-                  {item.description}
-                </div>
-              </Link>
-            ))}
-          </div>
-
-          {/* User Menu and Mobile Toggle */}
-          <div className="flex items-center space-x-4">
-            {/* Search Button */}
-            <button className="p-2 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100 transition-colors">
-              <span className="text-lg">🔍</span>
-            </button>
-
-            {/* Notifications */}
-            <button className="relative p-2 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100 transition-colors">
-              <span className="text-lg">🔔</span>
-              <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
-            </button>
-
-            {/* Help */}
-            <Link 
-              href="/dashboard/help"
-              className="p-2 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100 transition-colors"
-            >
-              <span className="text-lg">❓</span>
-            </Link>
-
-            {/* User Profile */}
-            <div className="relative">
-              <button className="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-100 transition-colors">
-                <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
-                  <span className="text-sm font-medium text-gray-600">U</span>
-                </div>
-                <span className="hidden sm:block text-sm font-medium text-gray-700">User</span>
-              </button>
-            </div>
-
-            {/* Mobile menu button */}
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden p-2 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100 transition-colors"
-            >
-              <span className="text-lg">{isMobileMenuOpen ? '✕' : '☰'}</span>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Mobile Navigation Menu */}
-      {isMobileMenuOpen && (
-        <div className="md:hidden border-t border-gray-200 bg-white">
-          <div className="px-4 py-2 space-y-1">
-            {navigation.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className={`flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  isActive(item.href)
-                    ? 'bg-blue-50 text-blue-700'
-                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
-                }`}
-              >
-                <span className="text-lg">{item.icon}</span>
-                <div>
-                  <div>{item.name}</div>
-                  <div className="text-xs text-gray-500">{item.description}</div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      )}
-    </nav>
-    </>
   )
 }
