@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useMemo } from 'react'
+import { useTranslation } from '@/i18n/useTranslation'
 
 interface FooterSection {
   title: string
@@ -10,6 +11,7 @@ interface FooterSection {
 }
 
 export function Footer() {
+  const { t, locale } = useTranslation()
   const pathname = usePathname()
   
   // Detect locale from pathname
@@ -30,48 +32,48 @@ export function Footer() {
   
   const footerSections: FooterSection[] = [
     {
-      title: 'Platform',
+      title: t.footer.platform.title,
       links: [
-        { name: 'Dashboard', href: '/dashboard' },
-        { name: 'Presentations', href: '/dashboard/presentations' },
-        { name: 'Video Dubbing', href: '/dashboard/dubbing' },
-        { name: 'Analytics', href: '/dashboard/analytics' },
+        { name: t.footer.platform.dashboard, href: '/dashboard' },
+        { name: t.footer.platform.presentations, href: '/dashboard/presentations' },
+        { name: t.footer.platform.dubbing, href: '/dashboard/dubbing' },
+        { name: t.footer.platform.analytics, href: '/dashboard/analytics' },
       ]
     },
     {
-      title: 'Tools',
+      title: t.footer.tools.title,
       links: [
-        { name: 'Create Presentation', href: '/dashboard/presentations/new' },
-        { name: 'Upload Video', href: '/dashboard/dubbing' },
-        { name: 'API Documentation', href: '/dashboard/api-docs' },
-        { name: 'Settings', href: '/dashboard/settings' },
+        { name: t.footer.tools.createPresentation, href: '/dashboard/presentations/new' },
+        { name: t.footer.tools.uploadVideo, href: '/dashboard/dubbing' },
+        { name: t.footer.tools.apiDocs, href: '/dashboard/api-docs' },
+        { name: t.footer.tools.settings, href: '/dashboard/settings' },
       ]
     },
     {
-      title: 'Support',
+      title: t.footer.support.title,
       links: [
-        { name: 'Help Center', href: '/dashboard/help' },
-        { name: 'Contact Support', href: '/dashboard/help' },
-        { name: 'System Status', href: '/dashboard/help' },
-        { name: 'What\'s New', href: '/dashboard/changelog' },
+        { name: t.footer.support.helpCenter, href: '/dashboard/help' },
+        { name: t.footer.support.contactSupport, href: '/dashboard/help' },
+        { name: t.footer.support.systemStatus, href: '/dashboard/help' },
+        { name: t.footer.support.whatsNew, href: '/dashboard/changelog' },
       ]
     },
     {
-      title: 'Company',
+      title: t.footer.company.title,
       links: [
-        { name: 'About', href: '#' },
-        { name: 'Privacy Policy', href: '#' },
-        { name: 'Terms of Service', href: '#' },
-        { name: 'Security', href: '#' },
+        { name: t.footer.company.about, href: '#' },
+        { name: t.footer.company.privacy, href: '#' },
+        { name: t.footer.company.terms, href: '#' },
+        { name: t.footer.company.security, href: '#' },
       ]
     }
   ]
 
   const socialLinks = [
-    { name: 'Twitter', href: '#', icon: '🐦' },
-    { name: 'Discord', href: '#', icon: '💬' },
-    { name: 'GitHub', href: '#', icon: '🐙' },
-    { name: 'LinkedIn', href: '#', icon: '💼' },
+    { name: t.footer.social.twitter, href: '#', icon: '🐦' },
+    { name: t.footer.social.discord, href: '#', icon: '💬' },
+    { name: t.footer.social.github, href: '#', icon: '🐙' },
+    { name: t.footer.social.linkedin, href: '#', icon: '💼' },
   ]
 
   return (
@@ -86,12 +88,12 @@ export function Footer() {
                 <span className="text-white font-bold text-sm">A</span>
               </div>
               <div>
-                <h3 className="text-lg font-bold text-gray-900">Agentic</h3>
-                <p className="text-xs text-gray-500">AI Content Platform</p>
+                <h3 className="text-lg font-bold text-gray-900">{t.brand.name}</h3>
+                <p className="text-xs text-gray-500">{t.footer.brand.tagline}</p>
               </div>
             </div>
             <p className="text-sm text-gray-600 mb-4">
-              Create presentations and dub videos with the power of AI. Transform your content workflow.
+              {t.footer.brand.description}
             </p>
             
             {/* Social Links */}
@@ -134,21 +136,21 @@ export function Footer() {
           <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-6">
             <div className="flex flex-col md:flex-row items-center justify-between">
               <div className="mb-4 md:mb-0">
-                <h3 className="text-lg font-medium text-gray-900 mb-1">Ready to get started?</h3>
-                <p className="text-sm text-gray-600">Create your first AI-powered content today.</p>
+                <h3 className="text-lg font-medium text-gray-900 mb-1">{t.footer.readyToStart.title}</h3>
+                <p className="text-sm text-gray-600">{t.footer.readyToStart.subtitle}</p>
               </div>
               <div className="flex space-x-3">
                 <Link
                   href={hrefFor('/dashboard/presentations/new')}
                   className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors"
                 >
-                  Create Presentation
+                  {t.footer.readyToStart.createButton}
                 </Link>
                 <Link
                   href={hrefFor('/dashboard/dubbing')}
                   className="bg-white text-gray-700 px-4 py-2 rounded-lg text-sm font-medium border border-gray-300 hover:bg-gray-50 transition-colors"
                 >
-                  Upload Video
+                  {t.footer.readyToStart.uploadButton}
                 </Link>
               </div>
             </div>
@@ -159,22 +161,22 @@ export function Footer() {
         <div className="mt-8 pt-8 border-t border-gray-200">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="flex items-center space-x-4 text-sm text-gray-500">
-              <span>© 2025 Agentic AI Platform. All rights reserved.</span>
+              <span>© 2025 {t.brand.name}. {t.footer.bottom.allRightsReserved}.</span>
               <div className="hidden md:flex items-center space-x-2">
                 <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                <span>All systems operational</span>
+                <span>{t.footer.bottom.allSystemsOperational}</span>
               </div>
             </div>
             
             <div className="flex items-center space-x-4 mt-4 md:mt-0">
               <Link href={hrefFor('/dashboard/help')} className="text-sm text-gray-500 hover:text-gray-700">
-                Need help?
+                {t.footer.bottom.needHelp}
               </Link>
               <Link href={hrefFor('/dashboard/api-docs')} className="text-sm text-gray-500 hover:text-gray-700">
-                API Docs
+                {t.footer.tools.apiDocs}
               </Link>
               <div className="text-sm text-gray-500">
-                v2.1.0
+                {t.footer.bottom.version}
               </div>
             </div>
           </div>
