@@ -13,11 +13,21 @@ export function Footer() {
   const pathname = usePathname()
   
   // Detect locale from pathname
-  const isAr = useMemo(() => {
+  const currentLocale = useMemo(() => {
     const localeMatch = pathname?.match(/^\/(en|ar)(\/|$)/)
-    const locale = localeMatch?.[1]
-    return locale === 'ar'
+    return (localeMatch?.[1] as 'en' | 'ar') || 'en'
   }, [pathname])
+  
+  const isAr = currentLocale === 'ar'
+  
+  // Helper to build localized hrefs
+  const hrefFor = (path: string) => {
+    if (path === '#') return path
+    // Remove leading slash if present
+    const cleanPath = path.startsWith('/') ? path.slice(1) : path
+    return `/${currentLocale}/${cleanPath}`
+  }
+  
   const footerSections: FooterSection[] = [
     {
       title: 'Platform',
@@ -107,7 +117,7 @@ export function Footer() {
                 {section.links.map((link) => (
                   <li key={link.name}>
                     <Link
-                      href={link.href}
+                      href={hrefFor(link.href)}
                       className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
                     >
                       {link.name}
@@ -129,13 +139,13 @@ export function Footer() {
               </div>
               <div className="flex space-x-3">
                 <Link
-                  href="/dashboard/presentations/new"
+                  href={hrefFor('/dashboard/presentations/new')}
                   className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors"
                 >
                   Create Presentation
                 </Link>
                 <Link
-                  href="/dashboard/dubbing"
+                  href={hrefFor('/dashboard/dubbing')}
                   className="bg-white text-gray-700 px-4 py-2 rounded-lg text-sm font-medium border border-gray-300 hover:bg-gray-50 transition-colors"
                 >
                   Upload Video
@@ -157,10 +167,10 @@ export function Footer() {
             </div>
             
             <div className="flex items-center space-x-4 mt-4 md:mt-0">
-              <Link href="/dashboard/help" className="text-sm text-gray-500 hover:text-gray-700">
+              <Link href={hrefFor('/dashboard/help')} className="text-sm text-gray-500 hover:text-gray-700">
                 Need help?
               </Link>
-              <Link href="/dashboard/api-docs" className="text-sm text-gray-500 hover:text-gray-700">
+              <Link href={hrefFor('/dashboard/api-docs')} className="text-sm text-gray-500 hover:text-gray-700">
                 API Docs
               </Link>
               <div className="text-sm text-gray-500">
