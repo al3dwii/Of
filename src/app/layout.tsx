@@ -4,6 +4,7 @@ import { ClerkProvider } from '@clerk/nextjs'
 import { Navbar } from '../components/navigation/navbar'
 import { Footer } from '../components/navigation/footer'
 import { QuickActionMenu } from '../components/navigation/quick-action-menu'
+import { LocaleProvider } from '../components/locale-provider'
 // import { ThemeProvider } from 'next-themes'
 import './globals.css'
 
@@ -21,16 +22,18 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider>
-      <html lang="en" suppressHydrationWarning>
+      <html suppressHydrationWarning>
         <body className={inter.className}>
-          <div className="min-h-screen flex flex-col">
-            <Navbar />
-            <main className="flex-1">
-              {children}
-            </main>
-            <Footer />
-            <QuickActionMenu />
-          </div>
+          <LocaleProvider>
+            <div className="min-h-screen flex flex-col">
+              <Navbar />
+              <main className="flex-1">
+                {children}
+              </main>
+              <Footer />
+              <QuickActionMenu />
+            </div>
+          </LocaleProvider>
         </body>
       </html>
     </ClerkProvider>

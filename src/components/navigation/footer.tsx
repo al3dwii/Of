@@ -1,6 +1,8 @@
 'use client'
 
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { useMemo } from 'react'
 
 interface FooterSection {
   title: string
@@ -8,6 +10,14 @@ interface FooterSection {
 }
 
 export function Footer() {
+  const pathname = usePathname()
+  
+  // Detect locale from pathname
+  const isAr = useMemo(() => {
+    const localeMatch = pathname?.match(/^\/(en|ar)(\/|$)/)
+    const locale = localeMatch?.[1]
+    return locale === 'ar'
+  }, [pathname])
   const footerSections: FooterSection[] = [
     {
       title: 'Platform',
@@ -55,7 +65,7 @@ export function Footer() {
   ]
 
   return (
-    <footer className="bg-gray-50 border-t border-gray-200">
+    <footer className="bg-gray-50 border-t border-gray-200" dir={isAr ? 'rtl' : 'ltr'}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
