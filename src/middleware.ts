@@ -7,7 +7,7 @@ export function middleware(request: NextRequest) {
   
   // Detect locale from URL
   const pathname = request.nextUrl.pathname
-  const localeMatch = pathname.match(/^\/(en|ar)(\/|$)/)
+  const localeMatch = pathname.match(/^\/(en|ar|es)(\/|$)/)
   const locale = localeMatch?.[1] || 'en'
   
   // Set headers for RTL detection

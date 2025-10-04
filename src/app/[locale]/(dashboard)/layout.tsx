@@ -13,7 +13,7 @@ export default function DashboardLayout({
   
   // Detect locale from pathname
   const isAr = useMemo(() => {
-    const localeMatch = pathname?.match(/^\/(en|ar)(\/|$)/)
+    const localeMatch = pathname?.match(/^\/(en|ar|es)(\/|$)/)
     const locale = localeMatch?.[1]
     return locale === 'ar'
   }, [pathname])

@@ -17,11 +17,12 @@ export function QuickActionMenu() {
   const pathname = usePathname()
   
   // Detect locale from pathname
-  const isAr = useMemo(() => {
-    const localeMatch = pathname?.match(/^\/(en|ar)(\/|$)/)
-    const locale = localeMatch?.[1]
-    return locale === 'ar'
+  const currentLocale = useMemo(() => {
+    const localeMatch = pathname?.match(/^\/(en|ar|es)(\/|$)/)
+    return (localeMatch?.[1] as 'en' | 'ar' | 'es') || 'en'
   }, [pathname])
+  
+  const isAr = currentLocale === 'ar'
 
   const quickActions: QuickAction[] = [
     {

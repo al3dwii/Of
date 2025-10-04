@@ -14,8 +14,8 @@ export function Footer() {
   
   // Detect locale from pathname
   const currentLocale = useMemo(() => {
-    const localeMatch = pathname?.match(/^\/(en|ar)(\/|$)/)
-    return (localeMatch?.[1] as 'en' | 'ar') || 'en'
+    const localeMatch = pathname?.match(/^\/(en|ar|es)(\/|$)/)
+    return (localeMatch?.[1] as 'en' | 'ar' | 'es') || 'en'
   }, [pathname])
   
   const isAr = currentLocale === 'ar'

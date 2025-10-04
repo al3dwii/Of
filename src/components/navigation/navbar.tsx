@@ -10,9 +10,11 @@ interface NavItem {
   href: string
   labelEn: string
   labelAr: string
+  labelEs: string
   icon: string
   description?: string
   descriptionAr?: string
+  descriptionEs?: string
 }
 
 export function Navbar() {
@@ -24,17 +26,16 @@ export function Navbar() {
 
   // Determine current locale from the first segment (fallback to 'en')
   const currentLocale = useMemo<Locale>(() => {
-    const m = pathname.match(/^\/(en|ar)(\/|$)/);
+    const m = pathname.match(/^\/(en|ar|es)(\/|$)/);
     return (m?.[1] as Locale) || "en";
   }, [pathname]);
 
   const isAr = currentLocale === "ar";
-  const otherLocale: Locale = isAr ? "en" : "ar";
 
   // Preserve the rest of the path after locale, e.g.
   // /ar/slides/convert-word-to-ppt?x=1 -> "slides/convert-word-to-ppt"
   const restPath = useMemo(() => {
-    const stripped = pathname.replace(/^\/(en|ar)(?=\/|$)/, "");
+    const stripped = pathname.replace(/^\/(en|ar|es)(?=\/|$)/, "");
     return stripped.replace(/^\/+/, ""); // remove leading slash
   }, [pathname]);
 
@@ -46,16 +47,16 @@ export function Navbar() {
     `/${locale}${subpath ? (subpath.startsWith("/") ? subpath : `/${subpath}`) : ""}`;
 
   const localizedCurrent = `/${currentLocale}${restPath ? `/${restPath}` : ""}${qs}`;
-  const localizedOther = `/${otherLocale}${restPath ? `/${restPath}` : ""}${qs}`;
 
-  // Toggle language (set cookie + navigate)
-  function toggleLanguage() {
+  // Switch to a specific language (set cookie + navigate)
+  function switchToLanguage(newLocale: Locale) {
     try {
-      document.cookie = `NEXT_LOCALE=${otherLocale}; path=/; max-age=31536000; samesite=lax`;
+      document.cookie = `NEXT_LOCALE=${newLocale}; path=/; max-age=31536000; samesite=lax`;
     } catch {
       // non-blocking
     }
-    router.push(localizedOther);
+    const newUrl = `/${newLocale}${restPath ? `/${restPath}` : ""}${qs}`;
+    router.push(newUrl);
   }
 
   // Active link helper
@@ -67,47 +68,70 @@ export function Navbar() {
   };
 
 
+  // Helper to get label by current locale
+  const getLabel = (item: NavItem) => {
+    if (currentLocale === 'ar') return item.labelAr
+    if (currentLocale === 'es') return item.labelEs
+    return item.labelEn
+  }
+
+  const getDescription = (item: NavItem) => {
+    if (currentLocale === 'ar') return item.descriptionAr || item.description
+    if (currentLocale === 'es') return item.descriptionEs || item.description
+    return item.description
+  }
+
   // Unified navigation items with multi-language support
   const navigationItems: NavItem[] = [
     { 
       href: "slides", 
       labelEn: "Slides", 
-      labelAr: "الشرائح", 
+      labelAr: "الشرائح",
+      labelEs: "Diapositivas",
       icon: "📄", 
       description: "AI-generated slides",
-      descriptionAr: "الشرائح المولدة بالذكاء الاصطناعي"
+      descriptionAr: "الشرائح المولدة بالذكاء الاصطناعي",
+      descriptionEs: "Diapositivas generadas por IA"
     },
     { 
       href: "video", 
       labelEn: "Video", 
-      labelAr: "الفيديو", 
+      labelAr: "الفيديو",
+      labelEs: "Video",
       icon: "🎥", 
       description: "Multilingual dubbing",
-      descriptionAr: "الدبلجة متعددة اللغات"
+      descriptionAr: "الدبلجة متعددة اللغات",
+      descriptionEs: "Doblaje multilingüe"
     },
     { 
       href: "dashboard", 
       labelEn: "Dashboard", 
-      labelAr: "لوحة التحكم", 
+      labelAr: "لوحة التحكم",
+      labelEs: "Panel",
       icon: "📊", 
       description: "Overview and stats",
-      descriptionAr: "نظرة عامة وإحصائيات"
+      descriptionAr: "نظرة عامة وإحصائيات",
+      descriptionEs: "Resumen y estadísticas"
     },
     { 
       href: "dashboard/presentations", 
       labelEn: "Presentations", 
-      labelAr: "العروض التقديمية", 
+      labelAr: "العروض التقديمية",
+      labelEs: "Presentaciones",
       icon: "📑", 
       description: "Manage presentations",
-      descriptionAr: "إدارة العروض التقديمية"
+      descriptionAr: "إدارة العروض التقديمية",
+      descriptionEs: "Administrar presentaciones"
     },
     { 
       href: "dashboard/analytics", 
       labelEn: "Analytics", 
-      labelAr: "التحليلات", 
+      labelAr: "التحليلات",
+      labelEs: "Analíticas",
       icon: "📈", 
       description: "Performance insights",
-      descriptionAr: "رؤى الأداء"
+      descriptionAr: "رؤى الأداء",
+      descriptionEs: "Información de rendimiento"
     },
   ];
 
@@ -122,17 +146,17 @@ export function Navbar() {
           <Link
             href={hrefFor(currentLocale)}
             className="flex items-center gap-2 hover:opacity-90"
-            aria-label={isAr ? "الصفحة الرئيسية" : "Home"}
+            aria-label={currentLocale === 'ar' ? "الصفحة الرئيسية" : currentLocale === 'es' ? "Inicio" : "Home"}
           >
             <div className="w-9 h-9 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-sm">O</span>
             </div>
             <div className="hidden sm:block">
               <h1 className="text-base font-bold text-white">
-                {isAr ? "أولد" : "Oold"}
+                {currentLocale === 'ar' ? "أولد" : "Oold"}
               </h1>
               <p className="text-xs text-white/60 -mt-0.5">
-                {isAr ? "منصة محتوى الذكاء الاصطناعي" : "AI Content Platform"}
+                {currentLocale === 'ar' ? "منصة محتوى الذكاء الاصطناعي" : currentLocale === 'es' ? "Plataforma de Contenido IA" : "AI Content Platform"}
               </p>
             </div>
           </Link>
@@ -154,11 +178,11 @@ export function Navbar() {
                   }`}
                 >
                   <span className="text-base">{item.icon}</span>
-                  <span>{isAr ? item.labelAr : item.labelEn}</span>
+                  <span>{getLabel(item)}</span>
                   
                   {/* Tooltip */}
                   <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-gray-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
-                    {isAr ? (item.descriptionAr || item.description) : item.description}
+                    {getDescription(item)}
                   </div>
                 </Link>
               </li>
@@ -171,7 +195,7 @@ export function Navbar() {
           {/* Search Button - Desktop only */}
           <button 
             className="hidden sm:flex p-2 text-white/60 hover:text-white rounded-lg hover:bg-white/10 transition-colors"
-            aria-label={isAr ? "بحث" : "Search"}
+            aria-label={currentLocale === 'ar' ? "بحث" : currentLocale === 'es' ? "Buscar" : "Search"}
           >
             <span className="text-lg">🔍</span>
           </button>
@@ -179,7 +203,7 @@ export function Navbar() {
           {/* Notifications - Desktop only */}
           <button 
             className="hidden sm:flex relative p-2 text-white/60 hover:text-white rounded-lg hover:bg-white/10 transition-colors"
-            aria-label={isAr ? "الإشعارات" : "Notifications"}
+            aria-label={currentLocale === 'ar' ? "الإشعارات" : currentLocale === 'es' ? "Notificaciones" : "Notifications"}
           >
             <span className="text-lg">🔔</span>
             <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
@@ -194,34 +218,47 @@ export function Navbar() {
             </button>
           </div>
 
-          {/* Language toggle */}
-          <button
-            type="button"
-            onClick={toggleLanguage}
-            className="relative inline-flex items-center rounded-md border border-white/15 bg-white/5 text-sm px-2 py-1.5 hover:border-white/40"
-            aria-label={isAr ? "تغيير اللغة" : "Change language"}
-          >
-            <span
-              className={`inline-flex items-center justify-center rounded-sm text-xs font-semibold w-8 h-6 ${
-                isAr ? "bg-white text-black" : "bg-transparent text-white/80"
-              }`}
+          {/* Language selector */}
+          <div className="relative">
+            <button
+              type="button"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="relative inline-flex items-center rounded-md border border-white/15 bg-white/5 text-sm px-2 py-1.5 hover:border-white/40 gap-1"
+              aria-label={currentLocale === 'ar' ? "تغيير اللغة" : currentLocale === 'es' ? "Cambiar idioma" : "Change language"}
             >
-              AR
-            </span>
-            <span className="mx-1 text-white/30">|</span>
-            <span
-              className={`inline-flex items-center justify-center rounded-sm text-xs font-semibold w-8 h-6 ${
-                !isAr ? "bg-white text-black" : "bg-transparent text-white/80"
-              }`}
-            >
-              EN
-            </span>
-          </button>
+              <span
+                onClick={(e) => { e.stopPropagation(); switchToLanguage('en'); }}
+                className={`inline-flex items-center justify-center rounded-sm text-xs font-semibold w-8 h-6 cursor-pointer transition ${
+                  currentLocale === 'en' ? "bg-white text-black" : "bg-transparent text-white/80 hover:text-white"
+                }`}
+              >
+                EN
+              </span>
+              <span className="text-white/30">|</span>
+              <span
+                onClick={(e) => { e.stopPropagation(); switchToLanguage('ar'); }}
+                className={`inline-flex items-center justify-center rounded-sm text-xs font-semibold w-8 h-6 cursor-pointer transition ${
+                  currentLocale === 'ar' ? "bg-white text-black" : "bg-transparent text-white/80 hover:text-white"
+                }`}
+              >
+                AR
+              </span>
+              <span className="text-white/30">|</span>
+              <span
+                onClick={(e) => { e.stopPropagation(); switchToLanguage('es'); }}
+                className={`inline-flex items-center justify-center rounded-sm text-xs font-semibold w-8 h-6 cursor-pointer transition ${
+                  currentLocale === 'es' ? "bg-white text-black" : "bg-transparent text-white/80 hover:text-white"
+                }`}
+              >
+                ES
+              </span>
+            </button>
+          </div>
 
           {/* Mobile menu button */}
           <button
             className="md:hidden inline-flex items-center justify-center w-9 h-9 rounded-md border border-white/15 bg-white/5 hover:border-white/40"
-            aria-label={isAr ? "فتح القائمة" : "Open menu"}
+            aria-label={currentLocale === 'ar' ? "فتح القائمة" : currentLocale === 'es' ? "Abrir menú" : "Open menu"}
             onClick={() => setIsMobileMenuOpen((v) => !v)}
           >
             <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
@@ -257,9 +294,9 @@ export function Navbar() {
                 >
                   <span className="text-lg">{item.icon}</span>
                   <div>
-                    <div>{isAr ? item.labelAr : item.labelEn}</div>
+                    <div>{getLabel(item)}</div>
                     <div className="text-xs opacity-70">
-                      {isAr ? (item.descriptionAr || item.description) : item.description}
+                      {getDescription(item)}
                     </div>
                   </div>
                 </Link>
@@ -272,36 +309,75 @@ export function Navbar() {
             <div className="flex gap-2">
               <button 
                 className="flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-md border border-white/15 bg-white/5 text-sm text-white hover:border-white/40"
-                aria-label={isAr ? "بحث" : "Search"}
+                aria-label={currentLocale === 'ar' ? "بحث" : currentLocale === 'es' ? "Buscar" : "Search"}
               >
                 <span>🔍</span>
-                <span>{isAr ? "بحث" : "Search"}</span>
+                <span>{currentLocale === 'ar' ? "بحث" : currentLocale === 'es' ? "Buscar" : "Search"}</span>
               </button>
               <button 
                 className="flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-md border border-white/15 bg-white/5 text-sm text-white hover:border-white/40"
-                aria-label={isAr ? "الإشعارات" : "Notifications"}
+                aria-label={currentLocale === 'ar' ? "الإشعارات" : currentLocale === 'es' ? "Notificaciones" : "Notifications"}
               >
                 <span>🔔</span>
-                <span>{isAr ? "الإشعارات" : "Notifications"}</span>
+                <span>{currentLocale === 'ar' ? "الإشعارات" : currentLocale === 'es' ? "Notificaciones" : "Notifications"}</span>
               </button>
             </div>
           </li>
 
-          {/* Language toggle duplicated in drawer */}
+          {/* Language selector in drawer */}
           <li>
-            <button
-              type="button"
-              onClick={() => {
-                setIsMobileMenuOpen(false);
-                toggleLanguage();
-              }}
-              className="w-full inline-flex items-center justify-center gap-2 rounded-md border border-white/15 bg-white/5 text-sm px-3 py-2 hover:border-white/40"
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
-                <path className="fill-white/80" d="M12 3a9 9 0 100 18 9 9 0 000-18Zm1 2.06A7 7 0 0118.94 11H13V5.06ZM11 5.06V11H5.06A7 7 0 0111 5.06ZM5.06 13H11v5.94A7 7 0 015.06 13ZM13 18.94V13h5.94A7 7 0 0113 18.94Z" />
-              </svg>
-              {isAr ? "تبديل إلى الإنجليزية" : "Switch to Arabic"}
-            </button>
+            <div className="space-y-2">
+              <div className="text-xs text-white/60 px-3">
+                {currentLocale === 'ar' ? 'اختر اللغة' : currentLocale === 'es' ? 'Elegir idioma' : 'Choose language'}
+              </div>
+              <div className="grid grid-cols-3 gap-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    switchToLanguage('en');
+                  }}
+                  className={`flex items-center justify-center gap-1 rounded-md border text-sm px-3 py-2 transition ${
+                    currentLocale === 'en'
+                      ? 'bg-white text-black border-white'
+                      : 'border-white/15 bg-white/5 text-white hover:border-white/40'
+                  }`}
+                >
+                  <span>🇬🇧</span>
+                  <span>EN</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    switchToLanguage('ar');
+                  }}
+                  className={`flex items-center justify-center gap-1 rounded-md border text-sm px-3 py-2 transition ${
+                    currentLocale === 'ar'
+                      ? 'bg-white text-black border-white'
+                      : 'border-white/15 bg-white/5 text-white hover:border-white/40'
+                  }`}
+                >
+                  <span>🇸🇦</span>
+                  <span>AR</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    switchToLanguage('es');
+                  }}
+                  className={`flex items-center justify-center gap-1 rounded-md border text-sm px-3 py-2 transition ${
+                    currentLocale === 'es'
+                      ? 'bg-white text-black border-white'
+                      : 'border-white/15 bg-white/5 text-white hover:border-white/40'
+                  }`}
+                >
+                  <span>🇪🇸</span>
+                  <span>ES</span>
+                </button>
+              </div>
+            </div>
           </li>
         </ul>
       </div>
