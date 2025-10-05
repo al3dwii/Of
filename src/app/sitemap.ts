@@ -6,32 +6,108 @@ import { videoLandings } from "@/data/landings.video";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://example.com";
+  const now = new Date();
   const items: MetadataRoute.Sitemap = [];
 
   // Locale roots + trust pages
   for (const l of LOCALES) {
-    items.push({ url: `${base}/${l}`, changeFrequency: "weekly", priority: 0.8 });
-    items.push({ url: `${base}/${l}/faq`, changeFrequency: "monthly", priority: 0.5 });
-    items.push({ url: `${base}/${l}/pricing`, changeFrequency: "monthly", priority: 0.5 });
-    items.push({ url: `${base}/${l}/privacy`, changeFrequency: "yearly", priority: 0.3 });
-    items.push({ url: `${base}/${l}/terms`, changeFrequency: "yearly", priority: 0.3 });
-    // Locale workbenches
-    items.push({ url: `${base}/${l}/slides`, changeFrequency: "weekly", priority: 0.6 });
-    items.push({ url: `${base}/${l}/video`, changeFrequency: "weekly", priority: 0.6 });
-  }
-
-  for (const n of slidesLandings) {
-    items.push({
-      url: `${base}/${n.locale}/slides/${encodeURIComponent(n.slug)}`,
-      changeFrequency: "monthly",
-      priority: 0.9,
+    // Home pages - highest priority
+    items.push({ 
+      url: `${base}/${l}`, 
+      lastModified: now,
+      changeFrequency: "daily", 
+      priority: 1.0 
+    });
+    
+    // Main tool pages - very high priority
+    items.push({ 
+      url: `${base}/${l}/slides`, 
+      lastModified: now,
+      changeFrequency: "daily", 
+      priority: 0.9 
+    });
+    items.push({ 
+      url: `${base}/${l}/video`, 
+      lastModified: now,
+      changeFrequency: "daily", 
+      priority: 0.9 
+    });
+    items.push({ 
+      url: `${base}/${l}/pdf`, 
+      lastModified: now,
+      changeFrequency: "weekly", 
+      priority: 0.8 
+    });
+    items.push({ 
+      url: `${base}/${l}/documents`, 
+      lastModified: now,
+      changeFrequency: "weekly", 
+      priority: 0.8 
+    });
+    items.push({ 
+      url: `${base}/${l}/translate`, 
+      lastModified: now,
+      changeFrequency: "weekly", 
+      priority: 0.8 
+    });
+    items.push({ 
+      url: `${base}/${l}/web`, 
+      lastModified: now,
+      changeFrequency: "weekly", 
+      priority: 0.8 
+    });
+    
+    // Trust & legal pages
+    items.push({ 
+      url: `${base}/${l}/faq`, 
+      lastModified: now,
+      changeFrequency: "monthly", 
+      priority: 0.7 
+    });
+    items.push({ 
+      url: `${base}/${l}/pricing`, 
+      lastModified: now,
+      changeFrequency: "weekly", 
+      priority: 0.7 
+    });
+    items.push({ 
+      url: `${base}/${l}/privacy`, 
+      lastModified: now,
+      changeFrequency: "yearly", 
+      priority: 0.4 
+    });
+    items.push({ 
+      url: `${base}/${l}/terms`, 
+      lastModified: now,
+      changeFrequency: "yearly", 
+      priority: 0.4 
+    });
+    
+    // Dashboard (noindex in robots, but include for authenticated users)
+    items.push({ 
+      url: `${base}/${l}/dashboard`, 
+      lastModified: now,
+      changeFrequency: "weekly", 
+      priority: 0.5 
     });
   }
 
+  // Slides landing pages - high priority
+  for (const n of slidesLandings) {
+    items.push({
+      url: `${base}/${n.locale}/slides/${encodeURIComponent(n.slug)}`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.85,
+    });
+  }
+
+  // Video landing pages - high priority
   for (const n of videoLandings) {
     items.push({
       url: `${base}/${n.locale}/video/${encodeURIComponent(n.slug)}`,
-      changeFrequency: "monthly",
+      lastModified: now,
+      changeFrequency: "weekly",
       priority: 0.85,
     });
   }
