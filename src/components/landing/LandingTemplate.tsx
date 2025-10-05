@@ -42,25 +42,67 @@ export default function LandingTemplate({
     ? getArVariations(row.label_ar, row.dir)
     : getEnVariations(row.label_en, row.dir);
 
-  // Handle prompt submission - redirect to slides page with prompt
+  // Handle prompt submission - redirect to tool-specific page
   const handlePromptSubmit = (prompt: string) => {
-    // Encode the prompt and redirect to slides page
     const encodedPrompt = encodeURIComponent(prompt);
-    router.push(`/${locale}/slides?prompt=${encodedPrompt}&autoStart=true`);
+    
+    // Map each tool to its dedicated page
+    const getToolPage = (slug: string): string => {
+      // Video/dubbing tools -> /video page
+      if (slug.includes('video') || slug.includes('dubbing')) {
+        return 'video';
+      }
+      
+      // PowerPoint/Presentation/Slides tools -> /slides page
+      if (slug.includes('powerpoint') || 
+          slug.includes('ppt') || 
+          slug.includes('slides') ||
+          slug.includes('presentation') ||
+          slug.includes('word-to-powerpoint') ||
+          slug.includes('pdf-to-powerpoint') ||
+          slug.includes('create-powerpoint')) {
+        return 'slides';
+      }
+      
+      // PDF conversion tools -> /pdf page
+      if (slug.includes('pdf') && !slug.includes('powerpoint')) {
+        return 'pdf';
+      }
+      
+      // Document/Word/Excel tools -> /documents page
+      if (slug.includes('word') || slug.includes('doc') || slug.includes('excel')) {
+        return 'documents';
+      }
+      
+      // Translation tools -> /translate page
+      if (slug.includes('translate') || slug.includes('subtitle')) {
+        return 'translate';
+      }
+      
+      // HTML/Web tools -> /web page
+      if (slug.includes('html') || slug.includes('url')) {
+        return 'web';
+      }
+      
+      // Default: redirect to /slides as fallback (most tools are presentation-related)
+      return 'slides';
+    };
+    
+    const toolPage = getToolPage(row.slug_en);
+    
+    // Redirect to the specific tool page with the prompt
+    router.push(`/${locale}/${toolPage}?prompt=${encodedPrompt}&autoStart=true&tool=${row.slug_en}`);
   };
 
   return (
-    <main className="container mt-16 pt-16 min-h-screen mx-auto py-12 space-y-12">
+    <main className="container mt-2 pt-2 min-h-screen mx-auto py-12 space-y-12">
       <header className="text-center space-y-3">
         <h1 className="text-3xl font-bold">
           {isAr ? row.label_ar : row.label_en}
         </h1>
-        <p className="text-sm text-muted-foreground">
-          {dirLabel(row, isAr)}
-        </p>
       </header>
 
-      {/* AI Presentation Generator Section */}
+      {/* AI Tool Generator Section */}
       <section className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl border border-blue-200 p-8 shadow-lg">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-6">
@@ -70,12 +112,12 @@ export default function LandingTemplate({
               </svg>
             </div>
             <h2 className="text-3xl font-bold text-gray-900 mb-2">
-              {isAr ? 'إنشاء عرض تقديمي بالذكاء الاصطناعي' : 'Generate AI-Powered Presentation'}
+              {isAr ? `استخدم الذكاء الاصطناعي: ${row.label_ar}` : `Use AI to ${row.label_en}`}
             </h2>
             <p className="text-gray-600 text-lg">
               {isAr 
-                ? 'صف فكرتك في جملة واحدة ودع الذكاء الاصطناعي ينشئ عرضًا تقديميًا كاملاً في ثوانٍ'
-                : 'Describe your idea in one sentence and let AI create a complete presentation in seconds'
+                ? 'صف ما تريد إنشاءه ودع الذكاء الاصطناعي يعمل من أجلك'
+                : 'Describe what you want to create and let AI do the work for you'
               }
             </p>
           </div>
@@ -93,25 +135,82 @@ export default function LandingTemplate({
                 {isAr ? 'أمثلة سريعة:' : 'Quick Examples:'}
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                {(isAr ? [
-                  'عرض تقديمي عن الذكاء الاصطناعي في الرعاية الصحية',
-                  'خطة عمل لشركة ناشئة في التكنولوجيا',
-                  'دليل تدريب للموظفين الجدد',
-                  'استراتيجية تسويق رقمي لعام 2025',
-                ] : [
-                  'Presentation about AI in healthcare',
-                  'Business plan for a tech startup',
-                  'Training guide for new employees',
-                  'Digital marketing strategy for 2025',
-                ]).map((example, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => handlePromptSubmit(example)}
-                    className="text-xs text-left px-3 py-2 rounded-lg transition-colors hover:bg-blue-50 text-gray-700 hover:text-blue-700 border border-gray-200 hover:border-blue-300"
-                  >
-                    {example}
-                  </button>
-                ))}
+                {(() => {
+                  // Generate tool-specific examples based on the tool category
+                  const getExamples = () => {
+                    const slug = row.slug_en;
+                    
+                    // Video/dubbing examples
+                    if (slug.includes('video')) {
+                      return isAr ? [
+                        'دبلج فيديو تعليمي إلى العربية',
+                        'ترجمة فيديو تسويقي بالذكاء الاصطناعي',
+                        'تحويل عرض تقديمي إلى فيديو',
+                        'إضافة تعليق صوتي للفيديو',
+                      ] : [
+                        'Dub educational video to Arabic',
+                        'Translate marketing video with AI',
+                        'Convert presentation to video',
+                        'Add voiceover to video',
+                      ];
+                    }
+                    
+                    // PowerPoint/Slides examples
+                    if (slug.includes('powerpoint') || slug.includes('ppt') || slug.includes('slides')) {
+                      return isAr ? [
+                        'عرض تقديمي عن الذكاء الاصطناعي في الرعاية الصحية',
+                        'خطة عمل لشركة ناشئة في التكنولوجيا',
+                        'دليل تدريب للموظفين الجدد',
+                        'استراتيجية تسويق رقمي لعام 2025',
+                      ] : [
+                        'Presentation about AI in healthcare',
+                        'Business plan for a tech startup',
+                        'Training guide for new employees',
+                        'Digital marketing strategy for 2025',
+                      ];
+                    }
+                    
+                    // Translation examples
+                    if (slug.includes('translate') || slug.includes('subtitle')) {
+                      return isAr ? [
+                        'ترجمة عرض تقديمي إلى الإنجليزية',
+                        'إضافة ترجمات عربية للشرائح',
+                        'ترجمة مستند أعمال إلى العربية',
+                        'تحويل النص من اليمين لليسار',
+                      ] : [
+                        'Translate presentation to English',
+                        'Add Arabic subtitles to slides',
+                        'Translate business document to Arabic',
+                        'Convert text to RTL format',
+                      ];
+                    }
+                    
+                    // Generic examples for other tools
+                    return isAr ? [
+                      `${row.label_ar} للمستند التسويقي`,
+                      `${row.label_ar} لتقرير الأعمال`,
+                      `${row.label_ar} للعقد القانوني`,
+                      `${row.label_ar} للدليل التعليمي`,
+                    ] : [
+                      `${row.label_en} for marketing document`,
+                      `${row.label_en} for business report`,
+                      `${row.label_en} for legal contract`,
+                      `${row.label_en} for educational guide`,
+                    ];
+                  };
+                  
+                  const examples = getExamples();
+                  
+                  return examples.map((example, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => handlePromptSubmit(example)}
+                      className="text-xs text-left px-3 py-2 rounded-lg transition-colors hover:bg-blue-50 text-gray-700 hover:text-blue-700 border border-gray-200 hover:border-blue-300"
+                    >
+                      {example}
+                    </button>
+                  ));
+                })()}
               </div>
             </div>
           </div>
@@ -133,11 +232,13 @@ export default function LandingTemplate({
       </section>
 
       {/* Converter component */}
-      <Converter
-        locale={locale}
-        proxyPath={`/api/ai/${row.slug_en}`}
-        templateGalleryPath="/templates"
-      />
+      <div id="converter-section">
+        <Converter
+          locale={locale}
+          proxyPath={`/api/ai/${row.slug_en}`}
+          templateGalleryPath="/templates"
+        />
+      </div>
 
       {/* Features, copy & FAQ */}
       {isAr ? (

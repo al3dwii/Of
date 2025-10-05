@@ -306,7 +306,7 @@ export default function PresentPage() {
           ) : (
             <div className="space-y-4">
               {/* Examples or instructions can go here */}
-              <div className="space-y-2">
+              {/* <div className="space-y-2">
                 <p className="text-xs font-medium text-gray-700 mb-2">Quick Examples:</p>
                 <div className="space-y-1">
                   {[
@@ -334,7 +334,7 @@ export default function PresentPage() {
                     </button>
                   ))}
                 </div>
-              </div>
+              </div> */}
             </div>
           )}
         </div>

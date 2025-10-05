@@ -220,7 +220,7 @@ export default function PromptForm({ onSubmit, isLoading, compact = false }: Pro
         </div>
 
         {/* Examples */}
-        <div>
+        {/* <div>
           <p className="text-xs font-medium text-gray-700 mb-2">Quick Examples:</p>
           <div className="space-y-1">
             {[
@@ -246,7 +246,7 @@ export default function PromptForm({ onSubmit, isLoading, compact = false }: Pro
               </button>
             ))}
           </div>
-        </div>
+        </div> */}
 
         {/* Submit Button */}
         <div>
