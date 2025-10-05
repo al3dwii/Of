@@ -3,7 +3,7 @@
 import { LucideIcon } from 'lucide-react';
 import Link from 'next/link';
 import { HOME_EN, HOME_AR, HomeCopy } from '@/content/home';
-import { LOCALES } from '@/utils/i18n';
+import { LOCALES } from '@/data/locales';
 
 import { Footer } from "@/components/custom/footer";
 // import {Button} from "../components/gadawel/custom-button";

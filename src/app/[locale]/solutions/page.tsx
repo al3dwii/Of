@@ -2,9 +2,7 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { dataSource } from '@/lib/data';
-import type { Locale } from '@/utils/i18n';
-import { LOCALES } from '@/utils/i18n';
-import { siteUrl } from '@/utils/seo';
+import { LOCALES, type Locale } from '@/data/locales';
 
 import SolutionsGrid from './SolutionsGrid';
 

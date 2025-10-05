@@ -6,7 +6,7 @@ import Breadcrumbs from '@/components/Breadcrumbs';
 import StructuredData from '@/components/StructuredData';
 import LandingTemplate from '@/components/landing/LandingTemplate';
 
-import { LOCALES } from '@/utils/i18n';
+import { LOCALES } from '@/data/locales';
 import { siteUrl } from '@/utils/seo';
 import {
   getConverters,

@@ -84,6 +84,16 @@ export function Navbar() {
   // Unified navigation items with multi-language support
   const navigationItems: NavItem[] = [
     { 
+      href: "solutions", 
+      labelEn: "Solutions", 
+      labelAr: "الحلول",
+      labelEs: "Diapositivas",
+      icon: "📄", 
+      description: "AI-generated slides",
+      descriptionAr: "الشرائح المولدة بالذكاء الاصطناعي",
+      descriptionEs: "Diapositivas generadas por IA"
+    },
+    { 
       href: "slides", 
       labelEn: "Slides", 
       labelAr: "الشرائح",
