@@ -19,6 +19,7 @@ interface NavItem {
 
 export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isLangDropdownOpen, setIsLangDropdownOpen] = useState(false)
 
   const router = useRouter();
   const pathname = usePathname() || "/";
@@ -228,41 +229,111 @@ export function Navbar() {
             </button>
           </div>
 
-          {/* Language selector */}
+          {/* Language selector dropdown */}
           <div className="relative">
             <button
               type="button"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="relative inline-flex items-center rounded-md border border-white/15 bg-white/5 text-sm px-2 py-1.5 hover:border-white/40 gap-1"
+              onClick={() => setIsLangDropdownOpen(!isLangDropdownOpen)}
+              className="relative inline-flex items-center gap-2 rounded-md border border-white/15 bg-white/5 text-sm px-3 py-1.5 hover:border-white/40 transition-colors"
               aria-label={currentLocale === 'ar' ? "تغيير اللغة" : currentLocale === 'es' ? "Cambiar idioma" : "Change language"}
             >
-              <span
-                onClick={(e) => { e.stopPropagation(); switchToLanguage('en'); }}
-                className={`inline-flex items-center justify-center rounded-sm text-xs font-semibold w-8 h-6 cursor-pointer transition ${
-                  currentLocale === 'en' ? "bg-white text-black" : "bg-transparent text-white/80 hover:text-white"
-                }`}
-              >
-                EN
+              <span className="text-base">
+                {currentLocale === 'en' ? '🇬🇧' : currentLocale === 'ar' ? '🇸🇦' : '🇪🇸'}
               </span>
-              <span className="text-white/30">|</span>
-              <span
-                onClick={(e) => { e.stopPropagation(); switchToLanguage('ar'); }}
-                className={`inline-flex items-center justify-center rounded-sm text-xs font-semibold w-8 h-6 cursor-pointer transition ${
-                  currentLocale === 'ar' ? "bg-white text-black" : "bg-transparent text-white/80 hover:text-white"
-                }`}
-              >
-                AR
+              <span className="text-white font-medium">
+                {currentLocale === 'en' ? 'EN' : currentLocale === 'ar' ? 'AR' : 'ES'}
               </span>
-              <span className="text-white/30">|</span>
-              <span
-                onClick={(e) => { e.stopPropagation(); switchToLanguage('es'); }}
-                className={`inline-flex items-center justify-center rounded-sm text-xs font-semibold w-8 h-6 cursor-pointer transition ${
-                  currentLocale === 'es' ? "bg-white text-black" : "bg-transparent text-white/80 hover:text-white"
-                }`}
+              <svg 
+                className={`w-4 h-4 text-white/60 transition-transform ${isLangDropdownOpen ? 'rotate-180' : ''}`} 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
               >
-                ES
-              </span>
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
             </button>
+
+            {/* Dropdown menu */}
+            {isLangDropdownOpen && (
+              <>
+                {/* Backdrop to close dropdown */}
+                <div 
+                  className="fixed inset-0 z-40" 
+                  onClick={() => setIsLangDropdownOpen(false)}
+                />
+                
+                {/* Dropdown content */}
+                <div className="absolute right-0 mt-2 w-48 rounded-lg border border-white/10 bg-gray-900 shadow-xl z-50 overflow-hidden">
+                  <div className="py-1">
+                    {/* English */}
+                    <button
+                      type="button"
+                      onClick={() => {
+                        switchToLanguage('en');
+                        setIsLangDropdownOpen(false);
+                      }}
+                      className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm transition-colors ${
+                        currentLocale === 'en'
+                          ? 'bg-white/10 text-white'
+                          : 'text-white/80 hover:bg-white/5 hover:text-white'
+                      }`}
+                    >
+                      <span className="text-xl">🇬🇧</span>
+                      <span className="flex-1 text-left">English</span>
+                      {currentLocale === 'en' && (
+                        <svg className="w-4 h-4 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                      )}
+                    </button>
+
+                    {/* Arabic */}
+                    <button
+                      type="button"
+                      onClick={() => {
+                        switchToLanguage('ar');
+                        setIsLangDropdownOpen(false);
+                      }}
+                      className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm transition-colors ${
+                        currentLocale === 'ar'
+                          ? 'bg-white/10 text-white'
+                          : 'text-white/80 hover:bg-white/5 hover:text-white'
+                      }`}
+                    >
+                      <span className="text-xl">🇸🇦</span>
+                      <span className="flex-1 text-left">العربية</span>
+                      {currentLocale === 'ar' && (
+                        <svg className="w-4 h-4 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                      )}
+                    </button>
+
+                    {/* Spanish */}
+                    <button
+                      type="button"
+                      onClick={() => {
+                        switchToLanguage('es');
+                        setIsLangDropdownOpen(false);
+                      }}
+                      className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm transition-colors ${
+                        currentLocale === 'es'
+                          ? 'bg-white/10 text-white'
+                          : 'text-white/80 hover:bg-white/5 hover:text-white'
+                      }`}
+                    >
+                      <span className="text-xl">🇪🇸</span>
+                      <span className="flex-1 text-left">Español</span>
+                      {currentLocale === 'es' && (
+                        <svg className="w-4 h-4 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                      )}
+                    </button>
+                  </div>
+                </div>
+              </>
+            )}
           </div>
 
           {/* Mobile menu button */}
