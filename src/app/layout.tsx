@@ -25,8 +25,16 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const clerkPubKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+  
+  if (!clerkPubKey) {
+    console.warn('Warning: NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY is not set')
+  }
+  
   return (
-    <ClerkProvider>
+    <ClerkProvider
+      publishableKey={clerkPubKey}
+    >
       <html suppressHydrationWarning className={`${inter.variable} ${tajawal.variable}`}>
         <body>
           <LocaleProvider>
