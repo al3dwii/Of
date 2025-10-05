@@ -1,12 +1,14 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { Presentation, Home, Settings, HelpCircle, Plus, Sparkles, Maximize2, Download, Edit, Share2, Link, FileText, Loader2 } from 'lucide-react';
 import PromptForm from '@/components/PromptForm';
 import StreamConsole from '@/components/StreamConsole';
 import { createPresentation } from '@/lib/api';
 
 export default function PresentPage() {
+  const searchParams = useSearchParams();
   const [jobId, setJobId] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -24,6 +26,17 @@ export default function PresentPage() {
   
   // Debug: Log slides state on every render
   console.log('[PRESENT PAGE RENDER] slides.length:', slides.length, 'totalSlides:', totalSlides, 'isLoading:', isLoading);
+
+  // Auto-start generation if prompt is in URL
+  useEffect(() => {
+    const prompt = searchParams?.get('prompt');
+    const autoStart = searchParams?.get('autoStart');
+    
+    if (prompt && autoStart === 'true' && !jobId && !isLoading) {
+      console.log('[AUTO-START] Automatically submitting prompt:', prompt);
+      handleSubmit(decodeURIComponent(prompt));
+    }
+  }, [searchParams]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleSubmit = async (prompt: string) => {
     setIsLoading(true);

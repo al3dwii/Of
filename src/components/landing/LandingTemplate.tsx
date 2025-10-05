@@ -2,8 +2,10 @@
 // components/landing/LandingTemplate.tsx
 'use client';
 
+import { useRouter } from 'next/navigation';
 import StructuredData from '@/components/StructuredData';
 import Converter from '@/components/Converter';
+import PromptForm from '@/components/PromptForm';
 import FeatureSectionAr from '@/components/landing/FeatureSectionAr';
 import FeatureSectionEn from '@/components/landing/FeatureSectionEn';
 import LandingCopyAr from '@/components/landing/LandingCopyAr';
@@ -32,12 +34,20 @@ export default function LandingTemplate({
   row,
   related,
 }: LandingTemplateProps) {
+  const router = useRouter();
   const isAr = locale === 'ar';
 
   // Generate keyword variations for on‑page copy
   const variations = isAr
     ? getArVariations(row.label_ar, row.dir)
     : getEnVariations(row.label_en, row.dir);
+
+  // Handle prompt submission - redirect to slides page with prompt
+  const handlePromptSubmit = (prompt: string) => {
+    // Encode the prompt and redirect to slides page
+    const encodedPrompt = encodeURIComponent(prompt);
+    router.push(`/${locale}/slides?prompt=${encodedPrompt}&autoStart=true`);
+  };
 
   return (
     <main className="container mt-16 pt-16 min-h-screen mx-auto py-12 space-y-12">
@@ -49,6 +59,78 @@ export default function LandingTemplate({
           {dirLabel(row, isAr)}
         </p>
       </header>
+
+      {/* AI Presentation Generator Section */}
+      <section className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl border border-blue-200 p-8 shadow-lg">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-6">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl mb-4 shadow-lg">
+              <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+            <h2 className="text-3xl font-bold text-gray-900 mb-2">
+              {isAr ? 'إنشاء عرض تقديمي بالذكاء الاصطناعي' : 'Generate AI-Powered Presentation'}
+            </h2>
+            <p className="text-gray-600 text-lg">
+              {isAr 
+                ? 'صف فكرتك في جملة واحدة ودع الذكاء الاصطناعي ينشئ عرضًا تقديميًا كاملاً في ثوانٍ'
+                : 'Describe your idea in one sentence and let AI create a complete presentation in seconds'
+              }
+            </p>
+          </div>
+
+          {/* Prompt Form */}
+          <div className="bg-white rounded-xl shadow-xl p-6 border border-gray-200">
+            <PromptForm 
+              onSubmit={handlePromptSubmit} 
+              isLoading={false}
+            />
+            
+            {/* Quick Examples */}
+            <div className="mt-4 pt-4 border-t border-gray-200">
+              <p className="text-xs font-medium text-gray-600 mb-2">
+                {isAr ? 'أمثلة سريعة:' : 'Quick Examples:'}
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                {(isAr ? [
+                  'عرض تقديمي عن الذكاء الاصطناعي في الرعاية الصحية',
+                  'خطة عمل لشركة ناشئة في التكنولوجيا',
+                  'دليل تدريب للموظفين الجدد',
+                  'استراتيجية تسويق رقمي لعام 2025',
+                ] : [
+                  'Presentation about AI in healthcare',
+                  'Business plan for a tech startup',
+                  'Training guide for new employees',
+                  'Digital marketing strategy for 2025',
+                ]).map((example, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => handlePromptSubmit(example)}
+                    className="text-xs text-left px-3 py-2 rounded-lg transition-colors hover:bg-blue-50 text-gray-700 hover:text-blue-700 border border-gray-200 hover:border-blue-300"
+                  >
+                    {example}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Features List */}
+          <div className="grid grid-cols-3 gap-4 mt-6">
+            {[
+              { icon: '⚡', label: isAr ? 'سريع جداً' : 'Lightning Fast' },
+              { icon: '🎨', label: isAr ? 'تصميم احترافي' : 'Professional Design' },
+              { icon: '🌐', label: isAr ? 'متعدد اللغات' : 'Multi-Language' },
+            ].map((feature, idx) => (
+              <div key={idx} className="text-center">
+                <div className="text-2xl mb-1">{feature.icon}</div>
+                <p className="text-xs font-medium text-gray-700">{feature.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* Converter component */}
       <Converter
