@@ -1,7 +1,8 @@
-// Simple localized FAQ page (semantic content + JSON-LD)
-import type { Metadata } from "next";
+import Link from "next/link";
 import Script from "next/script";
+import type { Metadata } from "next";
 import type { Locale } from "@/data/locales";
+import { getPageCopy } from "@/utils/copy";
 
 export async function generateMetadata({
   params,

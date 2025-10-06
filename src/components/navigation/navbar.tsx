@@ -5,6 +5,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
 import { LOCALES, type Locale } from "@/data/locales";
 
+import Image from 'next/image';
 
 interface NavItem {
   href: string
@@ -153,22 +154,43 @@ export function Navbar() {
     >
       <nav className="container mx-auto px-4 h-16 flex items-center justify-between">
         {/* Left: Brand */}
+        {/* Logo */}
+        {/* <Link href="/" className="flex items-center">
+          <div className="relative h-10 w-10 animate-spin">
+            <Image
+              fill
+              alt="Logo"
+              src="/logo.png"
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
+          </div>
+          <span className="ml-2 text-2xl font-bold text-white">Sharayeh</span>
+        </Link> */}
+
         <div className="flex items-center gap-3">
           <Link
             href={hrefFor(currentLocale)}
             className="flex items-center gap-2 hover:opacity-90"
             aria-label={currentLocale === 'ar' ? "الصفحة الرئيسية" : currentLocale === 'es' ? "Inicio" : "Home"}
           >
-            <div className="w-9 h-9 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
+            <div className="relative h-10 w-10 animate-spin">
+            <Image
+              fill
+              alt="Logo"
+              src="/logo.png"
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
+          </div>
+            {/* <div className="w-9 h-9 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-sm">O</span>
-            </div>
+            </div> */}
             <div className="hidden sm:block">
-              <h1 className="text-base font-bold text-white">
-                {currentLocale === 'ar' ? "أولد" : "Oold"}
-              </h1>
-              <p className="text-xs text-white/60 -mt-0.5">
+              <h2 className="text-xl p-2 font-bold text-white">
+                {currentLocale === 'ar' ? "شرايح" : "Sharayeh"}
+              </h2>
+              {/* <p className="text-xs text-white/80 -mt-0.5">
                 {currentLocale === 'ar' ? "منصة محتوى الذكاء الاصطناعي" : currentLocale === 'es' ? "Plataforma de Contenido IA" : "AI Content Platform"}
-              </p>
+              </p> */}
             </div>
           </Link>
         </div>
