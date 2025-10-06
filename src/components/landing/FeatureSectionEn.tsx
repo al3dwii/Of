@@ -1,42 +1,48 @@
 // -----------------------------------------------------------------------------
 //  FeatureSectionEn
 //  • Three quick‑hit selling points that appear under the converter
-//  • Localised to English and personalised with the tool label
+//  • Uses tool-specific content from tool-content.json when available
+//  • Falls back to generic features if tool-specific content not found
 // -----------------------------------------------------------------------------
 
-import type { ConverterRow } from "@/lib/tools";
+import type { Converter as ConverterRow } from "@/lib/server/converters";
+import type { Feature } from "@/lib/server/tool-content";
 
-type Props = { row: ConverterRow };
+type Props = { 
+  row: ConverterRow;
+  customFeatures?: Feature[];
+};
 
-export default function FeatureSectionEn({ row }: Props) {
+// Default generic features as fallback
+const defaultFeatures: Feature[] = [
+  {
+    title: "Drag & Drop",
+    description: "Simply drop your file and conversion starts instantly—no sign‑up required."
+  },
+  {
+    title: "Keeps Your Formatting",
+    description: "Fonts, images, charts and layouts stay exactly the way you designed them—zero re‑work needed."
+  },
+  {
+    title: "Handles Large Files",
+    description: "Convert files up to 500 MB in a single upload—or batch multiple files with our Pro plan."
+  }
+];
+
+export default function FeatureSectionEn({ row, customFeatures }: Props) {
+  const features = customFeatures || defaultFeatures;
+
   return (
     <section className="grid md:grid-cols-3 gap-4 text-left">
-      {/* Card 1 */}
-      <div className="p-4 border rounded bg-muted/20">
-        <h3 className="font-bold mb-1">Drag &amp; Drop</h3>
-        <p>
-          Simply drop your file and <strong>{row.label_en}</strong> starts
-          converting instantly—no sign‑up required.
-        </p>
-      </div>
-
-      {/* Card 2 */}
-      <div className="p-4 border rounded">
-        <h3 className="font-bold mb-1">Keeps Your Formatting</h3>
-        <p>
-          Fonts, images, charts and slide masters stay exactly the way you
-          designed them—zero re‑work needed.
-        </p>
-      </div>
-
-      {/* Card 3 */}
-      <div className="p-4 border rounded bg-muted/20">
-        <h3 className="font-bold mb-1">Handles Large Files</h3>
-        <p>
-          Convert presentations up to <strong>500&nbsp;MB</strong> in a single
-          upload—or batch multiple files with our Pro plan.
-        </p>
-      </div>
+      {features.map((feature, idx) => (
+        <div 
+          key={idx}
+          className={`p-4 border rounded ${idx % 2 === 0 ? 'bg-muted/20' : ''}`}
+        >
+          <h3 className="font-bold mb-1">{feature.title}</h3>
+          <p>{feature.description}</p>
+        </div>
+      ))}
     </section>
   );
 }

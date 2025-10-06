@@ -1,0 +1,784 @@
+{
+  "word-to-powerpoint": {
+    "features_en": [
+      {
+        "title": "Smart Text Analysis",
+        "description": "Our AI automatically detects Word headings, paragraphs, and lists to create perfectly structured slides with proper hierarchy."
+      },
+      {
+        "title": "Image Extraction",
+        "description": "All images from your Word document are automatically extracted and positioned beautifully in your PowerPoint slides."
+      },
+      {
+        "title": "Style Preservation",
+        "description": "Fonts, colors, and formatting from your Word document are maintained in the PowerPoint output for brand consistency."
+      }
+    ],
+    "copy_en": {
+      "intro": "Transform your Word documents into professional PowerPoint presentations in seconds. Our AI-powered converter intelligently analyzes your content structure to create visually appealing slides.",
+      "benefits": [
+        "Saves hours of manual slide creation",
+        "Perfect for business reports and academic papers",
+        "Maintains document formatting and styles",
+        "Automatic slide layout optimization"
+      ],
+      "use_cases": [
+        "Convert business reports into executive presentations",
+        "Transform academic papers into conference slides",
+        "Create training materials from documentation",
+        "Generate sales presentations from proposals"
+      ]
+    },
+    "faq_en": [
+      {
+        "q": "How does Word to PowerPoint conversion work?",
+        "a": "Our AI analyzes your Word document's structure, including headings, paragraphs, lists, and images. It then intelligently distributes this content across slides, creating a well-organized presentation with proper hierarchy and visual balance."
+      },
+      {
+        "q": "Will my Word formatting be preserved?",
+        "a": "Yes! We preserve fonts, colors, bold/italic styling, and bullet points. Images are automatically extracted and positioned. However, some complex Word features like columns or text boxes may be simplified for better slide readability."
+      },
+      {
+        "q": "What's the maximum Word document size?",
+        "a": "Free users can convert Word documents up to 25 MB. Pro subscribers get 100 MB. Documents with many images may take slightly longer to process."
+      },
+      {
+        "q": "Can I edit the slides after conversion?",
+        "a": "Absolutely! The output is a fully editable PPTX file. You can modify text, change layouts, add animations, or apply different themes using PowerPoint or any compatible software."
+      }
+    ]
+  },
+  "powerpoint-to-pdf": {
+    "features_en": [
+      {
+        "title": "High-Quality Output",
+        "description": "Generate crisp, print-ready PDFs with perfect rendering of all slides, animations preserved as static images."
+      },
+      {
+        "title": "Batch Processing",
+        "description": "Convert multiple PowerPoint files to PDF simultaneously. Save time when preparing materials for distribution or archival."
+      },
+      {
+        "title": "Compression Options",
+        "description": "Choose between high-quality (large file) or optimized (smaller file) PDF output based on your needs."
+      }
+    ],
+    "copy_en": {
+      "intro": "Convert PowerPoint presentations to PDF format instantly. Perfect for sharing presentations when you want to ensure everyone sees the same layout, regardless of their software.",
+      "benefits": [
+        "Universal compatibility - PDF works everywhere",
+        "Preserve exact slide appearance and formatting",
+        "Ideal for printing and archiving",
+        "Smaller file sizes for email attachments"
+      ],
+      "use_cases": [
+        "Share presentations with clients who don't have PowerPoint",
+        "Create printable handouts for meetings",
+        "Archive presentations for long-term storage",
+        "Upload to websites and document repositories"
+      ]
+    },
+    "faq_en": [
+      {
+        "q": "Will animations be preserved in the PDF?",
+        "a": "No, animations and transitions are converted to static images. Each slide appears in its final state. For animated presentations, consider exporting to video instead."
+      },
+      {
+        "q": "Can I password-protect the PDF?",
+        "a": "Yes! Pro users can add password protection during conversion. This prevents unauthorized viewing, printing, or copying of your presentation content."
+      },
+      {
+        "q": "What about slide notes and hidden slides?",
+        "a": "By default, only visible slides are converted. You can optionally include speaker notes below each slide or choose to include hidden slides in the PDF output."
+      },
+      {
+        "q": "Does the PDF maintain hyperlinks?",
+        "a": "Yes, all clickable links in your PowerPoint slides remain active in the PDF. This includes web URLs, email links, and internal slide references."
+      }
+    ]
+  },
+  "pdf-to-powerpoint": {
+    "features_en": [
+      {
+        "title": "Smart Page Detection",
+        "description": "AI automatically detects page breaks and converts each PDF page into a separate, editable PowerPoint slide."
+      },
+      {
+        "title": "Text Recognition (OCR)",
+        "description": "Extract text from scanned PDFs and image-based documents, converting them into editable text in PowerPoint."
+      },
+      {
+        "title": "Layout Reconstruction",
+        "description": "Intelligently recreates text boxes, images, and layout elements as native PowerPoint objects for easy editing."
+      }
+    ],
+    "copy_en": {
+      "intro": "Transform static PDF documents into fully editable PowerPoint presentations. Perfect for repurposing content, updating old presentations, or starting from existing materials.",
+      "benefits": [
+        "Edit previously locked PDF content",
+        "Repurpose reports and documents as presentations",
+        "Recover old presentations lost in PDF format",
+        "Add animations and transitions to static PDFs"
+      ],
+      "use_cases": [
+        "Convert client proposals back to editable format",
+        "Repurpose marketing materials as presentations",
+        "Recover presentations when original files are lost",
+        "Update and modernize archived presentations"
+      ]
+    },
+    "faq_en": [
+      {
+        "q": "Can you convert scanned PDFs to PowerPoint?",
+        "a": "Yes! Our OCR (Optical Character Recognition) technology extracts text from scanned images and converts it into editable PowerPoint text. The accuracy depends on scan quality - 300 DPI or higher works best."
+      },
+      {
+        "q": "Will complex PDF layouts be maintained?",
+        "a": "We do our best to preserve layouts, but very complex PDFs (with multiple columns, overlapping elements) may require some manual adjustment after conversion. Simple layouts convert almost perfectly."
+      },
+      {
+        "q": "How long does PDF to PowerPoint conversion take?",
+        "a": "Most PDFs convert in under 60 seconds. Large files (50+ pages) or scanned documents requiring OCR may take 2-3 minutes."
+      },
+      {
+        "q": "Can I merge multiple PDFs into one PowerPoint?",
+        "a": "Not directly, but you can convert multiple PDFs separately and then merge the resulting PPTX files using PowerPoint's 'Reuse Slides' feature."
+      }
+    ]
+  },
+  "powerpoint-to-video": {
+    "features_en": [
+      {
+        "title": "Animation Preservation",
+        "description": "All slide animations, transitions, and timing are preserved exactly as designed in your PowerPoint presentation."
+      },
+      {
+        "title": "Voiceover Integration",
+        "description": "Add AI-generated voiceovers in multiple languages or upload your own audio narration to accompany slides."
+      },
+      {
+        "title": "Multiple Formats",
+        "description": "Export to MP4, MOV, or WebM with customizable resolution (720p, 1080p, 4K) and frame rates."
+      }
+    ],
+    "copy_en": {
+      "intro": "Convert PowerPoint presentations to video format for easy sharing on social media, YouTube, or embedding in websites. Perfect for creating engaging video content from your slides.",
+      "benefits": [
+        "Share presentations on video platforms",
+        "Reach audiences who prefer video content",
+        "Create training videos from slide decks",
+        "Generate social media content automatically"
+      ],
+      "use_cases": [
+        "Create YouTube tutorials from training slides",
+        "Generate Instagram/LinkedIn video posts",
+        "Produce explainer videos for products",
+        "Make online course content from lectures"
+      ]
+    },
+    "faq_en": [
+      {
+        "q": "What video formats do you support?",
+        "a": "We export to MP4 (most compatible), MOV (for Apple devices), and WebM (for web). MP4 with H.264 codec is recommended for widest compatibility across platforms."
+      },
+      {
+        "q": "Can I add background music to the video?",
+        "a": "Yes! Pro users can upload background music (MP3, WAV) which will be mixed with voiceovers. You can also control volume levels and fade in/out effects."
+      },
+      {
+        "q": "How long can my video be?",
+        "a": "Free users: up to 5 minutes. Pro users: up to 60 minutes. Very long presentations may be better split into multiple videos for easier viewing."
+      },
+      {
+        "q": "Will embedded videos in slides be included?",
+        "a": "Yes, embedded videos will play during the appropriate slides. However, they must be embedded in the PPTX file, not linked externally."
+      }
+    ]
+  },
+  "excel-to-powerpoint": {
+    "features_en": [
+      {
+        "title": "Smart Chart Conversion",
+        "description": "Excel charts and graphs are automatically converted to native PowerPoint charts, remaining fully editable."
+      },
+      {
+        "title": "Table Formatting",
+        "description": "Spreadsheet data is intelligently formatted into professional PowerPoint tables with consistent styling."
+      },
+      {
+        "title": "Multi-Sheet Support",
+        "description": "Each Excel sheet can become a separate slide, or combine multiple ranges into a single presentation."
+      }
+    ],
+    "copy_en": {
+      "intro": "Transform Excel spreadsheets into professional PowerPoint presentations. Perfect for turning data analysis, financial reports, and dashboards into presentation-ready slides.",
+      "benefits": [
+        "Visualize data for executive presentations",
+        "Convert complex spreadsheets to digestible slides",
+        "Maintain data accuracy and formatting",
+        "Save hours of manual chart recreation"
+      ],
+      "use_cases": [
+        "Create financial report presentations from spreadsheets",
+        "Present quarterly results to stakeholders",
+        "Convert data analysis into visual stories",
+        "Generate sales performance presentations"
+      ]
+    },
+    "faq_en": [
+      {
+        "q": "Will Excel formulas be preserved?",
+        "a": "Formulas are converted to static values in PowerPoint. If you need live calculations, keep the original Excel file and link it to your presentation."
+      },
+      {
+        "q": "Can I update charts after conversion?",
+        "a": "Yes! Charts are converted to native PowerPoint objects. You can edit data, change chart types, modify colors, and adjust formatting just like any PowerPoint chart."
+      },
+      {
+        "q": "How are large spreadsheets handled?",
+        "a": "Large data sets are automatically split into multiple slides or summarized. You can choose to show specific ranges or let our AI select the most important data to display."
+      },
+      {
+        "q": "What about pivot tables?",
+        "a": "Pivot tables are converted to static tables in PowerPoint. The data and formatting are preserved, but dynamic pivot functionality is not maintained."
+      }
+    ]
+  },
+  "convert-image-to-pptx": {
+    "features_en": [
+      {
+        "title": "High-Resolution Preservation",
+        "description": "Maintain original image quality up to 4K resolution. Your photos, graphics, and designs are embedded without compression or quality loss, ensuring crisp presentation output."
+      },
+      {
+        "title": "Batch Image Processing",
+        "description": "Upload multiple images at once and create a multi-slide presentation automatically. Each image becomes a professionally formatted slide with optional captions and layouts."
+      },
+      {
+        "title": "Smart Layout Selection",
+        "description": "AI analyzes image dimensions and content to choose the optimal slide layout - portrait, landscape, or custom fit - ensuring your visuals look professional and well-composed."
+      }
+    ],
+    "features_ar": [
+      {
+        "title": "الحفاظ على الدقة العالية",
+        "description": "احتفظ بجودة الصورة الأصلية حتى دقة 4K. يتم تضمين صورك ورسوماتك وتصاميمك بدون ضغط أو فقدان للجودة، مما يضمن عرضاً واضحاً ومميزاً."
+      },
+      {
+        "title": "معالجة الصور بالدفعات",
+        "description": "قم برفع عدة صور دفعة واحدة وأنشئ عرضاً تقديمياً متعدد الشرائح تلقائياً. كل صورة تصبح شريحة منسقة احترافياً مع إمكانية إضافة تعليقات وتخطيطات."
+      },
+      {
+        "title": "اختيار ذكي للتخطيط",
+        "description": "يقوم الذكاء الاصطناعي بتحليل أبعاد الصورة ومحتواها لاختيار تخطيط الشريحة الأمثل - عمودي أو أفقي أو مخصص - لضمان مظهر احترافي ومتناسق."
+      }
+    ],
+    "features_es": [
+      {
+        "title": "Preservación de Alta Resolución",
+        "description": "Mantén la calidad original de imagen hasta resolución 4K. Tus fotos, gráficos y diseños se incrustan sin compresión ni pérdida de calidad, garantizando una presentación nítida."
+      },
+      {
+        "title": "Procesamiento por Lotes",
+        "description": "Sube múltiples imágenes a la vez y crea una presentación de varias diapositivas automáticamente. Cada imagen se convierte en una diapositiva formateada profesionalmente con subtítulos opcionales."
+      },
+      {
+        "title": "Selección Inteligente de Diseño",
+        "description": "La IA analiza las dimensiones y contenido de la imagen para elegir el diseño óptimo - vertical, horizontal o personalizado - asegurando que tus visuales luzcan profesionales."
+      }
+    ],
+    "copy_en": {
+      "intro": "Convert images to PowerPoint presentations instantly. Transform JPG, PNG, GIF, BMP, or TIFF files into editable PPTX slides perfect for photo galleries, design portfolios, product showcases, and visual presentations. Our AI optimizes each image for maximum impact while preserving quality.",
+      "benefits": [
+        "Supports all major image formats: JPG, PNG, GIF, BMP, TIFF, WebP, and SVG",
+        "Preserves image quality and EXIF metadata for professional output",
+        "Automatic slide sizing and aspect ratio optimization",
+        "Add text overlays, captions, and branding after conversion",
+        "Bulk convert entire photo albums or product catalogs",
+        "No software installation - works directly in your browser"
+      ],
+      "use_cases": [
+        "Create photo gallery presentations for events and portfolios",
+        "Build product showcase decks for e-commerce and sales",
+        "Convert infographics and charts into editable slide decks",
+        "Generate training presentations from screenshot sequences",
+        "Create real estate property tour presentations",
+        "Compile design mockups and wireframes into client presentations"
+      ]
+    },
+    "copy_ar": {
+      "intro": "حوّل الصور إلى عروض بوربوينت فورياً. قم بتحويل ملفات JPG وPNG وGIF وBMP وTIFF إلى شرائح PPTX قابلة للتعديل مثالية لمعارض الصور والمحافظ التصميمية وعروض المنتجات والعروض المرئية. يقوم الذكاء الاصطناعي بتحسين كل صورة لتحقيق أقصى تأثير مع الحفاظ على الجودة.",
+      "benefits": [
+        "يدعم جميع صيغ الصور الرئيسية: JPG، PNG، GIF، BMP، TIFF، WebP، و SVG",
+        "يحافظ على جودة الصورة والبيانات الوصفية EXIF للحصول على مخرجات احترافية",
+        "تحسين تلقائي لحجم الشريحة ونسبة العرض إلى الارتفاع",
+        "أضف نصوصاً وتعليقات وعلامات تجارية بعد التحويل",
+        "تحويل جماعي لألبومات الصور بالكامل أو كتالوجات المنتجات",
+        "لا يحتاج تثبيت برامج - يعمل مباشرة في المتصفح"
+      ],
+      "use_cases": [
+        "إنشاء عروض معارض الصور للفعاليات والمحافظ الشخصية",
+        "بناء عروض المنتجات للتجارة الإلكترونية والمبيعات",
+        "تحويل الرسوم التوضيحية والمخططات إلى شرائح قابلة للتعديل",
+        "إنشاء عروض تدريبية من لقطات الشاشة المتسلسلة",
+        "إنشاء عروض جولات العقارات",
+        "تجميع نماذج التصميم والإطارات السلكية في عروض العملاء"
+      ]
+    },
+    "copy_es": {
+      "intro": "Convierte imágenes a presentaciones PowerPoint al instante. Transforma archivos JPG, PNG, GIF, BMP o TIFF en diapositivas PPTX editables perfectas para galerías fotográficas, portafolios de diseño, exhibiciones de productos y presentaciones visuales. Nuestra IA optimiza cada imagen para lograr el máximo impacto preservando la calidad.",
+      "benefits": [
+        "Soporta todos los formatos principales: JPG, PNG, GIF, BMP, TIFF, WebP y SVG",
+        "Preserva la calidad de imagen y metadatos EXIF para salida profesional",
+        "Optimización automática de tamaño y proporción de diapositivas",
+        "Agrega superposiciones de texto, subtítulos y marca después de convertir",
+        "Conversión masiva de álbumes completos o catálogos de productos",
+        "Sin instalación de software - funciona directamente en tu navegador"
+      ],
+      "use_cases": [
+        "Crear presentaciones de galerías fotográficas para eventos y portafolios",
+        "Construir mazos de exhibición de productos para e-commerce y ventas",
+        "Convertir infografías y gráficos en mazos de diapositivas editables",
+        "Generar presentaciones de capacitación desde secuencias de capturas",
+        "Crear presentaciones de tours inmobiliarios",
+        "Compilar maquetas de diseño y wireframes en presentaciones para clientes"
+      ]
+    },
+    "faq_en": [
+      {
+        "q": "What image formats can I convert to PowerPoint?",
+        "a": "We support all common formats: JPG/JPEG, PNG, GIF (including animated), BMP, TIFF, WebP, and SVG. For best results, use high-resolution images (300 DPI or higher for print, 72 DPI for screen). Transparent PNG backgrounds are preserved in the PowerPoint output."
+      },
+      {
+        "q": "Can I convert multiple images into one presentation?",
+        "a": "Yes! Upload multiple images and they'll be converted into a single PPTX file with each image on its own slide. You can arrange the order during upload, and choose whether to add transitions, captions, or maintain a consistent template across all slides."
+      },
+      {
+        "q": "Will image quality be reduced after conversion?",
+        "a": "No! We embed images at their original resolution without compression. A 5000x3000px image remains 5000x3000px in the PowerPoint file. However, PowerPoint itself has a file size limit of 2GB, so extremely large batches may need to be split."
+      },
+      {
+        "q": "Can I add text or annotations to images after conversion?",
+        "a": "Absolutely! Once converted to PowerPoint, your images are fully editable. Add text boxes, shapes, arrows, highlights, and annotations. Apply filters, crop images, adjust brightness/contrast, or overlay your branding and logos - all within PowerPoint."
+      },
+      {
+        "q": "Do you support animated GIFs?",
+        "a": "Yes, but animated GIFs are converted to static images (first frame). PowerPoint doesn't natively support GIF animation. For animated content, consider converting to video format or using PowerPoint's built-in animation features on the static image."
+      },
+      {
+        "q": "What's the maximum image size or file limit?",
+        "a": "Free users: up to 10 images, 25 MB total. Pro users: up to 100 images, 500 MB total. Individual images can be up to 50 MB each. For optimal performance, we recommend images under 10 MB unless you specifically need ultra-high resolution."
+      }
+    ],
+    "faq_ar": [
+      {
+        "q": "ما هي صيغ الصور التي يمكنني تحويلها إلى بوربوينت؟",
+        "a": "ندعم جميع الصيغ الشائعة: JPG/JPEG، PNG، GIF (بما في ذلك المتحركة)، BMP، TIFF، WebP، و SVG. للحصول على أفضل النتائج، استخدم صوراً عالية الدقة (300 DPI أو أعلى للطباعة، 72 DPI للشاشة). يتم الحفاظ على خلفيات PNG الشفافة في مخرجات البوربوينت."
+      },
+      {
+        "q": "هل يمكنني تحويل عدة صور إلى عرض تقديمي واحد؟",
+        "a": "نعم! قم برفع عدة صور وسيتم تحويلها إلى ملف PPTX واحد مع كل صورة على شريحتها الخاصة. يمكنك ترتيب الترتيب أثناء الرفع، واختيار ما إذا كنت تريد إضافة انتقالات أو تعليقات أو الحفاظ على قالب متسق عبر جميع الشرائح."
+      },
+      {
+        "q": "هل سيتم تقليل جودة الصورة بعد التحويل؟",
+        "a": "لا! نقوم بتضمين الصور بدقتها الأصلية دون ضغط. صورة بحجم 5000x3000 بكسل تظل 5000x3000 بكسل في ملف البوربوينت. ومع ذلك، فإن البوربوينت نفسه لديه حد لحجم الملف يبلغ 2 جيجابايت، لذلك قد تحتاج الدفعات الكبيرة جداً إلى التقسيم."
+      },
+      {
+        "q": "هل يمكنني إضافة نص أو تعليقات توضيحية إلى الصور بعد التحويل؟",
+        "a": "بالتأكيد! بمجرد التحويل إلى بوربوينت، تصبح صورك قابلة للتعديل بالكامل. أضف مربعات نص وأشكال وأسهم وتمييزات وتعليقات توضيحية. طبّق المرشحات، اقتصص الصور، اضبط السطوع/التباين، أو أضف علامتك التجارية والشعارات - كل ذلك داخل البوربوينت."
+      },
+      {
+        "q": "هل تدعمون صور GIF المتحركة؟",
+        "a": "نعم، لكن يتم تحويل صور GIF المتحركة إلى صور ثابتة (الإطار الأول). لا يدعم البوربوينت رسوم GIF المتحركة بشكل أصلي. للمحتوى المتحرك، فكر في التحويل إلى صيغة فيديو أو استخدام ميزات الرسوم المتحركة المدمجة في البوربوينت على الصورة الثابتة."
+      },
+      {
+        "q": "ما هو الحد الأقصى لحجم الصورة أو حد الملف؟",
+        "a": "المستخدمون المجانيون: حتى 10 صور، 25 ميجابايت إجمالاً. المستخدمون المحترفون: حتى 100 صورة، 500 ميجابايت إجمالاً. يمكن أن تصل الصور الفردية إلى 50 ميجابايت لكل منها. للحصول على أداء مثالي، نوصي بالصور التي يقل حجمها عن 10 ميجابايت ما لم تكن بحاجة خاصة إلى دقة عالية جداً."
+      }
+    ],
+    "faq_es": [
+      {
+        "q": "¿Qué formatos de imagen puedo convertir a PowerPoint?",
+        "a": "Soportamos todos los formatos comunes: JPG/JPEG, PNG, GIF (incluyendo animados), BMP, TIFF, WebP y SVG. Para mejores resultados, usa imágenes de alta resolución (300 DPI o superior para impresión, 72 DPI para pantalla). Los fondos transparentes de PNG se preservan en la salida de PowerPoint."
+      },
+      {
+        "q": "¿Puedo convertir múltiples imágenes en una sola presentación?",
+        "a": "¡Sí! Sube múltiples imágenes y se convertirán en un solo archivo PPTX con cada imagen en su propia diapositiva. Puedes ordenar durante la carga y elegir si agregar transiciones, subtítulos o mantener una plantilla consistente en todas las diapositivas."
+      },
+      {
+        "q": "¿Se reducirá la calidad de imagen después de la conversión?",
+        "a": "¡No! Incrustamos imágenes en su resolución original sin compresión. Una imagen de 5000x3000px permanece 5000x3000px en el archivo PowerPoint. Sin embargo, PowerPoint tiene un límite de tamaño de archivo de 2GB, por lo que lotes extremadamente grandes pueden necesitar dividirse."
+      },
+      {
+        "q": "¿Puedo agregar texto o anotaciones a las imágenes después de convertir?",
+        "a": "¡Absolutamente! Una vez convertido a PowerPoint, tus imágenes son totalmente editables. Agrega cuadros de texto, formas, flechas, resaltados y anotaciones. Aplica filtros, recorta imágenes, ajusta brillo/contraste, o superpone tu marca y logos - todo dentro de PowerPoint."
+      },
+      {
+        "q": "¿Soportan GIFs animados?",
+        "a": "Sí, pero los GIFs animados se convierten a imágenes estáticas (primer cuadro). PowerPoint no soporta animación GIF nativamente. Para contenido animado, considera convertir a formato de video o usar las características de animación integradas de PowerPoint en la imagen estática."
+      },
+      {
+        "q": "¿Cuál es el tamaño máximo de imagen o límite de archivo?",
+        "a": "Usuarios gratuitos: hasta 10 imágenes, 25 MB total. Usuarios Pro: hasta 100 imágenes, 500 MB total. Las imágenes individuales pueden ser hasta 50 MB cada una. Para rendimiento óptimo, recomendamos imágenes menores a 10 MB a menos que necesites específicamente ultra alta resolución."
+      }
+    ]
+  },
+  "convert-html-to-pptx": {
+    "features_en": [
+      {
+        "title": "Web Content Extraction",
+        "description": "Automatically extract text, headings, images, and links from HTML pages or code. Our parser intelligently identifies content structure to create organized, hierarchical slides."
+      },
+      {
+        "title": "CSS Styling Preservation",
+        "description": "Maintain colors, fonts, and formatting from your HTML/CSS. Text styles, backgrounds, and visual elements are converted to PowerPoint-native formatting for easy editing."
+      },
+      {
+        "title": "Responsive Layout Adaptation",
+        "description": "Convert responsive web designs into presentation-friendly layouts. Mobile, tablet, and desktop views are intelligently combined into cohesive slides optimized for projection screens."
+      }
+    ],
+    "features_ar": [
+      {
+        "title": "استخراج محتوى الويب",
+        "description": "استخرج النصوص والعناوين والصور والروابط تلقائياً من صفحات HTML أو الكود. يحدد محلل البيانات لدينا بذكاء بنية المحتوى لإنشاء شرائح منظمة وهرمية."
+      },
+      {
+        "title": "الحفاظ على تنسيقات CSS",
+        "description": "احتفظ بالألوان والخطوط والتنسيقات من HTML/CSS. يتم تحويل أنماط النصوص والخلفيات والعناصر المرئية إلى تنسيق بوربوينت الأصلي لسهولة التعديل."
+      },
+      {
+        "title": "تكييف التخطيط المتجاوب",
+        "description": "حوّل تصاميم الويب المتجاوبة إلى تخطيطات ملائمة للعروض التقديمية. يتم دمج عروض الهاتف والجهاز اللوحي وسطح المكتب بذكاء في شرائح متماسكة ومُحسّنة لشاشات العرض."
+      }
+    ],
+    "features_es": [
+      {
+        "title": "Extracción de Contenido Web",
+        "description": "Extrae automáticamente texto, encabezados, imágenes y enlaces de páginas HTML o código. Nuestro analizador identifica inteligentemente la estructura del contenido para crear diapositivas organizadas y jerárquicas."
+      },
+      {
+        "title": "Preservación de Estilos CSS",
+        "description": "Mantén colores, fuentes y formatos de tu HTML/CSS. Los estilos de texto, fondos y elementos visuales se convierten a formato nativo de PowerPoint para fácil edición."
+      },
+      {
+        "title": "Adaptación de Diseño Responsivo",
+        "description": "Convierte diseños web responsivos en layouts amigables para presentaciones. Las vistas móvil, tablet y escritorio se combinan inteligentemente en diapositivas cohesivas optimizadas para pantallas de proyección."
+      }
+    ],
+    "copy_en": {
+      "intro": "Transform HTML web pages and code into professional PowerPoint presentations. Perfect for converting web content, documentation, landing pages, email templates, and HTML reports into editable slide decks. Our AI understands semantic HTML and recreates your content with proper formatting and structure.",
+      "benefits": [
+        "Convert entire web pages with one click - no manual copying",
+        "Preserve headings, paragraphs, lists, and semantic structure",
+        "Extract and embed all images, graphics, and media automatically",
+        "Maintain text formatting: bold, italic, colors, and fonts",
+        "Convert HTML tables into editable PowerPoint tables",
+        "Support for modern HTML5 and responsive CSS frameworks"
+      ],
+      "use_cases": [
+        "Convert landing pages and marketing websites into sales presentations",
+        "Transform HTML documentation into training slide decks",
+        "Create presentations from email newsletter templates",
+        "Convert blog posts and articles into shareable decks",
+        "Turn web-based reports and dashboards into PowerPoint",
+        "Repurpose HTML portfolios and resumes as presentation slides"
+      ]
+    },
+    "copy_ar": {
+      "intro": "حوّل صفحات الويب HTML والكود إلى عروض بوربوينت احترافية. مثالي لتحويل محتوى الويب والتوثيق والصفحات المقصودة وقوالب البريد الإلكتروني وتقارير HTML إلى شرائح قابلة للتعديل. يفهم الذكاء الاصطناعي لدينا HTML الدلالي ويعيد إنشاء محتواك بالتنسيق والبنية المناسبة.",
+      "benefits": [
+        "تحويل صفحات الويب بالكامل بنقرة واحدة - بدون نسخ يدوي",
+        "الحفاظ على العناوين والفقرات والقوائم والبنية الدلالية",
+        "استخراج وتضمين جميع الصور والرسومات والوسائط تلقائياً",
+        "الحفاظ على تنسيق النص: الخط العريض والمائل والألوان والخطوط",
+        "تحويل جداول HTML إلى جداول بوربوينت قابلة للتعديل",
+        "دعم HTML5 الحديثة وأطر عمل CSS المتجاوبة"
+      ],
+      "use_cases": [
+        "تحويل الصفحات المقصودة ومواقع التسويق إلى عروض مبيعات",
+        "تحويل توثيق HTML إلى شرائح تدريبية",
+        "إنشاء عروض من قوالب النشرات الإخبارية عبر البريد الإلكتروني",
+        "تحويل منشورات المدونات والمقالات إلى شرائح قابلة للمشاركة",
+        "تحويل التقارير ولوحات المعلومات المستندة إلى الويب إلى بوربوينت",
+        "إعادة استخدام محافظ HTML والسير الذاتية كشرائح تقديمية"
+      ]
+    },
+    "copy_es": {
+      "intro": "Transforma páginas web HTML y código en presentaciones PowerPoint profesionales. Perfecto para convertir contenido web, documentación, páginas de destino, plantillas de correo electrónico e informes HTML en mazos de diapositivas editables. Nuestra IA comprende HTML semántico y recrea tu contenido con el formato y estructura adecuados.",
+      "benefits": [
+        "Convierte páginas web completas con un clic - sin copiar manualmente",
+        "Preserva encabezados, párrafos, listas y estructura semántica",
+        "Extrae e incrusta todas las imágenes, gráficos y medios automáticamente",
+        "Mantiene formato de texto: negrita, cursiva, colores y fuentes",
+        "Convierte tablas HTML en tablas PowerPoint editables",
+        "Soporte para HTML5 moderno y frameworks CSS responsivos"
+      ],
+      "use_cases": [
+        "Convertir páginas de destino y sitios de marketing en presentaciones de ventas",
+        "Transformar documentación HTML en mazos de capacitación",
+        "Crear presentaciones desde plantillas de boletines por correo",
+        "Convertir publicaciones de blog y artículos en mazos compartibles",
+        "Convertir informes basados en web y dashboards a PowerPoint",
+        "Reutilizar portafolios HTML y currículums como diapositivas"
+      ]
+    },
+    "faq_en": [
+      {
+        "q": "Can I convert an entire website or just single pages?",
+        "a": "You can convert individual HTML pages or paste HTML code directly. For entire websites, provide the URL and we'll extract the content. Multi-page sites should be converted one page at a time, then you can merge the resulting PPTX files in PowerPoint."
+      },
+      {
+        "q": "How are images and media handled from HTML?",
+        "a": "All <img> tags are automatically downloaded and embedded in the PowerPoint. External images (via URLs) are fetched and included. Background images from CSS are also converted. However, videos and iframes are replaced with placeholder images and links."
+      },
+      {
+        "q": "Will JavaScript-generated content be included?",
+        "a": "We capture the static HTML content. If your page relies heavily on JavaScript for rendering (React, Vue, Angular), you'll need to provide the rendered/final HTML output. Use your browser's 'View Source' or 'Inspect Element' to get the complete rendered HTML."
+      },
+      {
+        "q": "Are HTML tables converted to PowerPoint tables?",
+        "a": "Yes! HTML <table> elements are converted to native PowerPoint table objects. You can then edit cells, change colors, add borders, and modify formatting. Complex nested tables may be simplified for better readability in presentation format."
+      },
+      {
+        "q": "What about HTML forms and interactive elements?",
+        "a": "Forms, buttons, and interactive elements are converted to static text and shapes. Since PowerPoint doesn't support forms, we preserve the visual appearance but not the functionality. Links (<a> tags) are maintained as clickable hyperlinks."
+      },
+      {
+        "q": "Can I convert HTML email templates to PowerPoint?",
+        "a": "Yes! Email HTML is supported. However, email templates often use table-based layouts which may need adjustment. We convert the visual structure, but you might want to redesign for better presentation format after conversion."
+      }
+    ],
+    "faq_ar": [
+      {
+        "q": "هل يمكنني تحويل موقع ويب كامل أم صفحات فردية فقط؟",
+        "a": "يمكنك تحويل صفحات HTML فردية أو لصق كود HTML مباشرة. للمواقع الكاملة، قدم عنوان URL وسنقوم باستخراج المحتوى. يجب تحويل المواقع متعددة الصفحات صفحة تلو الأخرى، ثم يمكنك دمج ملفات PPTX الناتجة في البوربوينت."
+      },
+      {
+        "q": "كيف يتم التعامل مع الصور والوسائط من HTML؟",
+        "a": "يتم تنزيل جميع علامات <img> تلقائياً وتضمينها في البوربوينت. يتم جلب الصور الخارجية (عبر عناوين URL) وتضمينها. يتم أيضاً تحويل صور الخلفية من CSS. ومع ذلك، يتم استبدال مقاطع الفيديو وiframes بصور نائبة وروابط."
+      },
+      {
+        "q": "هل سيتم تضمين المحتوى المُنشأ بواسطة JavaScript؟",
+        "a": "نحن نلتقط محتوى HTML الثابت. إذا كانت صفحتك تعتمد بشكل كبير على JavaScript للعرض (React، Vue، Angular)، فستحتاج إلى توفير HTML النهائي/المُعرّض. استخدم \"عرض المصدر\" أو \"فحص العنصر\" في متصفحك للحصول على HTML الكامل المُعرّض."
+      },
+      {
+        "q": "هل يتم تحويل جداول HTML إلى جداول بوربوينت؟",
+        "a": "نعم! يتم تحويل عناصر <table> في HTML إلى كائنات جدول بوربوينت أصلية. يمكنك بعد ذلك تحرير الخلايا وتغيير الألوان وإضافة حدود وتعديل التنسيق. قد يتم تبسيط الجداول المتداخلة المعقدة لتحسين القراءة في صيغة العرض التقديمي."
+      },
+      {
+        "q": "ماذا عن نماذج HTML والعناصر التفاعلية؟",
+        "a": "يتم تحويل النماذج والأزرار والعناصر التفاعلية إلى نصوص وأشكال ثابتة. نظراً لأن البوربوينت لا يدعم النماذج، فإننا نحافظ على المظهر البصري ولكن ليس على الوظيفة. يتم الاحتفاظ بالروابط (علامات <a>) كروابط تشعبية قابلة للنقر."
+      },
+      {
+        "q": "هل يمكنني تحويل قوالب البريد الإلكتروني HTML إلى بوربوينت؟",
+        "a": "نعم! HTML للبريد الإلكتروني مدعوم. ومع ذلك، غالباً ما تستخدم قوالب البريد الإلكتروني تخطيطات قائمة على الجداول والتي قد تحتاج إلى تعديل. نقوم بتحويل البنية المرئية، لكن قد ترغب في إعادة التصميم للحصول على صيغة عرض أفضل بعد التحويل."
+      }
+    ],
+    "faq_es": [
+      {
+        "q": "¿Puedo convertir un sitio web completo o solo páginas individuales?",
+        "a": "Puedes convertir páginas HTML individuales o pegar código HTML directamente. Para sitios web completos, proporciona la URL y extraeremos el contenido. Los sitios multipágina deben convertirse una página a la vez, luego puedes fusionar los archivos PPTX resultantes en PowerPoint."
+      },
+      {
+        "q": "¿Cómo se manejan las imágenes y medios del HTML?",
+        "a": "Todas las etiquetas <img> se descargan automáticamente e incrustan en PowerPoint. Las imágenes externas (vía URLs) se obtienen e incluyen. Las imágenes de fondo de CSS también se convierten. Sin embargo, los videos e iframes se reemplazan con imágenes marcadoras y enlaces."
+      },
+      {
+        "q": "¿Se incluirá el contenido generado por JavaScript?",
+        "a": "Capturamos el contenido HTML estático. Si tu página depende mucho de JavaScript para renderizar (React, Vue, Angular), necesitarás proporcionar la salida HTML renderizada/final. Usa 'Ver fuente' o 'Inspeccionar elemento' de tu navegador para obtener el HTML completo renderizado."
+      },
+      {
+        "q": "¿Se convierten las tablas HTML en tablas PowerPoint?",
+        "a": "¡Sí! Los elementos <table> de HTML se convierten en objetos de tabla nativos de PowerPoint. Luego puedes editar celdas, cambiar colores, agregar bordes y modificar el formato. Las tablas anidadas complejas pueden simplificarse para mejor legibilidad en formato de presentación."
+      },
+      {
+        "q": "¿Qué pasa con los formularios HTML y elementos interactivos?",
+        "a": "Los formularios, botones y elementos interactivos se convierten en texto y formas estáticas. Como PowerPoint no soporta formularios, preservamos la apariencia visual pero no la funcionalidad. Los enlaces (etiquetas <a>) se mantienen como hipervínculos clicables."
+      },
+      {
+        "q": "¿Puedo convertir plantillas de email HTML a PowerPoint?",
+        "a": "¡Sí! El HTML de email está soportado. Sin embargo, las plantillas de email a menudo usan layouts basados en tablas que pueden necesitar ajuste. Convertimos la estructura visual, pero podrías querer rediseñar para mejor formato de presentación después de la conversión."
+      }
+    ]
+  },
+  "powerpoint-to-word": {
+    "features_en": [
+      {
+        "title": "Slide-to-Document Conversion",
+        "description": "Each PowerPoint slide is converted into a structured Word document section with headings, paragraphs, and proper formatting. Maintains document hierarchy and reading flow for professional reports."
+      },
+      {
+        "title": "Speaker Notes Extraction",
+        "description": "Automatically extract and include speaker notes from PowerPoint as body text in Word. Perfect for creating detailed reports, transcripts, or study guides from presentation materials."
+      },
+      {
+        "title": "Image and Chart Preservation",
+        "description": "All slide images, charts, graphs, and SmartArt are embedded into the Word document at high quality. Charts can be converted to editable Word tables or kept as images."
+      }
+    ],
+    "features_ar": [
+      {
+        "title": "تحويل الشرائح إلى مستند",
+        "description": "يتم تحويل كل شريحة بوربوينت إلى قسم منظم في مستند وورد مع عناوين وفقرات وتنسيق صحيح. يحافظ على التسلسل الهرمي للمستند وتدفق القراءة للتقارير الاحترافية."
+      },
+      {
+        "title": "استخراج ملاحظات المتحدث",
+        "description": "استخرج ملاحظات المتحدث تلقائياً من البوربوينت وقم بتضمينها كنص أساسي في الوورد. مثالي لإنشاء تقارير مفصلة أو نصوص محاضرات أو أدلة دراسية من مواد العرض التقديمي."
+      },
+      {
+        "title": "الحفاظ على الصور والمخططات",
+        "description": "يتم تضمين جميع صور الشرائح والمخططات والرسوم البيانية وSmartArt في مستند الوورد بجودة عالية. يمكن تحويل المخططات إلى جداول وورد قابلة للتعديل أو الاحتفاظ بها كصور."
+      }
+    ],
+    "features_es": [
+      {
+        "title": "Conversión de Diapositiva a Documento",
+        "description": "Cada diapositiva de PowerPoint se convierte en una sección estructurada del documento Word con encabezados, párrafos y formato adecuado. Mantiene la jerarquía del documento y el flujo de lectura para informes profesionales."
+      },
+      {
+        "title": "Extracción de Notas del Orador",
+        "description": "Extrae automáticamente e incluye las notas del orador de PowerPoint como texto principal en Word. Perfecto para crear informes detallados, transcripciones o guías de estudio a partir de materiales de presentación."
+      },
+      {
+        "title": "Preservación de Imágenes y Gráficos",
+        "description": "Todas las imágenes, gráficos, grafos y SmartArt de las diapositivas se incrustan en el documento Word con alta calidad. Los gráficos pueden convertirse en tablas Word editables o mantenerse como imágenes."
+      }
+    ],
+    "copy_en": {
+      "intro": "Convert PowerPoint presentations to Word documents instantly. Transform slide decks into editable reports, articles, or documentation. Ideal for creating handouts, transcripts, detailed reports, or repurposing presentation content for written formats. Our AI intelligently restructures slides into flowing document paragraphs.",
+      "benefits": [
+        "Generate detailed reports and documentation from presentations",
+        "Create printable handouts with slide content and notes",
+        "Repurpose presentation content for blogs, articles, and white papers",
+        "Extract and organize speaker notes into readable text",
+        "Maintain all images, tables, and charts from original slides",
+        "Automatic formatting for professional Word document output"
+      ],
+      "use_cases": [
+        "Convert conference presentations into research papers",
+        "Create training manuals and guides from slide decks",
+        "Generate meeting minutes and summaries from PowerPoint",
+        "Transform sales presentations into proposal documents",
+        "Build product documentation from technical presentations",
+        "Create study guides and course materials from lecture slides"
+      ]
+    },
+    "copy_ar": {
+      "intro": "حوّل عروض البوربوينت التقديمية إلى مستندات وورد فوراً. حوّل الشرائح إلى تقارير أو مقالات أو توثيق قابل للتعديل. مثالي لإنشاء نشرات أو نصوص محاضرات أو تقارير مفصلة أو إعادة استخدام محتوى العروض التقديمية بصيغ مكتوبة. يقوم الذكاء الاصطناعي لدينا بإعادة هيكلة الشرائح بذكاء إلى فقرات متدفقة في المستند.",
+      "benefits": [
+        "إنشاء تقارير مفصلة وتوثيق من العروض التقديمية",
+        "إنشاء نشرات قابلة للطباعة مع محتوى الشرائح والملاحظات",
+        "إعادة استخدام محتوى العرض التقديمي للمدونات والمقالات والأوراق البيضاء",
+        "استخراج وتنظيم ملاحظات المتحدث في نص قابل للقراءة",
+        "الحفاظ على جميع الصور والجداول والمخططات من الشرائح الأصلية",
+        "تنسيق تلقائي للحصول على مخرجات مستند وورد احترافية"
+      ],
+      "use_cases": [
+        "تحويل عروض المؤتمرات إلى أوراق بحثية",
+        "إنشاء أدلة ومواد تدريبية من شرائح العروض التقديمية",
+        "إنشاء محاضر وملخصات الاجتماعات من البوربوينت",
+        "تحويل عروض المبيعات إلى مستندات مقترحات",
+        "بناء توثيق المنتجات من العروض التقديمية التقنية",
+        "إنشاء أدلة دراسية ومواد دورات من شرائح المحاضرات"
+      ]
+    },
+    "copy_es": {
+      "intro": "Convierte presentaciones PowerPoint a documentos Word al instante. Transforma mazos de diapositivas en informes, artículos o documentación editable. Ideal para crear folletos, transcripciones, informes detallados o reutilizar contenido de presentaciones en formatos escritos. Nuestra IA reestructura inteligentemente las diapositivas en párrafos fluidos de documento.",
+      "benefits": [
+        "Generar informes detallados y documentación desde presentaciones",
+        "Crear folletos imprimibles con contenido y notas de diapositivas",
+        "Reutilizar contenido de presentación para blogs, artículos y white papers",
+        "Extraer y organizar notas del orador en texto legible",
+        "Mantener todas las imágenes, tablas y gráficos de las diapositivas originales",
+        "Formato automático para salida profesional de documento Word"
+      ],
+      "use_cases": [
+        "Convertir presentaciones de conferencias en documentos de investigación",
+        "Crear manuales y guías de capacitación desde mazos de diapositivas",
+        "Generar actas de reuniones y resúmenes desde PowerPoint",
+        "Transformar presentaciones de ventas en documentos de propuesta",
+        "Construir documentación de productos desde presentaciones técnicas",
+        "Crear guías de estudio y materiales de curso desde diapositivas de clase"
+      ]
+    },
+    "faq_en": [
+      {
+        "q": "How are PowerPoint slides organized in the Word document?",
+        "a": "Each slide title becomes a heading in Word (Heading 1 or 2 depending on your preference). Slide content (bullet points, text boxes) is converted to paragraphs and lists. You can choose to include slide thumbnails, full-size images, or text-only output."
+      },
+      {
+        "q": "Will animations and transitions be preserved?",
+        "a": "No, animations and transitions don't exist in Word documents. We convert the final state of each slide with all elements visible. Build animations (bullet points appearing one by one) are combined into single lists in the Word output."
+      },
+      {
+        "q": "Can I include speaker notes in the Word document?",
+        "a": "Yes! Speaker notes can be included below each slide's content or in a separate section. This is perfect for creating detailed handouts, study guides, or transcripts where you want both the visual content and the narrative explanation."
+      },
+      {
+        "q": "How are PowerPoint charts and tables handled?",
+        "a": "You have options: 1) Convert to Word tables (best for data tables), 2) Keep as high-resolution images (best for complex charts), or 3) Extract underlying data into Excel-linked tables. Charts remain editable if converted to Word's native chart objects."
+      },
+      {
+        "q": "What happens to slide layouts and design?",
+        "a": "The focus shifts from visual design to document readability. Colors, fonts, and basic formatting are preserved where appropriate, but slide backgrounds and decorative elements are typically removed for a clean document appearance. You can apply Word styles and themes after conversion."
+      },
+      {
+        "q": "Can I convert only specific slides?",
+        "a": "Currently, the entire presentation is converted. However, after conversion, you can easily delete unwanted sections in Word. Alternatively, create a copy of your PowerPoint with only the desired slides before converting."
+      }
+    ],
+    "faq_ar": [
+      {
+        "q": "كيف يتم تنظيم شرائح البوربوينت في مستند الوورد؟",
+        "a": "يصبح عنوان كل شريحة عنواناً في الوورد (عنوان 1 أو 2 حسب تفضيلاتك). يتم تحويل محتوى الشريحة (النقاط، مربعات النص) إلى فقرات وقوائم. يمكنك اختيار تضمين صور مصغرة للشرائح أو صور بالحجم الكامل أو مخرجات نصية فقط."
+      },
+      {
+        "q": "هل سيتم الحفاظ على الرسوم المتحركة والانتقالات؟",
+        "a": "لا، الرسوم المتحركة والانتقالات غير موجودة في مستندات الوورد. نقوم بتحويل الحالة النهائية لكل شريحة مع ظهور جميع العناصر. يتم دمج رسوم البناء المتحركة (ظهور النقاط واحدة تلو الأخرى) في قوائم واحدة في مخرجات الوورد."
+      },
+      {
+        "q": "هل يمكنني تضمين ملاحظات المتحدث في مستند الوورد؟",
+        "a": "نعم! يمكن تضمين ملاحظات المتحدث أسفل محتوى كل شريحة أو في قسم منفصل. هذا مثالي لإنشاء نشرات مفصلة أو أدلة دراسية أو نصوص محاضرات حيث تريد كلاً من المحتوى المرئي والتفسير السردي."
+      },
+      {
+        "q": "كيف يتم التعامل مع مخططات وجداول البوربوينت؟",
+        "a": "لديك خيارات: 1) التحويل إلى جداول وورد (الأفضل لجداول البيانات)، 2) الاحتفاظ بها كصور عالية الدقة (الأفضل للمخططات المعقدة)، أو 3) استخراج البيانات الأساسية في جداول مرتبطة بإكسل. تظل المخططات قابلة للتعديل إذا تم تحويلها إلى كائنات مخطط أصلية في الوورد."
+      },
+      {
+        "q": "ماذا يحدث لتخطيطات الشرائح والتصميم؟",
+        "a": "ينتقل التركيز من التصميم المرئي إلى قابلية قراءة المستند. يتم الحفاظ على الألوان والخطوط والتنسيق الأساسي حيثما كان ذلك مناسباً، ولكن عادةً ما يتم إزالة خلفيات الشرائح والعناصر الزخرفية للحصول على مظهر مستند نظيف. يمكنك تطبيق أنماط وسمات الوورد بعد التحويل."
+      },
+      {
+        "q": "هل يمكنني تحويل شرائح محددة فقط؟",
+        "a": "حالياً، يتم تحويل العرض التقديمي بالكامل. ومع ذلك، بعد التحويل، يمكنك بسهولة حذف الأقسام غير المرغوب فيها في الوورد. بدلاً من ذلك، قم بإنشاء نسخة من البوربوينت الخاص بك مع الشرائح المطلوبة فقط قبل التحويل."
+      }
+    ],
+    "faq_es": [
+      {
+        "q": "¿Cómo se organizan las diapositivas de PowerPoint en el documento Word?",
+        "a": "El título de cada diapositiva se convierte en un encabezado en Word (Título 1 o 2 según tu preferencia). El contenido de la diapositiva (viñetas, cuadros de texto) se convierte en párrafos y listas. Puedes elegir incluir miniaturas de diapositivas, imágenes a tamaño completo o salida solo de texto."
+      },
+      {
+        "q": "¿Se preservarán las animaciones y transiciones?",
+        "a": "No, las animaciones y transiciones no existen en documentos Word. Convertimos el estado final de cada diapositiva con todos los elementos visibles. Las animaciones de construcción (viñetas apareciendo una por una) se combinan en listas únicas en la salida de Word."
+      },
+      {
+        "q": "¿Puedo incluir notas del orador en el documento Word?",
+        "a": "¡Sí! Las notas del orador pueden incluirse debajo del contenido de cada diapositiva o en una sección separada. Esto es perfecto para crear folletos detallados, guías de estudio o transcripciones donde quieres tanto el contenido visual como la explicación narrativa."
+      },
+      {
+        "q": "¿Cómo se manejan los gráficos y tablas de PowerPoint?",
+        "a": "Tienes opciones: 1) Convertir a tablas Word (mejor para tablas de datos), 2) Mantener como imágenes de alta resolución (mejor para gráficos complejos), o 3) Extraer datos subyacentes en tablas vinculadas a Excel. Los gráficos permanecen editables si se convierten a objetos de gráfico nativos de Word."
+      },
+      {
+        "q": "¿Qué pasa con los diseños y estilos de las diapositivas?",
+        "a": "El enfoque cambia del diseño visual a la legibilidad del documento. Los colores, fuentes y formato básico se preservan cuando es apropiado, pero los fondos de diapositivas y elementos decorativos típicamente se eliminan para una apariencia de documento limpia. Puedes aplicar estilos y temas de Word después de la conversión."
+      },
+      {
+        "q": "¿Puedo convertir solo diapositivas específicas?",
+        "a": "Actualmente, se convierte la presentación completa. Sin embargo, después de la conversión, puedes eliminar fácilmente secciones no deseadas en Word. Alternativamente, crea una copia de tu PowerPoint con solo las diapositivas deseadas antes de convertir."
+      }
+    ]
+  }
+}

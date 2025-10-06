@@ -1,16 +1,59 @@
 // components/landing/LandingCopyEn.tsx
 import type { Converter as ConverterRow } from '@/lib/server/converters';
+import type { Copy } from '@/lib/server/tool-content';
 import { getEnVariations } from '@/utils/variations';
 
-type Props = { row: ConverterRow };
+type Props = { 
+  row: ConverterRow;
+  customCopy?: Copy;
+};
 
-export default function LandingCopyEn({ row }: Props) {
+export default function LandingCopyEn({ row, customCopy }: Props) {
   const variations = getEnVariations(row.label_en, row.dir);
+  const dirReadable = row.dir.replace('→', ' to ');
 
+  // Use custom copy if available, otherwise use generic
+  if (customCopy) {
+    return (
+      <section className="prose mx-auto space-y-6 max-w-4xl">
+        <p className="text-lg">
+          <strong>{customCopy.intro}</strong>
+        </p>
+
+        <div>
+          <h2 className="text-2xl font-bold mb-3">Key Benefits</h2>
+          <ul className="space-y-2">
+            {customCopy.benefits.map((benefit, idx) => (
+              <li key={idx} className="flex items-start">
+                <span className="text-blue-600 mr-2">✓</span>
+                {benefit}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div>
+          <h2 className="text-2xl font-bold mb-3">Common Use Cases</h2>
+          <ul className="space-y-2">
+            {customCopy.use_cases.map((useCase, idx) => (
+              <li key={idx} className="flex items-start">
+                <span className="text-purple-600 mr-2">→</span>
+                {useCase}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <p className="sr-only">{variations.join(', ')}</p>
+      </section>
+    );
+  }
+
+  // Generic fallback content
   return (
     <section className="prose mx-auto space-y-4">
       <p>
-        <strong>{row.label_en}</strong> is a fast online service to convert {row.dir}.
+        <strong>{row.label_en}</strong> is a fast online service to convert {dirReadable}.
         Keep your original fonts, images and layout—no desktop software required.
       </p>
 
@@ -23,11 +66,10 @@ export default function LandingCopyEn({ row }: Props) {
           </tr>
         </thead>
         <tbody>
-          <tr><td>1</td><td>Sign up / sign in to your account.</td></tr>
-          <tr><td>2</td><td>Upload the file via drag-and-drop or “Choose file”.</td></tr>
-          <tr><td>3</td><td>Pick a template or enable smart design suggestions.</td></tr>
-          <tr><td>4</td><td>Customize slides (colors, fonts, logos, charts).</td></tr>
-          <tr><td>5</td><td>Download the PPTX or share via link.</td></tr>
+          <tr><td>1</td><td>Upload your file via drag-and-drop or "Choose file".</td></tr>
+          <tr><td>2</td><td>AI processes your content automatically.</td></tr>
+          <tr><td>3</td><td>Customize the output (colors, fonts, layout).</td></tr>
+          <tr><td>4</td><td>Download the converted file or share via link.</td></tr>
         </tbody>
       </table>
 
@@ -35,7 +77,7 @@ export default function LandingCopyEn({ row }: Props) {
       <ul>
         <li>⏱️ Super-fast processing in seconds.</li>
         <li>🛡️ Secure uploads over HTTPS; files auto-delete.</li>
-        <li>🤖 AI organizes text into clean slide structure.</li>
+        <li>🤖 AI organizes content intelligently.</li>
         <li>🌐 Full RTL/Arabic and multilingual support.</li>
       </ul>
 
@@ -43,37 +85,3 @@ export default function LandingCopyEn({ row }: Props) {
     </section>
   );
 }
-
-// // src/components/landing/LandingCopyEn.tsx
-// import type { ConverterRow } from "@/lib/tools";
-
-// type Props = { row: ConverterRow };
-
-// export default function LandingCopyEn({ row }: Props) {
-//   // e.g. "DOCX→PPT"  →  "DOCX to PPT"
-//   const dirReadable = row.dir.replace("→", " to ");
-
-//   return (
-//     <section className="prose max-w-none mx-auto space-y-4">
-//       <p>
-//         <strong>{row.label_en}</strong> is the fastest online service to
-//         convert&nbsp;
-//         {dirReadable}. Keep all fonts, images and layouts intact—no desktop
-//         software required.
-//       </p>
-
-//       <h2>Why choose our {row.label_en} tool?</h2>
-//       <ul>
-//         <li>⏱️ Instant cloud processing – nothing to install</li>
-//         <li>🛡️ Secure HTTPS uploads, auto‑delete after 2 hours</li>
-//         <li>🎨 Pixel‑perfect fidelity on every slide</li>
-//         <li>🔄 Batch mode available for power users</li>
-//       </ul>
-
-//       <p>
-//         Want to automate {dirReadable.toLowerCase()} in your workflow?
-//         Check&nbsp;our <a href="/en/developer-enterprise">Developer&nbsp;API</a>.
-//       </p>
-//     </section>
-//   );
-// }

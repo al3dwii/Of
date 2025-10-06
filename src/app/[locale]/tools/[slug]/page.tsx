@@ -14,6 +14,7 @@ import {
   getRelatedConverters,
   type Converter as ConverterRow,
 } from '@/lib/server/converters';
+import { getToolContent } from '@/lib/server/tool-content';
 
 /* ------------------------------------------------------------------ */
 /* Types                                                               */
@@ -114,6 +115,9 @@ export default async function Page({ params }: { params: PageParams }) {
 
   // Show related for both languages — not only Arabic
   const related: ConverterRow[] = getRelatedConverters(params.slug);
+  
+  // Load custom tool-specific content (features, copy, FAQ) for SEO
+  const toolContent = getToolContent(params.slug);
 
   // SoftwareApplication schema (per tool)
   const softwareJsonLd = {
@@ -161,11 +165,11 @@ export default async function Page({ params }: { params: PageParams }) {
   return (
     <>
 
-      <StructuredData data={softwareJsonLd} />
-      <StructuredData data={breadcrumbJsonLd} />
+      <StructuredData items={softwareJsonLd} />
+      <StructuredData items={breadcrumbJsonLd} />
       <Breadcrumbs locale={params.locale} slug={params.slug} />
       
-      <LandingTemplate locale={params.locale} row={row} related={related} />
+      <LandingTemplate locale={params.locale} row={row} related={related} toolContent={toolContent} />
     </>
   );
 }
