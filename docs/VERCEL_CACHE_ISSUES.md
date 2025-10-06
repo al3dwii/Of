@@ -82,11 +82,35 @@ All these files exist and are properly exported:
 3. **Test production build** locally: `pnpm build`
 4. **Use consistent naming**: prefer lowercase with hyphens
 
+## Additional Fix: Webpack Configuration
+
+Added explicit webpack configuration to resolve module extensions:
+
+```javascript
+// next.config.mjs
+webpack: (config, { isServer }) => {
+  config.resolve.extensionAlias = {
+    '.js': ['.ts', '.tsx', '.js', '.jsx'],
+    '.mjs': ['.mts', '.mjs'],
+    '.cjs': ['.cts', '.cjs'],
+  }
+  return config
+}
+```
+
+This ensures Vercel's webpack can properly resolve TypeScript files.
+
 ## Build Status
 
 - ✅ Local build: Working (after clearing `.next`)
-- ⏳ Vercel build: Triggered rebuild after cache clear
+- ⏳ Vercel build: Triggered rebuild with webpack fix
+
+## Commits
+
+- `493c786` - Added webpack extensionAlias configuration
+- `58006ee` - Added this documentation
+- `8fd233a` - Pushed cache-clearing commit
 
 ## Last Updated
 
-October 6, 2025 - Pushed cache-clearing commit (8fd233a)
+October 6, 2025 - Added webpack configuration fix (493c786)
