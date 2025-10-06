@@ -1,7 +1,7 @@
 // app/(public)/[locale]/blog/page.tsx
 import { compareDesc } from 'date-fns';
 import { BlogPosts } from './blog-posts';
-import { getAllPosts } from '@/utils/posts';
+import { getPostsByLanguage } from '@/utils/posts';
 import { LOCALES, type Locale } from '@/data/locales';
 import { siteUrl } from '@/utils/seo';
 
@@ -12,9 +12,26 @@ export async function generateMetadata({ params }: PageParams) {
   const { locale } = params;
   const canonical = `${siteUrl}/${locale}/blog`;
 
+  const metaData = {
+    en: {
+      title: 'Blog | PowerPoint Conversion Tips & Guides',
+      description: 'Read the latest articles about PowerPoint conversion, document automation, AI tools, and productivity tips.',
+    },
+    ar: {
+      title: 'المدونة | نصائح وأدلة تحويل بوربوينت',
+      description: 'اقرأ أحدث المقالات حول تحويل بوربوينت، أتمتة المستندات، أدوات الذكاء الاصطناعي، ونصائح الإنتاجية.',
+    },
+    es: {
+      title: 'Blog | Consejos y Guías de Conversión de PowerPoint',
+      description: 'Lee los últimos artículos sobre conversión de PowerPoint, automatización de documentos, herramientas de IA y consejos de productividad.',
+    },
+  };
+
+  const meta = metaData[locale] || metaData.en;
+
   return {
-    title: 'Blog',
-    description: 'Read the latest updates, tips and news from sharayeh.',
+    title: meta.title,
+    description: meta.description,
     alternates: {
       canonical,
       languages: LOCALES.reduce((acc, loc) => {
@@ -23,24 +40,29 @@ export async function generateMetadata({ params }: PageParams) {
       }, {} as Record<string, string>),
     },
     openGraph: {
-      title: 'Blog – sharayeh',
-      description: 'Latest updates, tips and news.',
+      title: meta.title,
+      description: meta.description,
       url: canonical,
       type: 'website',
+      locale: locale === 'ar' ? 'ar_SA' : locale === 'es' ? 'es_ES' : 'en_US',
     },
   };
 }
 
 export default function BlogPage({ params }: PageParams) {
   const { locale } = params;
-  const allPosts = getAllPosts();
-  const posts = allPosts
+  
+  // Get posts filtered by current language
+  const posts = getPostsByLanguage(locale)
     .filter((post) => post.published)
     .sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)));
 
   return (
     <>
       <main className="container mx-auto p-6 pt-12">
+        <h1 className="text-4xl font-bold mb-8">
+          {locale === 'ar' ? 'المدونة' : locale === 'es' ? 'Blog' : 'Blog'}
+        </h1>
         <BlogPosts posts={posts} locale={locale} />
       </main>
     </>

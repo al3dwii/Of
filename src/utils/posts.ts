@@ -20,6 +20,9 @@ export interface Post {
   keywords?: string[];
   canonical?: string;
   language?: string;
+  // Translation fields
+  translationKey?: string; // Unique key to link translations together
+  availableLanguages?: string[]; // Languages this post is available in
 }
 
 export function getAllPosts(): Post[] {
@@ -31,7 +34,7 @@ export function getAllPosts(): Post[] {
   }
 
   const filenames = fs.readdirSync(postsDirectory);
-  return filenames
+  const posts = filenames
     .filter((filename) => filename.endsWith('.md'))
     .map((filename) => {
       const filePath = path.join(postsDirectory, filename);
@@ -56,10 +59,68 @@ export function getAllPosts(): Post[] {
         tags: data.tags,
         keywords: data.keywords,
         canonical: data.canonical,
-        language: data.language,
+        language: data.language || 'ar', // Default to Arabic for backward compatibility
+        // Translation fields
+        translationKey: data.translationKey,
+        availableLanguages: data.availableLanguages,
       };
     })
     .filter((post) => post.published); // Only return published posts
+
+  return posts;
+}
+
+/**
+ * Get posts filtered by language
+ */
+export function getPostsByLanguage(language: string): Post[] {
+  return getAllPosts().filter((post) => post.language === language);
+}
+
+/**
+ * Get a specific post by slug and language
+ */
+export function getPostBySlugAndLanguage(slug: string, language: string): Post | undefined {
+  const posts = getAllPosts();
+  
+  // First try to find exact match (slug + language)
+  let post = posts.find((p) => p.slug === slug && p.language === language);
+  
+  // If not found, try to find by translationKey
+  if (!post) {
+    const translationKeyMatch = posts.find((p) => p.slug === slug);
+    if (translationKeyMatch?.translationKey) {
+      post = posts.find(
+        (p) => p.translationKey === translationKeyMatch.translationKey && p.language === language
+      );
+    }
+  }
+  
+  return post;
+}
+
+/**
+ * Get all translations of a post
+ */
+export function getPostTranslations(post: Post): Post[] {
+  if (!post.translationKey) {
+    return [post]; // No translations available
+  }
+  
+  const allPosts = getAllPosts();
+  return allPosts.filter((p) => p.translationKey === post.translationKey);
+}
+
+/**
+ * Check if a post has a translation in a specific language
+ */
+export function hasTranslation(post: Post, language: string): boolean {
+  if (!post.translationKey) {
+    return post.language === language;
+  }
+  
+  const translations = getPostTranslations(post);
+  return translations.some((p) => p.language === language);
 }
 
 

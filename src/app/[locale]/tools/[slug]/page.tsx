@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import StructuredData from '@/components/StructuredData';
 import LandingTemplate from '@/components/landing/LandingTemplate';
+import RelatedTools from '@/components/RelatedTools';
 
 import { LOCALES } from '@/data/locales';
 import { siteUrl } from '@/utils/seo';
@@ -164,12 +165,14 @@ export default async function Page({ params }: { params: PageParams }) {
 
   return (
     <>
-
       <StructuredData items={softwareJsonLd} />
       <StructuredData items={breadcrumbJsonLd} />
       <Breadcrumbs locale={params.locale} slug={params.slug} />
       
       <LandingTemplate locale={params.locale} row={row} related={related} toolContent={toolContent} />
+      
+      {/* Related Tools Section - Improves internal linking & SEO */}
+      <RelatedTools tools={related} locale={params.locale} />
     </>
   );
 }

@@ -1,7 +1,8 @@
 import { notFound } from 'next/navigation';
-import { getAllPosts } from '@/utils/posts';
+import { getAllPosts, getPostBySlugAndLanguage, getPostTranslations } from '@/utils/posts';
 import { marked } from 'marked';
 import Script from 'next/script';
+import Link from 'next/link';
 import styles from './post.module.css';
 import { LOCALES, type Locale } from '@/data/locales';
 import { siteUrl } from '@/utils/seo';
@@ -15,14 +16,29 @@ interface BlogPostProps {
 
 export function generateStaticParams() {
   const posts = getAllPosts();
-  return posts.flatMap((post) =>
-    LOCALES.map((locale) => ({ locale, slug: post.slug }))
-  );
+  const params: Array<{ locale: string; slug: string }> = [];
+  
+  posts.forEach((post) => {
+    // Add the post in its native language
+    params.push({ locale: post.language || 'ar', slug: post.slug });
+    
+    // If post has translations, add those too
+    if (post.translationKey) {
+      const translations = posts.filter(p => p.translationKey === post.translationKey);
+      translations.forEach((translation) => {
+        if (translation.language && translation.language !== post.language) {
+          params.push({ locale: translation.language, slug: translation.slug });
+        }
+      });
+    }
+  });
+  
+  return params;
 }
 
 export function generateMetadata({ params }: BlogPostProps) {
   const { locale, slug } = params;
-  const post = getAllPosts().find((p) => p.slug === slug);
+  const post = getPostBySlugAndLanguage(slug, locale);
   if (!post) return {};
 
   const title = post.title;
@@ -35,6 +51,16 @@ export function generateMetadata({ params }: BlogPostProps) {
   const image = postData.image || '/og/default-blog.png';
   const author = postData.author || 'Sharayeh Team';
 
+  // Get all translations for hreflang tags
+  const translations = getPostTranslations(post);
+  const languageAlternates: Record<string, string> = {};
+  
+  translations.forEach((translation) => {
+    if (translation.language) {
+      languageAlternates[translation.language] = `${siteUrl}/${translation.language}/blog/${translation.slug}`;
+    }
+  });
+
   return {
     title,
     description,
@@ -42,10 +68,7 @@ export function generateMetadata({ params }: BlogPostProps) {
     authors: [{ name: author }],
     alternates: {
       canonical,
-      languages: LOCALES.reduce((acc, loc) => {
-        acc[loc] = `${siteUrl}/${loc}/blog/${slug}`;
-        return acc;
-      }, {} as Record<string, string>),
+      languages: languageAlternates,
     },
     openGraph: {
       title,
@@ -78,11 +101,14 @@ export function generateMetadata({ params }: BlogPostProps) {
 
 export default function BlogPostPage({ params }: BlogPostProps) {
   const { locale, slug } = params;
-  const post = getAllPosts().find((p) => p.slug === slug);
+  const post = getPostBySlugAndLanguage(slug, locale);
 
   if (!post) {
     return notFound();
   }
+
+  // Get all translations for language switcher
+  const translations = getPostTranslations(post);
 
   const htmlContent = marked(post.content);
   const description = post.excerpt ?? post.content.slice(0, 160);
@@ -195,6 +221,34 @@ export default function BlogPostPage({ params }: BlogPostProps) {
               {post.title}
             </h1>
           </div>
+
+          {/* Language Switcher */}
+          {translations.length > 1 && (
+            <div className="mb-4 flex flex-wrap items-center gap-2">
+              <span className="text-sm text-muted-foreground">
+                {locale === 'ar' ? 'متوفر بـ:' : locale === 'es' ? 'Disponible en:' : 'Available in:'}
+              </span>
+              {translations.map((translation) => {
+                const lang = translation.language || 'ar';
+                const langName = lang === 'ar' ? 'العربية' : lang === 'es' ? 'Español' : 'English';
+                const isCurrent = translation.slug === post.slug && translation.language === post.language;
+                
+                return (
+                  <Link
+                    key={lang}
+                    href={`/${lang}/blog/${translation.slug}`}
+                    className={`px-3 py-1 text-sm rounded-md transition-colors ${
+                      isCurrent
+                        ? 'bg-blue-600 text-white font-semibold'
+                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    }`}
+                  >
+                    {langName}
+                  </Link>
+                );
+              })}
+            </div>
+          )}
 
           {/* Article metadata bar */}
           <div className="flex flex-wrap items-center gap-4 mb-6 text-sm text-muted-foreground">
