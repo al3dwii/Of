@@ -61,10 +61,13 @@ export function useSlidesExports(opts: {
   useEffect(() => {
     if (!jobId) return;
 
+    // Capture jobId in a const to help TypeScript narrow the type
+    const currentJobId = jobId;
+
     async function tick() {
       try {
         setLoading(true);
-        const art: Artifacts = await fetchArtifacts(base, jobId);
+        const art: Artifacts = await fetchArtifacts(base, currentJobId);
 
         setExports({
           pdf: art.exports?.pdf_url ? base + art.exports.pdf_url : undefined,

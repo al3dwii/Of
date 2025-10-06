@@ -102,11 +102,6 @@ export default function StreamConsole({ jobId, onComplete, onError, onPreviewRea
     console.log('[SSE] Connecting to:', streamUrl);
     client.connect();
     sseClientRef.current = client;
-    
-    // Give it a moment to check connection status
-    setTimeout(() => {
-      console.log('[SSE] Connection status after 100ms:', client.isConnected());
-    }, 100);
 
     // Start with initial analysis step (but only if this is a fresh start)
     // In development, React StrictMode will mount twice - we check thinkingSteps to avoid duplicates
@@ -134,7 +129,7 @@ export default function StreamConsole({ jobId, onComplete, onError, onPreviewRea
     // Cleanup function - only runs on unmount or when jobId changes
     return () => {
       console.log('[CLEANUP] Closing SSE client');
-      client.close();
+      client.disconnect();
     };
   }, [jobId]);
 

@@ -43,7 +43,7 @@ export default async function Breadcrumbs({
         </ol>
       </nav>
       <StructuredData
-        data={{
+        items={{
           '@context': 'https://schema.org',
           '@type': 'BreadcrumbList',
           itemListElement: items.map((item, i) => ({

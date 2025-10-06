@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { 
-  PresentationChart, 
+  Presentation, 
   Video, 
   Home, 
   Settings, 
@@ -20,7 +20,7 @@ const navigation = [
   { 
     name: 'Presentations', 
     href: '/presentations', 
-    icon: PresentationChart,
+    icon: Presentation,
     enabled: featureFlags.presentations 
   },
   { 
