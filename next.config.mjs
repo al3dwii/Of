@@ -3,6 +3,15 @@ const nextConfig = {
   experimental: {
     serverComponentsExternalPackages: ['@prisma/client'],
   },
+  webpack: (config, { isServer }) => {
+    // Fix module resolution issues
+    config.resolve.extensionAlias = {
+      '.js': ['.ts', '.tsx', '.js', '.jsx'],
+      '.mjs': ['.mts', '.mjs'],
+      '.cjs': ['.cts', '.cjs'],
+    }
+    return config
+  },
   headers: async () => {
     return [
       {
