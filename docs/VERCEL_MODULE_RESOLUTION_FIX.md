@@ -98,8 +98,10 @@ git ls-files | grep -E "(client\.ts|breadcrumb\.tsx|FeatureCard\.tsx)"
 ## Deployment
 
 All fixes have been pushed to `main` branch:
-- `118c97e` - ✅ **FINAL FIX**: Removed webpack extensionAlias (was causing PostCSS errors)
-- `1cef5d8` - ✅ Added jsconfig.json for runtime resolution (THIS IS THE KEY FIX)
+- `1773139` - ✅ **CRITICAL FIX**: Moved PostCSS dependencies to production (fixes Vercel build)
+- `118c97e` - ✅ Removed webpack extensionAlias (was causing PostCSS errors)
+- `1cef5d8` - ✅ Added jsconfig.json for runtime resolution
+- `ce8b025` - Updated documentation
 - `7f29676` - Added comprehensive documentation
 - `8fd233a` - Cache clearing timestamp
 - `493c786` - ~~Webpack extensionAlias~~ (removed, caused PostCSS plugin errors)
@@ -135,10 +137,32 @@ Ensure all required environment variables are set in Vercel:
 
 ## Solution Summary
 
-**The winning fix**: `jsconfig.json` with path aliases is ALL you need!
+**The winning fixes**:
+1. ✅ `jsconfig.json` with path aliases for module resolution
+2. ✅ Move PostCSS dependencies to production (not devDependencies)
+
+### Why PostCSS Dependencies Must Be in Production
+
+Vercel's build process needs `postcss`, `tailwindcss`, and `autoprefixer` at **build time**, not just dev time. When these are in `devDependencies`, pnpm doesn't install them during production builds, causing the error:
+
+```
+Error: Cannot find module 'tailwindcss'
+at loadPlugin (/vercel/path0/.../css/plugins.js:49:32)
+```
+
+### The Fix
+
+Move these to `dependencies` in `package.json`:
+```json
+"dependencies": {
+  "postcss": "^8.4.32",
+  "tailwindcss": "^3.3.6",
+  "autoprefixer": "^10.4.16"
+}
+```
 
 The webpack extensionAlias caused PostCSS plugin resolution errors, so it was removed. The jsconfig.json alone properly resolves all `@/*` imports at both build-time and runtime.
 
 ## Last Updated
 
-October 6, 2025 - Removed webpack config, jsconfig.json is the complete solution (commit 118c97e)
+October 6, 2025 - **COMPLETE SOLUTION**: jsconfig.json + PostCSS dependencies in production (commit 1773139)
