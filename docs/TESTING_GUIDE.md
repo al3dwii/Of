@@ -1,343 +1,498 @@
-# Testing Guide for Tool Pages
+# Landing Pages Testing Guide
 
-## Quick Test URLs
+## ✅ Implementation Complete
 
-The development server is running on `http://localhost:3001`
-
-### Test Each Tool Page Directly
-
-1. **Slides Tool** (PowerPoint/Presentations)
-   ```
-   http://localhost:3001/en/slides
-   http://localhost:3001/ar/slides
-   http://localhost:3001/es/slides
-   ```
-
-2. **Video Tool** (Dubbing/Video Conversion)
-   ```
-   http://localhost:3001/en/video
-   http://localhost:3001/ar/video
-   http://localhost:3001/es/video
-   ```
-
-3. **PDF Tool** (PDF Conversion)
-   ```
-   http://localhost:3001/en/pdf
-   http://localhost:3001/ar/pdf
-   http://localhost:3001/es/pdf
-   ```
-
-4. **Documents Tool** (Word/Excel Processing)
-   ```
-   http://localhost:3001/en/documents
-   http://localhost:3001/ar/documents
-   http://localhost:3001/es/documents
-   ```
-
-5. **Translation Tool**
-   ```
-   http://localhost:3001/en/translate
-   http://localhost:3001/ar/translate
-   http://localhost:3001/es/translate
-   ```
-
-6. **Web Tool** (HTML/URL Conversion)
-   ```
-   http://localhost:3001/en/web
-   http://localhost:3001/ar/web
-   http://localhost:3001/es/web
-   ```
+All 30 landing page topics (60 entries with EN/AR) have been successfully added to the codebase.
 
 ---
 
-## Test Landing Page Routing
+## Quick Test Commands
 
-### PowerPoint/Presentation Tools → `/slides`
-Test these landing pages should redirect to `/slides`:
-
-```
-http://localhost:3001/en/tools/word-to-powerpoint
-http://localhost:3001/en/tools/create-powerpoint-with-ai
-http://localhost:3001/en/tools/pdf-to-powerpoint
-http://localhost:3001/en/tools/convert-pdf-to-powerpoint-with-ai
+### Start Development Server
+```bash
+cd /Users/omair/Oold/Of
+npm run dev
 ```
 
-**Expected Flow:**
-1. Visit landing page
-2. Type prompt: "Create a presentation about AI"
-3. Click submit or example
-4. Should redirect to: `/en/slides?prompt=Create+a+presentation+about+AI&autoStart=true&tool=word-to-powerpoint`
+### Open Test URLs
 
-### Video Tools → `/video`
-```
-http://localhost:3001/en/tools/powerpoint-to-video
-http://localhost:3001/en/tools/convert-powerpoint-to-video-with-ai
-```
+#### Test New English Landing Pages
+```bash
+# AI Presentation Pages
+open http://localhost:3000/en/slides/ai-presentation-maker
+open http://localhost:3000/en/slides/ai-presentation-generator
 
-**Expected Flow:**
-1. Visit landing page
-2. Type prompt: "Convert my sales presentation to video"
-3. Should redirect to: `/en/video?prompt=...&autoStart=true&tool=powerpoint-to-video`
+# Conversion Pages
+open http://localhost:3000/en/slides/google-docs-to-presentation
+open http://localhost:3000/en/slides/notion-to-slides
 
-### PDF Tools → `/pdf`
-```
-http://localhost:3001/en/tools/powerpoint-to-pdf
-http://localhost:3001/en/tools/ppt-to-pdf
-http://localhost:3001/en/tools/export-pptx-to-pdf
-```
+# Business Pages
+open http://localhost:3000/en/slides/pitch-deck-generator
+open http://localhost:3000/en/slides/sales-proposal-presentation
+open http://localhost:3000/en/slides/marketing-plan-presentation
+open http://localhost:3000/en/slides/business-report-to-ppt
 
-**Expected Flow:**
-1. Visit landing page
-2. Type prompt: "Convert PowerPoint to PDF"
-3. Should redirect to: `/en/pdf?prompt=...&autoStart=true&tool=powerpoint-to-pdf`
+# Academic Pages
+open http://localhost:3000/en/slides/research-paper-to-presentation
+open http://localhost:3000/en/slides/academic-presentation-thesis
+open http://localhost:3000/en/slides/lesson-plan-presentation
 
-### Document Tools → `/documents`
-```
-http://localhost:3001/en/tools/word-to-arabic-slides
-http://localhost:3001/en/tools/doc-ai-formatting
-```
+# Specialized Pages
+open http://localhost:3000/en/slides/training-workshop-slides
+open http://localhost:3000/en/slides/meeting-notes-to-slides
+open http://localhost:3000/en/slides/sop-to-slides
 
-**Expected Flow:**
-1. Visit landing page
-2. Type prompt: "Format my Word document"
-3. Should redirect to: `/en/documents?prompt=...&autoStart=true&tool=doc-ai-formatting`
-
-### Translation Tools → `/translate`
-```
-http://localhost:3001/en/tools/translate-powerpoint
-http://localhost:3001/en/tools/ppt-subtitle-ar
-http://localhost:3001/en/tools/ppt-to-english
+# Tools & Features
+open http://localhost:3000/en/slides/slide-translator
+open http://localhost:3000/en/slides/bilingual-arabic-english-presentation
+open http://localhost:3000/en/slides/powerpoint-alternative
+open http://localhost:3000/en/slides/ai-presentation-templates
+open http://localhost:3000/en/slides/ai-speaker-notes
 ```
 
-**Expected Flow:**
-1. Visit landing page
-2. Type prompt: "Translate presentation to Arabic"
-3. Should redirect to: `/en/translate?prompt=...&autoStart=true&tool=translate-powerpoint`
+#### Test Arabic Landing Pages (RTL Layout)
+```bash
+# Test RTL Layout
+open http://localhost:3000/ar/slides/ai-presentation-maker
+open http://localhost:3000/ar/slides/pitch-deck-generator
+open http://localhost:3000/ar/slides/research-paper-to-presentation
+open http://localhost:3000/ar/slides/bilingual-arabic-english-presentation
 
-### Web/HTML Tools → `/web`
+# Test Arabic Text Rendering
+open http://localhost:3000/ar/slides/slide-translator
+open http://localhost:3000/ar/slides/lesson-plan-presentation
 ```
-http://localhost:3001/en/tools/convert-html-to-pptx
-http://localhost:3001/en/tools/convert-powerpoint-to-url
-http://localhost:3001/en/tools/ppt-to-html5
-```
-
-**Expected Flow:**
-1. Visit landing page
-2. Type prompt: "Convert HTML to PowerPoint"
-3. Should redirect to: `/en/web?prompt=...&autoStart=true&tool=convert-html-to-pptx`
 
 ---
 
-## Test Auto-Start Functionality
+## Testing Checklist
 
-Manually test auto-start by visiting URLs with parameters:
+### ✅ Functionality Tests
 
-### Test 1: Slides Auto-Start
-```
-http://localhost:3001/en/slides?prompt=Create%20a%20presentation%20about%20climate%20change&autoStart=true&tool=create-powerpoint-with-ai
-```
+#### For Each Landing Page:
+1. **Page Loads Successfully**
+   - [ ] No 404 errors
+   - [ ] Page renders without errors
+   - [ ] All sections visible
 
-**Expected:**
-- Page loads
-- Console shows: `[AUTO-START] Automatically submitting prompt: Create a presentation about climate change`
-- Processing should start automatically
+2. **Content Display**
+   - [ ] H1 headline displays correctly
+   - [ ] Description/pitch visible
+   - [ ] Features section (4 features)
+   - [ ] How it works section (3-4 steps)
+   - [ ] FAQ section (4 Q&As)
+   - [ ] Suggested prompts (3 examples)
+   - [ ] Related links section
 
-### Test 2: PDF Auto-Start
-```
-http://localhost:3001/en/pdf?prompt=Convert%20my%20PowerPoint%20to%20PDF&autoStart=true&tool=powerpoint-to-pdf
-```
+3. **SEO Elements**
+   - [ ] Page title in browser tab
+   - [ ] Meta description (view page source)
+   - [ ] Breadcrumbs navigation
+   - [ ] Internal links work
 
-**Expected:**
-- Page loads
-- Console shows: `[PDF TOOL] Auto-starting with prompt: Convert my PowerPoint to PDF`
-- Shows processing state
+4. **Bilingual Features**
+   - [ ] English page links to Arabic version
+   - [ ] Arabic page links to English version
+   - [ ] Language switcher works
+   - [ ] RTL layout on Arabic pages
 
-### Test 3: Translation Auto-Start
-```
-http://localhost:3001/en/translate?prompt=Translate%20to%20Arabic&autoStart=true&tool=translate-powerpoint
-```
-
-**Expected:**
-- Page loads
-- Console shows: `[TRANSLATE TOOL] Auto-starting with prompt: Translate to Arabic`
-- Shows processing state
-
----
-
-## Test Multi-Locale Support
-
-### Arabic (RTL)
-Visit each tool in Arabic:
-```
-http://localhost:3001/ar/slides
-http://localhost:3001/ar/pdf
-http://localhost:3001/ar/documents
-```
-
-**Expected:**
-- Page direction is RTL (right-to-left)
-- Arabic metadata in page title
-- Tajawal font applied
-
-### Spanish
-Visit each tool in Spanish:
-```
-http://localhost:3001/es/slides
-http://localhost:3001/es/pdf
-http://localhost:3001/es/translate
-```
-
-**Expected:**
-- Spanish metadata in page title
-- Proper locale in canonical URL
+5. **Interactive Elements**
+   - [ ] CTA buttons clickable
+   - [ ] Workbench integration works
+   - [ ] Related links navigate correctly
+   - [ ] Suggested prompts clickable
 
 ---
 
-## Test Error Handling
+## Validation Tools
 
-### Test Invalid Tool Page
+### 1. Google Rich Results Test
+Test Schema.org markup:
 ```
-http://localhost:3001/en/invalid-tool
-```
+https://search.google.com/test/rich-results
 
-**Expected:** 404 page
-
-### Test Without Auto-Start
-```
-http://localhost:3001/en/pdf?prompt=test&autoStart=false
+Test URLs:
+- http://localhost:3000/en/slides/ai-presentation-maker
+- http://localhost:3000/ar/slides/pitch-deck-generator
 ```
 
-**Expected:** 
-- Page loads
-- No automatic processing
-- Shows idle state with feature cards
+Expected schemas:
+- ✅ WebPage
+- ✅ BreadcrumbList
+- ✅ SoftwareApplication
+- ✅ HowTo
+- ✅ FAQPage
+
+### 2. Hreflang Validation
+Check `<link rel="alternate" hreflang="...">` tags in page source:
+```html
+<link rel="alternate" hreflang="en" href="http://localhost:3000/en/slides/..." />
+<link rel="alternate" hreflang="ar" href="http://localhost:3000/ar/slides/..." />
+<link rel="canonical" href="http://localhost:3000/en/slides/..." />
+```
+
+### 3. RTL Layout Test
+Arabic pages should have:
+```html
+<html dir="rtl" lang="ar">
+```
+
+Elements should flow right-to-left:
+- Text alignment
+- Breadcrumbs (arrow direction)
+- Button positions
+- Related links layout
+
+### 4. Page Speed Check
+```bash
+# Lighthouse CI (if installed)
+lighthouse http://localhost:3000/en/slides/ai-presentation-maker --view
+
+# Or use Chrome DevTools > Lighthouse
+```
+
+### 5. Accessibility Check
+- [ ] All images have alt text
+- [ ] Headings hierarchy (H1 → H2 → H3)
+- [ ] Links have descriptive text
+- [ ] Color contrast (WCAG AA)
+- [ ] Keyboard navigation works
 
 ---
 
-## Visual Testing Checklist
+## Browser Testing
 
-For each tool page, verify:
+### Desktop Browsers
+- [ ] Chrome (latest)
+- [ ] Firefox (latest)
+- [ ] Safari (latest)
+- [ ] Edge (latest)
 
-- [ ] **Header Section**
-  - Colored icon displays correctly
-  - Title and description visible
-  - PromptForm renders properly
+### Mobile Browsers
+- [ ] Safari iOS
+- [ ] Chrome Android
+- [ ] Firefox Mobile
 
-- [ ] **Idle State**
-  - 3 feature cards display
-  - Icons and text are readable
-  - Hover effects work
-
-- [ ] **Loading State**
-  - Spinner animates
-  - Loading message displays
-  - No console errors
-
-- [ ] **Error State**
-  - Red error box appears
-  - Error message is readable
-
-- [ ] **Success State**
-  - Green checkmark appears
-  - Download button displays
-  - Button is clickable
-
-- [ ] **Responsive Design**
-  - Mobile view (< 768px)
-  - Tablet view (768px - 1024px)
-  - Desktop view (> 1024px)
+### Responsive Breakpoints
+- [ ] Desktop (1920px)
+- [ ] Laptop (1440px)
+- [ ] Tablet (768px)
+- [ ] Mobile (375px)
 
 ---
 
-## Console Testing
+## SEO Testing
 
-Open browser console (F12) and verify:
-
-### Expected Logs
-```
-[AUTO-START] Automatically submitting prompt: ...
-[PDF TOOL] Auto-starting with prompt: ...
-[PDF TOOL] Processing: ...
+### 1. Check Sitemap Generation
+```bash
+open http://localhost:3000/sitemap.xml
 ```
 
-### No Errors
-- No red error messages
-- No missing module errors
-- No TypeScript type errors
-- No hydration mismatches
+Should include all landing pages:
+```xml
+<url>
+  <loc>https://yourdomain.com/en/slides/ai-presentation-maker</loc>
+  <lastmod>...</lastmod>
+</url>
+<url>
+  <loc>https://yourdomain.com/ar/slides/ai-presentation-maker</loc>
+  <lastmod>...</lastmod>
+</url>
+```
+
+### 2. Check robots.txt
+```bash
+open http://localhost:3000/robots.txt
+```
+
+Should allow indexing:
+```
+User-agent: *
+Allow: /
+
+Sitemap: https://yourdomain.com/sitemap.xml
+```
+
+### 3. Meta Tags Validation
+View page source for each landing page and verify:
+
+```html
+<!-- Title -->
+<title>AI Presentation Maker — Create Slides from a Prompt (PPTX & PDF)</title>
+
+<!-- Description -->
+<meta name="description" content="Turn any idea into a polished presentation..." />
+
+<!-- Keywords -->
+<meta name="keywords" content="ai presentation maker, ai slide generator, ..." />
+
+<!-- Open Graph -->
+<meta property="og:title" content="..." />
+<meta property="og:description" content="..." />
+<meta property="og:url" content="..." />
+<meta property="og:image" content="..." />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="..." />
+<meta name="twitter:description" content="..." />
+
+<!-- Hreflang -->
+<link rel="alternate" hreflang="en" href="..." />
+<link rel="alternate" hreflang="ar" href="..." />
+<link rel="canonical" href="..." />
+```
+
+---
+
+## Internal Linking Test
+
+### Verify Related Links Work
+Each landing page should link to 2-3 related pages.
+
+Example for AI Presentation Maker:
+- Should link to: `ai-presentation-generator`, `convert-word-to-ppt`
+- Links should be clickable and navigate correctly
+
+### Check Breadcrumbs
+```
+Home > Slides > AI Presentation Maker
+```
+
+All breadcrumb links should work.
 
 ---
 
 ## Performance Testing
 
-Use browser DevTools > Network tab:
+### Build Time Test
+```bash
+npm run build
+```
 
-1. **Initial Page Load**
-   - Should be < 2s
-   - No failed requests
-   - Proper caching headers
+Should complete without errors and generate static pages:
+```
+Route (app)                                        Size     First Load JS
+┌ ○ /[locale]/slides/[slug]                       X kB     Y kB
+│ ├ /en/slides/ai-presentation-maker
+│ ├ /en/slides/ai-presentation-generator
+│ ├ /ar/slides/ai-presentation-maker
+│ └ ...
+```
 
-2. **Auto-Start Flow**
-   - Prompt parameter parsed immediately
-   - Processing starts within 100ms
-   - No unnecessary re-renders
-
----
-
-## Browser Compatibility
-
-Test on:
-- [ ] Chrome (latest)
-- [ ] Firefox (latest)
-- [ ] Safari (latest)
-- [ ] Edge (latest)
-- [ ] Mobile Safari (iOS)
-- [ ] Chrome Mobile (Android)
+### Page Load Speed
+Target metrics:
+- [ ] First Contentful Paint < 1.5s
+- [ ] Largest Contentful Paint < 2.5s
+- [ ] Time to Interactive < 3.5s
+- [ ] Cumulative Layout Shift < 0.1
 
 ---
 
-## Accessibility Testing
+## Content Quality Check
 
-- [ ] Keyboard navigation works
-- [ ] Screen reader announces states
-- [ ] Color contrast meets WCAG AA
-- [ ] Focus indicators visible
-- [ ] Alt text on icons
+### For Each Landing Page:
 
----
+1. **Unique Content**
+   - [ ] H1 is unique (not duplicated)
+   - [ ] Description is specific to topic
+   - [ ] Features are relevant
+   - [ ] FAQs answer real questions
 
-## Quick Smoke Test Script
+2. **Keyword Optimization**
+   - [ ] Target keyword in H1
+   - [ ] Target keyword in title
+   - [ ] Target keyword in description
+   - [ ] Related keywords in content
 
-Run this sequence to verify everything works:
+3. **CTA Effectiveness**
+   - [ ] Clear value proposition
+   - [ ] Action-oriented button text
+   - [ ] Multiple CTA opportunities
+   - [ ] Workbench pre-filled prompts
 
-1. **Start Server**: `npm run dev`
-2. **Visit Homepage**: `http://localhost:3001/en`
-3. **Go to Landing**: `http://localhost:3001/en/tools/word-to-powerpoint`
-4. **Type Prompt**: "Create a business presentation"
-5. **Submit**: Click button or press Enter
-6. **Verify Redirect**: Should go to `/en/slides?prompt=...`
-7. **Check Console**: Should see `[AUTO-START]` log
-8. **Repeat** for other tool categories
-
----
-
-## Known Issues / TODOs
-
-- [ ] Backend APIs not connected (shows simulated success after 2s)
-- [ ] File upload not implemented
-- [ ] Real processing logic needed
-- [ ] Download functionality is placeholder
-- [ ] No actual file conversion happening
+4. **Arabic Translation Quality**
+   - [ ] Natural Arabic language
+   - [ ] Cultural appropriateness
+   - [ ] Technical terms accurate
+   - [ ] RTL formatting correct
 
 ---
 
-## Reporting Issues
+## Integration Testing
 
-If you find any issues, note:
-1. **URL** - Exact URL that caused the issue
-2. **Steps** - How to reproduce
-3. **Expected** - What should happen
-4. **Actual** - What actually happened
-5. **Console** - Any error messages
-6. **Browser** - Which browser and version
-7. **Locale** - Which language (en/ar/es)
+### 1. Workbench Integration
+Click "Generate Slides" button should:
+- [ ] Pre-fill prompt in workbench
+- [ ] Set correct language
+- [ ] Set appropriate slide count
+- [ ] Navigate to workbench page
+
+### 2. Suggested Prompts
+Click suggested prompt should:
+- [ ] Load workbench with prompt
+- [ ] Maintain landing page context
+- [ ] Start generation process
+
+### 3. Related Pages Navigation
+Click related page link should:
+- [ ] Navigate to correct landing page
+- [ ] Maintain locale (EN stays EN, AR stays AR)
+- [ ] Update breadcrumbs
+- [ ] Load new page content
+
+---
+
+## Error Handling
+
+### Test Error Cases:
+1. **Invalid Slug**
+   ```
+   http://localhost:3000/en/slides/non-existent-page
+   ```
+   - [ ] Shows 404 page
+   - [ ] Proper error message
+   - [ ] Navigation still works
+
+2. **Invalid Locale**
+   ```
+   http://localhost:3000/fr/slides/ai-presentation-maker
+   ```
+   - [ ] Redirects to default locale
+   - [ ] Or shows appropriate error
+
+---
+
+## Production Deployment Checklist
+
+Before deploying to production:
+
+### 1. Environment Variables
+- [ ] `NEXT_PUBLIC_SITE_URL` set correctly
+- [ ] Analytics tracking IDs configured
+- [ ] API endpoints updated
+
+### 2. SEO Configuration
+- [ ] Domain in `next.config.mjs`
+- [ ] Sitemap generation enabled
+- [ ] Robots.txt configured
+- [ ] Google Search Console setup
+
+### 3. Performance Optimization
+- [ ] Images optimized
+- [ ] Static pages pre-rendered
+- [ ] CDN configured
+- [ ] Cache headers set
+
+### 4. Analytics Setup
+- [ ] Google Analytics 4
+- [ ] Event tracking for CTAs
+- [ ] Conversion tracking
+- [ ] Search Console integration
+
+### 5. Monitoring
+- [ ] Error tracking (Sentry/similar)
+- [ ] Performance monitoring
+- [ ] Uptime monitoring
+- [ ] SEO monitoring
+
+---
+
+## Maintenance Tasks
+
+### Regular Checks
+- [ ] Weekly: Check for 404 errors in logs
+- [ ] Monthly: Review landing page performance in GA4
+- [ ] Monthly: Update landing pages based on user feedback
+- [ ] Quarterly: Refresh content for SEO
+
+### Content Updates
+When updating landing pages:
+1. Edit content in `/src/data/landings.slides.ts`
+2. Test locally with `npm run dev`
+3. Build with `npm run build`
+4. Deploy updated pages
+
+---
+
+## Common Issues & Solutions
+
+### Issue: Page Not Found (404)
+**Solution**: Check that slug matches exactly in `landings.slides.ts`
+
+### Issue: Arabic Text Not RTL
+**Solution**: Verify `dir="rtl"` in HTML and locale is "ar"
+
+### Issue: Schema Errors in Rich Results Test
+**Solution**: Validate JSON-LD structure in page source
+
+### Issue: Broken Internal Links
+**Solution**: Check related slugs match existing landing pages
+
+### Issue: Duplicate Meta Tags
+**Solution**: Ensure `generateMetadata()` is not overridden elsewhere
+
+---
+
+## Success Metrics
+
+### Track These KPIs:
+
+1. **Traffic Metrics**
+   - Organic search traffic per landing page
+   - Bounce rate
+   - Time on page
+   - Pages per session
+
+2. **Conversion Metrics**
+   - CTA click-through rate
+   - Workbench activation rate
+   - Sign-up conversion rate
+   - Trial-to-paid conversion
+
+3. **SEO Metrics**
+   - Keyword rankings
+   - Click-through rate in SERPs
+   - Impressions
+   - Average position
+
+4. **Technical Metrics**
+   - Page load time
+   - Core Web Vitals
+   - Error rate
+   - Uptime
+
+---
+
+## Support & Documentation
+
+### Key Files
+- **Data**: `/src/data/landings.slides.ts`
+- **Template**: `/src/app/[locale]/(landings)/slides/[slug]/page.tsx`
+- **Summary**: `/LANDING_PAGES_SUMMARY.md`
+- **Strategy**: `/newlanding.md`
+
+### Need Help?
+- Check TypeScript errors: `npm run type-check`
+- View build output: `npm run build`
+- Test locally: `npm run dev`
+
+---
+
+## Next Steps After Testing
+
+1. ✅ Complete all checklist items above
+2. ✅ Fix any issues found during testing
+3. ✅ Get stakeholder approval on content
+4. ✅ Deploy to staging environment
+5. ✅ Final QA on staging
+6. ✅ Deploy to production
+7. ✅ Submit sitemap to Google Search Console
+8. ✅ Monitor performance for first week
+9. ✅ Iterate based on user feedback
+
+---
+
+**Status**: Ready for testing ✅  
+**Last Updated**: Now  
+**Version**: 1.0 - All 30 landing pages implemented
