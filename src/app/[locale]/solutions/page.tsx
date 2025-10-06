@@ -3,9 +3,85 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import { dataSource } from '@/lib/data';
 import { LOCALES, type Locale } from '@/data/locales';
+import { site } from '@/data/site';
 
 import SolutionsGrid from './SolutionsGrid';
+import StructuredData from '@/components/StructuredData';
 
+// Generate static params for all supported locales
+export async function generateStaticParams() {
+  return LOCALES.map((locale) => ({ locale }));
+}
+
+// SEO metadata for solutions overview page
+export function generateMetadata({
+  params: { locale },
+}: {
+  params: { locale: Locale };
+}): Metadata {
+  const metadata = {
+    en: {
+      title: 'PowerPoint Solutions & Tools | Document Conversion Suite',
+      description:
+        'Explore our comprehensive PowerPoint solutions for office work, education, business presentations, and more. 57+ free online tools for all your document conversion needs.',
+      keywords:
+        'PowerPoint solutions, document conversion, office tools, presentation software, PDF converter, Word to PowerPoint, business tools, educational resources',
+    },
+    ar: {
+      title: 'حلول وأدوات بوربوينت | مجموعة تحويل المستندات',
+      description:
+        'اكتشف حلول بوربوينت الشاملة للعمل المكتبي والتعليم والعروض التقديمية التجارية والمزيد. أكثر من 57 أداة مجانية عبر الإنترنت لجميع احتياجات تحويل المستندات.',
+      keywords:
+        'حلول بوربوينت، تحويل المستندات، أدوات مكتبية، برامج العروض، محول PDF، وورد إلى بوربوينت، أدوات الأعمال، موارد تعليمية',
+    },
+    es: {
+      title: 'Soluciones y Herramientas de PowerPoint | Suite de Conversión',
+      description:
+        'Explora nuestras soluciones completas de PowerPoint para trabajo de oficina, educación, presentaciones empresariales y más. Más de 57 herramientas gratuitas en línea para todas tus necesidades de conversión.',
+      keywords:
+        'soluciones PowerPoint, conversión documentos, herramientas oficina, software presentaciones, convertidor PDF, Word a PowerPoint, herramientas empresariales, recursos educativos',
+    },
+  };
+
+  const current = metadata[locale] || metadata.en;
+  const canonicalUrl = `${site.baseUrl}/${locale}/solutions`;
+
+  return {
+    title: current.title,
+    description: current.description,
+    keywords: current.keywords,
+    alternates: {
+      canonical: canonicalUrl,
+      languages: {
+        en: `${site.baseUrl}/en/solutions`,
+        ar: `${site.baseUrl}/ar/solutions`,
+        es: `${site.baseUrl}/es/solutions`,
+      },
+    },
+    openGraph: {
+      title: current.title,
+      description: current.description,
+      url: canonicalUrl,
+      siteName: locale === 'ar' ? site.nameAr : site.nameEn,
+      locale: locale === 'ar' ? 'ar_SA' : locale === 'es' ? 'es_ES' : 'en_US',
+      type: 'website',
+      images: [
+        {
+          url: `${site.baseUrl}/api/og?title=${encodeURIComponent(current.title)}`,
+          width: 1200,
+          height: 630,
+          alt: current.title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: current.title,
+      description: current.description,
+      images: [`${site.baseUrl}/api/og?title=${encodeURIComponent(current.title)}`],
+    },
+  };
+}
 
 export default async function SolutionsPage({
   params: { locale },
@@ -17,15 +93,120 @@ export default async function SolutionsPage({
     await Promise.all(slugs.map((s) => dataSource.findPillar(s, locale)))
   ).filter(Boolean);           // strip nulls
 
-  return (
-    <main className="container mt-16 pt-16 min-h-screen mx-auto px-4 py-8">
-      <h1 className="mb-6 text-3xl font-bold">
-        {locale === 'ar' ? 'الحلول' : 'Solutions'}
-      </h1>
+  // Intro content for SEO
+  const introContent = {
+    en: {
+      heading: 'PowerPoint Solutions for Every Need',
+      paragraph:
+        'Transform your workflow with our comprehensive suite of PowerPoint and document conversion tools. Whether you\'re a student working on assignments, an educator creating interactive courses, or a business professional preparing presentations, we have the perfect solution for you. Explore our curated categories below to find tools tailored to your specific needs—all free, fast, and browser-based.',
+    },
+    ar: {
+      heading: 'حلول بوربوينت لكل احتياج',
+      paragraph:
+        'حوّل سير عملك مع مجموعتنا الشاملة من أدوات بوربوينت وتحويل المستندات. سواء كنت طالبًا تعمل على واجباتك، أو معلمًا ينشئ دورات تفاعلية، أو محترفًا في مجال الأعمال يحضر عروضًا تقديمية، لدينا الحل المثالي لك. استكشف فئاتنا المنسقة أدناه للعثور على الأدوات المصممة خصيصًا لاحتياجاتك—كلها مجانية وسريعة وتعمل عبر المتصفح.',
+    },
+    es: {
+      heading: 'Soluciones de PowerPoint para Cada Necesidad',
+      paragraph:
+        'Transforma tu flujo de trabajo con nuestra suite completa de herramientas de PowerPoint y conversión de documentos. Ya seas un estudiante trabajando en tareas, un educador creando cursos interactivos, o un profesional de negocios preparando presentaciones, tenemos la solución perfecta para ti. Explora nuestras categorías seleccionadas a continuación para encontrar herramientas adaptadas a tus necesidades específicas—todas gratuitas, rápidas y basadas en navegador.',
+    },
+  };
 
-      {/* now rendered purely on the client */}
-      <SolutionsGrid locale={locale} pillars={pillars as any[]} />
-    </main>
+  const content = introContent[locale] || introContent.en;
+  const isRTL = locale === 'ar';
+
+  // Metadata for structured data
+  const metadata = {
+    en: {
+      title: 'PowerPoint Solutions & Tools | Document Conversion Suite',
+      description:
+        'Explore our comprehensive PowerPoint solutions for office work, education, business presentations, and more. 57+ free online tools for all your document conversion needs.',
+    },
+    ar: {
+      title: 'حلول وأدوات بوربوينت | مجموعة تحويل المستندات',
+      description:
+        'اكتشف حلول بوربوينت الشاملة للعمل المكتبي والتعليم والعروض التقديمية التجارية والمزيد. أكثر من 57 أداة مجانية عبر الإنترنت لجميع احتياجات تحويل المستندات.',
+    },
+    es: {
+      title: 'Soluciones y Herramientas de PowerPoint | Suite de Conversión',
+      description:
+        'Explora nuestras soluciones completas de PowerPoint para trabajo de oficina, educación, presentaciones empresariales y más. Más de 57 herramientas gratuitas en línea para todas tus necesidades de conversión.',
+    },
+  };
+
+  const currentMeta = metadata[locale] || metadata.en;
+
+  // Structured data schemas
+  const breadcrumbSchema = {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: locale === 'ar' ? 'الرئيسية' : locale === 'es' ? 'Inicio' : 'Home',
+        item: `${site.baseUrl}/${locale}`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: locale === 'ar' ? 'الحلول' : locale === 'es' ? 'Soluciones' : 'Solutions',
+        item: `${site.baseUrl}/${locale}/solutions`,
+      },
+    ],
+  };
+
+  const itemListSchema = {
+    '@type': 'ItemList',
+    name: currentMeta.title,
+    description: currentMeta.description,
+    numberOfItems: pillars.length,
+    itemListElement: pillars.map((pillar: any, index: number) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: pillar.title,
+      description: pillar.description,
+      url: `${site.baseUrl}/${locale}/solutions/${pillar.slug}`,
+    })),
+  };
+
+  const webPageSchema = {
+    '@type': 'WebPage',
+    '@id': `${site.baseUrl}/${locale}/solutions#webpage`,
+    url: `${site.baseUrl}/${locale}/solutions`,
+    name: currentMeta.title,
+    description: currentMeta.description,
+    isPartOf: {
+      '@type': 'WebSite',
+      '@id': `${site.baseUrl}/#website`,
+      url: site.baseUrl,
+      name: locale === 'ar' ? site.nameAr : site.nameEn,
+    },
+    inLanguage: locale === 'ar' ? 'ar-SA' : locale === 'es' ? 'es-ES' : 'en-US',
+    breadcrumb: {
+      '@id': `${site.baseUrl}/${locale}/solutions#breadcrumb`,
+    },
+  };
+
+  return (
+    <>
+      {/* Structured Data for SEO */}
+      <StructuredData items={[breadcrumbSchema, itemListSchema, webPageSchema]} />
+
+      <main className="container mt-16 pt-16 min-h-screen mx-auto px-4 py-8" dir={isRTL ? 'rtl' : 'ltr'}>
+        {/* Page Heading */}
+        <h1 className="mb-4 text-4xl font-bold tracking-tight">
+          {content.heading}
+        </h1>
+        
+        {/* SEO Intro Paragraph */}
+        <p className="mb-12 text-lg text-muted-foreground max-w-4xl leading-relaxed">
+          {content.paragraph}
+        </p>
+
+        {/* Solutions Grid */}
+        <SolutionsGrid locale={locale} pillars={pillars as any[]} />
+      </main>
+    </>
   );
 }
 
