@@ -13,12 +13,13 @@
     "db:migrate": "./scripts/db-migrate.sh",
     "db:seed": "./scripts/db-seed.sh",
     "gen:sdk": "./scripts/gen-sdk.sh",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate || echo 'Prisma generate failed, will retry during build'"
   },
   "dependencies": {
     "@clerk/nextjs": "^4.29.0",
     "@hookform/resolvers": "^3.3.2",
-    "@prisma/client": "^5.7.1",
+    "@prisma/client": "^5.22.0",
+    "prisma": "^5.22.0",
     "@radix-ui/react-avatar": "^1.0.4",
     "@radix-ui/react-dialog": "^1.0.5",
     "@radix-ui/react-dropdown-menu": "^2.0.6",
@@ -63,7 +64,6 @@
     "openapi-typescript": "^6.7.3",
     "postcss": "^8.4.32",
     "prettier": "^3.1.1",
-    "prisma": "^5.7.1",
     "tailwindcss": "^3.3.6",
     "tsx": "^4.6.2",
     "typescript": "^5.3.3",
