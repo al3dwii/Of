@@ -9,6 +9,17 @@ export interface Post {
   slug: string;
   excerpt: string;
   content: string;
+  // Optional frontmatter fields
+  updated?: string;
+  description?: string;
+  image?: string;
+  author?: string;
+  category?: string;
+  readingTime?: string;
+  tags?: string[];
+  keywords?: string[];
+  canonical?: string;
+  language?: string;
 }
 
 export function getAllPosts(): Post[] {
@@ -28,14 +39,27 @@ export function getAllPosts(): Post[] {
       const { data, content } = matter(fileContents);
 
       return {
+        // Required fields
         title: data.title,
         date: data.date,
-        published: data.published,
+        published: data.published ?? true,
         slug: data.slug,
-        excerpt: content.slice(0, 150), // Generate an excerpt
+        excerpt: data.excerpt || data.description || content.slice(0, 160),
         content,
+        // Optional frontmatter fields
+        updated: data.updated,
+        description: data.description,
+        image: data.image,
+        author: data.author,
+        category: data.category,
+        readingTime: data.readingTime,
+        tags: data.tags,
+        keywords: data.keywords,
+        canonical: data.canonical,
+        language: data.language,
       };
-    });
+    })
+    .filter((post) => post.published); // Only return published posts
 }
 
 
