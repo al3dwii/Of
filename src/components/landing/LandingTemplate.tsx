@@ -63,7 +63,7 @@ export default function LandingTemplate({
           slug.includes('word-to-powerpoint') ||
           slug.includes('pdf-to-powerpoint') ||
           slug.includes('create-powerpoint')) {
-        return 'slides';
+        return 'agentic';
       }
       
       // PDF conversion tools -> /pdf page
@@ -87,7 +87,7 @@ export default function LandingTemplate({
       }
       
       // Default: redirect to /slides as fallback (most tools are presentation-related)
-      return 'slides';
+      return 'agentic';
     };
     
     const toolPage = getToolPage(row.slug_en);
@@ -97,25 +97,42 @@ export default function LandingTemplate({
   };
 
   return (
-    <main className="container mt-2 pt-2 min-h-screen mx-auto py-12 space-y-12">
-      <header className="text-center space-y-3">
+    <main className="container mt-2 pt-2 min-h-screen mx-auto py-6 space-y-6">
+      <header
+  className={`flex items-center gap-3 justify-center ${isAr ? "flex-row-reverse text-right" : "text-left"}`}
+  dir={isAr ? "rtl" : "ltr"}
+>
+  <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl shadow-lg">
+    <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+    </svg>
+  </div>
+
+  <h1 className="text-3xl font-bold">
+    {isAr ? row.label_ar : row.label_en}
+  </h1>
+</header>
+
+      {/* <header className="text-center space-y-3">
+         <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl mb-4 shadow-lg">
+              <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
         <h1 className="text-3xl font-bold">
           {isAr ? row.label_ar : row.label_en}
         </h1>
-      </header>
+        
+      </header> */}
 
       {/* AI Tool Generator Section */}
       <section className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl border border-blue-200 p-8 shadow-lg">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-6">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl mb-4 shadow-lg">
-              <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
-            </div>
-            <h2 className="text-3xl font-bold text-gray-900 mb-2">
+           
+            {/* <h2 className="text-3xl font-bold text-gray-900 mb-2">
               {isAr ? `استخدم الذكاء الاصطناعي: ${row.label_ar}` : `Use AI to ${row.label_en}`}
-            </h2>
+            </h2> */}
             <p className="text-gray-600 text-lg">
               {isAr 
                 ? 'صف ما تريد إنشاءه ودع الذكاء الاصطناعي يعمل من أجلك'
@@ -132,7 +149,7 @@ export default function LandingTemplate({
             />
             
             {/* Quick Examples */}
-            <div className="mt-4 pt-4 border-t border-gray-200">
+            {/* <div className="mt-4 pt-4 border-t border-gray-200">
               <p className="text-xs font-medium text-gray-600 mb-2">
                 {isAr ? 'أمثلة سريعة:' : 'Quick Examples:'}
               </p>
@@ -214,7 +231,7 @@ export default function LandingTemplate({
                   ));
                 })()}
               </div>
-            </div>
+            </div> */}
           </div>
 
           {/* Features List */}

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import type { Locale } from "@/data/locales";
-import DocumentsWorkbench from "@/app/documents/page";
+import DocumentsWorkbench from "@/app/[locale]/oldpage/documents/page";
 
 export async function generateMetadata({ params }: { params: { locale: Locale } }): Promise<Metadata> {
   const isAr = params.locale === "ar";

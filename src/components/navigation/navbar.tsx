@@ -95,26 +95,7 @@ export function Navbar() {
       descriptionAr: "الشرائح المولدة بالذكاء الاصطناعي",
       descriptionEs: "Diapositivas generadas por IA"
     },
-    { 
-      href: "slides", 
-      labelEn: "Slides", 
-      labelAr: "الشرائح",
-      labelEs: "Diapositivas",
-      icon: "📄", 
-      description: "AI-generated slides",
-      descriptionAr: "الشرائح المولدة بالذكاء الاصطناعي",
-      descriptionEs: "Diapositivas generadas por IA"
-    },
-    { 
-      href: "video", 
-      labelEn: "Video", 
-      labelAr: "الفيديو",
-      labelEs: "Video",
-      icon: "🎥", 
-      description: "Multilingual dubbing",
-      descriptionAr: "الدبلجة متعددة اللغات",
-      descriptionEs: "Doblaje multilingüe"
-    },
+  
     { 
       href: "dashboard", 
       labelEn: "Dashboard", 
@@ -145,6 +126,16 @@ export function Navbar() {
       descriptionAr: "رؤى الأداء",
       descriptionEs: "Información de rendimiento"
     },
+     {
+  href: "blog",
+  labelEn: "Blog",
+  labelAr: "المدونة",
+  labelEs: "Blog",
+  icon: "📝",
+  description: "Multilingual blog and updates",
+  descriptionAr: "مدونة متعددة اللغات وتحديثات",
+  descriptionEs: "Blog multilingüe y actualizaciones"
+},
   ];
 
   return (
@@ -207,14 +198,14 @@ export function Navbar() {
                   className={`group relative px-3 py-2 rounded-md text-sm border transition flex items-center gap-2 ${
                     active
                       ? "bg-white text-black border-white"
-                      : "border-white/10 bg-white/5 text-white hover:border-white/30"
+                      : "border-white/10 bg-white/5 text-white hover:border-yellow-300"
                   }`}
                 >
                   <span className="text-base">{item.icon}</span>
                   <span>{getLabel(item)}</span>
                   
                   {/* Tooltip */}
-                  <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-gray-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
+                  <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-yellow-300 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
                     {getDescription(item)}
                   </div>
                 </Link>
