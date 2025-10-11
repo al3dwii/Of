@@ -17,7 +17,7 @@ export const ar: Translation = {
   },
 
   brand: {
-    name: 'أولد',
+    name: 'شرايح.كوم',
     tagline: 'منصة محتوى الذكاء الاصطناعي',
   },
 

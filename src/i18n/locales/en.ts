@@ -17,7 +17,7 @@ export const en: Translation = {
   },
 
   brand: {
-    name: 'Oold',
+    name: 'Sharayeh',
     tagline: 'AI Content Platform',
   },
 

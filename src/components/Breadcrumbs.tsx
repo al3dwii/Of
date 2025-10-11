@@ -32,12 +32,25 @@ export default async function Breadcrumbs({
 
   return (
     <>
-      <nav aria-label="breadcrumb" className="text-sm mb-4">
-        <ol className="flex flex-wrap gap-1">
+      <nav aria-label="breadcrumb" className="mb-6 pt-4">
+        <ol className="flex flex-wrap items-center gap-2 px-4 text-sm">
           {items.map((item, i) => (
-            <li key={i} className="flex items-center gap-1">
-              <Link href={item.url}>{item.name}</Link>
-              {i < items.length - 1 && <span>/</span>}
+            <li key={i} className="flex items-center gap-2">
+              {i === items.length - 1 ? (
+                <span className="text-gray-900 font-semibold">
+                  {item.name}
+                </span>
+              ) : (
+                <>
+                  <Link 
+                    href={item.url}
+                    className="text-blue-600 hover:text-blue-800 hover:underline transition-colors"
+                  >
+                    {item.name}
+                  </Link>
+                  <span className="text-gray-400 select-none">/</span>
+                </>
+              )}
             </li>
           ))}
         </ol>

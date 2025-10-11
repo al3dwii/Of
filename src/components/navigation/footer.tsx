@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useMemo } from 'react'
 import { useTranslation } from '@/i18n/useTranslation'
+import Image from 'next/image';
 
 interface FooterSection {
   title: string
@@ -84,9 +85,17 @@ export function Footer() {
           {/* Brand Section */}
           <div className="lg:col-span-1">
             <div className="flex items-center space-x-3 mb-4">
-              <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
+               <div className="relative h-10 w-10 animate-spin">
+                          <Image
+                            fill
+                            alt="Logo"
+                            src="/logo.png"
+                            sizes="(max-width: 768px) 100vw, 50vw"
+                          />
+                        </div>
+              {/* <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-sm">A</span>
-              </div>
+              </div> */}
               <div>
                 <h3 className="text-lg font-bold text-gray-900">{t.brand.name}</h3>
                 <p className="text-xs text-gray-500">{t.footer.brand.tagline}</p>
