@@ -68,13 +68,13 @@ const mockRecentProjects: Array<{
   },
   {
     id: 2,
-    title: 'Marketing Video Arabic Dub',
-    type: 'video',
+    title: 'Product Catalog Presentation',
+    type: 'slides',
     status: 'processing',
     createdAt: '5 hours ago',
-    duration: '2:34',
+    slides: 15,
     progress: 67,
-    icon: Video,
+    icon: Presentation,
     color: 'purple'
   },
   {
@@ -90,12 +90,13 @@ const mockRecentProjects: Array<{
   },
   {
     id: 4,
-    title: 'Website Translation (ES→AR)',
-    type: 'translate',
+    title: 'Training Materials Presentation',
+    type: 'slides',
     status: 'completed',
     createdAt: '2 days ago',
-    words: 3456,
-    icon: Languages,
+    slides: 20,
+    views: 34,
+    icon: Presentation,
     color: 'green'
   },
   {
@@ -124,10 +125,10 @@ const mockRecentProjects: Array<{
 // Mock activity data
 const mockActivity = [
   { action: 'Created presentation', project: 'Q4 Sales Report', time: '2 hours ago', icon: Plus },
-  { action: 'Shared video', project: 'Marketing Video', time: '4 hours ago', icon: Share2 },
-  { action: 'Downloaded PDF', project: 'Annual Report', time: '1 day ago', icon: Download },
+  { action: 'Converted document', project: 'Product Catalog', time: '4 hours ago', icon: FileText },
+  { action: 'Downloaded presentation', project: 'Annual Report', time: '1 day ago', icon: Download },
   { action: 'Edited slides', project: 'Product Demo', time: '2 days ago', icon: Edit },
-  { action: 'Completed translation', project: 'Website Content', time: '2 days ago', icon: CheckCircle }
+  { action: 'Generated presentation', project: 'Training Materials', time: '2 days ago', icon: CheckCircle }
 ]
 
 // Mock usage data
@@ -145,7 +146,6 @@ const mockUsage = {
 export default function DashboardPage() {
   const [stats, setStats] = useState({
     presentations: 0,
-    dubbing: 0,
     apiConnected: false
   })
   const [activeTab, setActiveTab] = useState<'overview' | 'projects' | 'activity'>('overview')
@@ -186,18 +186,11 @@ export default function DashboardPage() {
         if (presentations.success) {
           setStats(prev => ({ ...prev, presentations: presentations.data.length }))
         }
-        
-        // Try to load dubbing projects
-        const dubbing = await apiClient.getDubbingProjects()
-        if (dubbing.success) {
-          setStats(prev => ({ ...prev, dubbing: dubbing.data.length }))
-        }
       } catch (error) {
         console.log('Backend not available, using mock data')
         // Use mock data when backend is not available
         setStats({
-          presentations: 18,
-          dubbing: 6,
+          presentations: 24,
           apiConnected: false
         })
       }
@@ -258,7 +251,7 @@ export default function DashboardPage() {
               <span>+12%</span>
             </div>
           </div>
-          <h3 className="text-2xl font-bold">{stats.presentations + stats.dubbing}</h3>
+          <h3 className="text-2xl font-bold">{stats.presentations}</h3>
           <p className="text-blue-100 text-sm mt-1">Total Projects</p>
         </div>
 
@@ -277,19 +270,19 @@ export default function DashboardPage() {
           <p className="text-gray-500 text-sm mt-1">Presentations</p>
         </div>
 
-        {/* Videos */}
+        {/* Documents Converted */}
         <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
           <div className="flex items-center justify-between mb-4">
             <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-              <Video className="w-6 h-6 text-purple-600" />
+              <FileText className="w-6 h-6 text-purple-600" />
             </div>
             <div className="flex items-center gap-1 text-xs text-purple-600 bg-purple-50 px-2 py-1 rounded-full">
               <TrendingUp className="w-3 h-3" />
-              <span>+16%</span>
+              <span>+32%</span>
             </div>
           </div>
-          <h3 className="text-2xl font-bold text-gray-900">{stats.dubbing}</h3>
-          <p className="text-gray-500 text-sm mt-1">Videos Dubbed</p>
+          <h3 className="text-2xl font-bold text-gray-900">156</h3>
+          <p className="text-gray-500 text-sm mt-1">Documents Converted</p>
         </div>
 
         {/* AI Credits */}
@@ -384,45 +377,45 @@ export default function DashboardPage() {
                 </Link>
 
                 <Link
-                  href="/en/video"
+                  href="/en/slides"
                   className="group p-4 rounded-lg border-2 border-gray-200 hover:border-purple-300 hover:bg-purple-50 transition-all"
                 >
                   <div className="flex items-center justify-between mb-3">
                     <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
-                      <Video className="w-5 h-5 text-purple-600" />
+                      <FileText className="w-5 h-5 text-purple-600" />
                     </div>
                     <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-purple-600 transition-colors" />
                   </div>
-                  <h3 className="font-semibold text-gray-900 mb-1">Video Dubbing</h3>
-                  <p className="text-sm text-gray-600">AI voice translation</p>
+                  <h3 className="font-semibold text-gray-900 mb-1">Document to Slides</h3>
+                  <p className="text-sm text-gray-600">Convert Word, PDF to presentations</p>
                 </Link>
 
                 <Link
-                  href="/en/pdf"
+                  href="/en/slides"
                   className="group p-4 rounded-lg border-2 border-gray-200 hover:border-red-300 hover:bg-red-50 transition-all"
                 >
                   <div className="flex items-center justify-between mb-3">
                     <div className="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
-                      <FileText className="w-5 h-5 text-red-600" />
+                      <Sparkles className="w-5 h-5 text-red-600" />
                     </div>
                     <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-red-600 transition-colors" />
                   </div>
-                  <h3 className="font-semibold text-gray-900 mb-1">PDF Converter</h3>
-                  <p className="text-sm text-gray-600">Convert documents</p>
+                  <h3 className="font-semibold text-gray-900 mb-1">AI Designer</h3>
+                  <p className="text-sm text-gray-600">Smart layout & themes</p>
                 </Link>
 
                 <Link
-                  href="/en/translate"
+                  href="/en/slides"
                   className="group p-4 rounded-lg border-2 border-gray-200 hover:border-green-300 hover:bg-green-50 transition-all"
                 >
                   <div className="flex items-center justify-between mb-3">
                     <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
-                      <Languages className="w-5 h-5 text-green-600" />
+                      <Globe className="w-5 h-5 text-green-600" />
                     </div>
                     <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-green-600 transition-colors" />
                   </div>
-                  <h3 className="font-semibold text-gray-900 mb-1">Translation</h3>
-                  <p className="text-sm text-gray-600">Multi-language support</p>
+                  <h3 className="font-semibold text-gray-900 mb-1">Templates</h3>
+                  <p className="text-sm text-gray-600">Professional templates library</p>
                 </Link>
               </div>
             </div>
@@ -554,9 +547,8 @@ export default function DashboardPage() {
                 <select className="px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                   <option>All Types</option>
                   <option>Presentations</option>
-                  <option>Videos</option>
                   <option>Documents</option>
-                  <option>Translations</option>
+                  <option>Templates</option>
                 </select>
                 <select className="px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                   <option>All Status</option>

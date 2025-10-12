@@ -4,7 +4,7 @@ export interface Translation {
   nav: {
     home: string
     slides: string
-    video: string
+    tools: string
     dashboard: string
     presentations: string
     analytics: string
@@ -28,7 +28,7 @@ export interface Translation {
       title: string
       subtitle: string
       ctaSlides: string
-      ctaVideo: string
+      ctaConvert: string
     }
     features: {
       title: string
@@ -36,7 +36,7 @@ export interface Translation {
         title: string
         description: string
       }
-      video: {
+      conversion: {
         title: string
         description: string
       }
@@ -64,7 +64,7 @@ export interface Translation {
     recentProjects: string
     quickActions: string
     createPresentation: string
-    uploadVideo: string
+    convertDocument: string
     viewAnalytics: string
     settings: string
   }
@@ -95,13 +95,11 @@ export interface Translation {
       title: string
       dashboard: string
       presentations: string
-      dubbing: string
       analytics: string
     }
     tools: {
       title: string
       createPresentation: string
-      uploadVideo: string
       apiDocs: string
       settings: string
     }
@@ -146,7 +144,7 @@ export interface Translation {
   // Descriptions
   descriptions: {
     aiGeneratedSlides: string
-    multilingualDubbing: string
+    documentConversion: string
     overviewAndStats: string
     managePresentations: string
     performanceInsights: string

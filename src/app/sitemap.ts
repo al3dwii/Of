@@ -2,7 +2,6 @@
 import type { MetadataRoute } from "next";
 import { LOCALES } from "@/data/locales";
 import { slidesLandings } from "@/data/landings.slides";
-import { videoLandings } from "@/data/landings.video";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://example.com";
@@ -22,12 +21,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // Main tool pages - very high priority
     items.push({ 
       url: `${base}/${l}/slides`, 
-      lastModified: now,
-      changeFrequency: "daily", 
-      priority: 0.9 
-    });
-    items.push({ 
-      url: `${base}/${l}/video`, 
       lastModified: now,
       changeFrequency: "daily", 
       priority: 0.9 
@@ -96,16 +89,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   for (const n of slidesLandings) {
     items.push({
       url: `${base}/${n.locale}/slides/${encodeURIComponent(n.slug)}`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.85,
-    });
-  }
-
-  // Video landing pages - high priority
-  for (const n of videoLandings) {
-    items.push({
-      url: `${base}/${n.locale}/video/${encodeURIComponent(n.slug)}`,
       lastModified: now,
       changeFrequency: "weekly",
       priority: 0.85,

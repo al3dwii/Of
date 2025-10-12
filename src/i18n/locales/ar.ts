@@ -4,7 +4,7 @@ export const ar: Translation = {
   nav: {
     home: 'الرئيسية',
     slides: 'الشرائح',
-    video: 'الفيديو',
+    tools: 'الأدوات',
     dashboard: 'لوحة التحكم',
     presentations: 'العروض التقديمية',
     analytics: 'التحليلات',
@@ -23,10 +23,10 @@ export const ar: Translation = {
 
   home: {
     hero: {
-      title: 'أنشئ الشرائح والفيديوهات بالذكاء الاصطناعي',
-      subtitle: 'ارفع مستندًا أو الصق موضوعًا. سنحوله إلى محتوى نظيف وذو علامة تجارية—بسرعة.',
-      ctaSlides: 'افتح منصة الشرائح',
-      ctaVideo: 'افتح منصة الفيديو',
+      title: 'أنشئ عروض تقديمية بالذكاء الاصطناعي',
+      subtitle: 'ارفع مستندًا أو الصق موضوعًا. سنحوله إلى شرائح احترافية—بسرعة.',
+      ctaSlides: 'إنشاء عرض تقديمي',
+      ctaConvert: 'تحويل مستند',
     },
     features: {
       title: 'ميزات قوية',
@@ -34,9 +34,9 @@ export const ar: Translation = {
         title: 'شرائح مدعومة بالذكاء الاصطناعي',
         description: 'أنشئ عروضًا تقديمية احترافية من أي مستند أو موضوع في ثوانٍ.',
       },
-      video: {
-        title: 'دبلجة متعددة اللغات',
-        description: 'دبلج فيديوهاتك إلى لغات متعددة بأصوات ذكاء اصطناعي طبيعية.',
+      conversion: {
+        title: 'تحويل المستندات',
+        description: 'حوّل Word وPDF وExcel والصور إلى عروض PowerPoint تقديمية فوراً.',
       },
       analytics: {
         title: 'تحليلات الأداء',
@@ -61,7 +61,7 @@ export const ar: Translation = {
     recentProjects: 'المشاريع الأخيرة',
     quickActions: 'إجراءات سريعة',
     createPresentation: 'إنشاء عرض تقديمي',
-    uploadVideo: 'رفع فيديو',
+    convertDocument: 'تحويل مستند',
     viewAnalytics: 'عرض التحليلات',
     settings: 'الإعدادات',
   },
@@ -90,13 +90,11 @@ export const ar: Translation = {
       title: 'المنصة',
       dashboard: 'لوحة التحكم',
       presentations: 'العروض التقديمية',
-      dubbing: 'دبلجة الفيديو',
       analytics: 'التحليلات',
     },
     tools: {
       title: 'الأدوات',
       createPresentation: 'إنشاء عرض تقديمي',
-      uploadVideo: 'رفع فيديو',
       apiDocs: 'مستندات API',
       settings: 'الإعدادات',
     },
@@ -121,14 +119,14 @@ export const ar: Translation = {
       linkedin: 'لينكد إن',
     },
     brand: {
-      tagline: 'منصة المحتوى بالذكاء الاصطناعي',
-      description: 'أنشئ العروض التقديمية ودبلج الفيديوهات بقوة الذكاء الاصطناعي. حوّل سير عمل المحتوى الخاص بك.',
+      tagline: 'منصة العروض التقديمية بالذكاء الاصطناعي',
+      description: 'أنشئ عروض تقديمية احترافية بالذكاء الاصطناعي. حوّل المستندات إلى شرائح فوراً.',
     },
     readyToStart: {
       title: 'هل أنت مستعد للبدء؟',
-      subtitle: 'أنشئ أول محتوى لك مدعوم بالذكاء الاصطناعي اليوم.',
+      subtitle: 'أنشئ أول عرض تقديمي لك بالذكاء الاصطناعي اليوم.',
       createButton: 'إنشاء عرض تقديمي',
-      uploadButton: 'رفع فيديو',
+      uploadButton: 'تحويل مستند',
     },
     bottom: {
       allRightsReserved: 'جميع الحقوق محفوظة',
@@ -140,7 +138,7 @@ export const ar: Translation = {
 
   descriptions: {
     aiGeneratedSlides: 'الشرائح المولدة بالذكاء الاصطناعي',
-    multilingualDubbing: 'الدبلجة متعددة اللغات',
+    documentConversion: 'تحويل المستندات إلى عروض تقديمية',
     overviewAndStats: 'نظرة عامة وإحصائيات',
     managePresentations: 'إدارة العروض التقديمية',
     performanceInsights: 'رؤى الأداء',

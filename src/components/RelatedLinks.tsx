@@ -1,7 +1,6 @@
 // src/components/RelatedLinks.tsx
 import Link from "next/link";
 import { slidesLandings } from "@/data/landings.slides";
-import { videoLandings } from "@/data/landings.video";
 import type { Locale } from "@/data/locales";
 
 function findBySlugOrAlt(
@@ -27,8 +26,6 @@ export default function RelatedLinks({
     .map((s) => {
       const slide = findBySlugOrAlt(slidesLandings as any, locale, s);
       if (slide) return { href: `/${locale}/slides/${encodeURIComponent(slide.slug)}`, text: slide.h1 };
-      const video = findBySlugOrAlt(videoLandings as any, locale, s);
-      if (video) return { href: `/${locale}/video/${encodeURIComponent(video.slug)}`, text: video.h1 };
       return null;
     })
     .filter(Boolean) as { href: string; text: string }[];

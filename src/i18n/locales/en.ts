@@ -4,7 +4,7 @@ export const en: Translation = {
   nav: {
     home: 'Home',
     slides: 'Slides',
-    video: 'Video',
+    tools: 'Tools',
     dashboard: 'Dashboard',
     presentations: 'Presentations',
     analytics: 'Analytics',
@@ -23,10 +23,10 @@ export const en: Translation = {
 
   home: {
     hero: {
-      title: 'Create slides & videos with AI',
-      subtitle: 'Upload a document or paste a topic. We turn it into clean, branded content—fast.',
-      ctaSlides: 'Open Slides Workbench',
-      ctaVideo: 'Open Video Workbench',
+      title: 'Create presentations with AI',
+      subtitle: 'Upload a document or paste a topic. We turn it into professional slides—fast.',
+      ctaSlides: 'Create Presentation',
+      ctaConvert: 'Convert Document',
     },
     features: {
       title: 'Powerful Features',
@@ -34,9 +34,9 @@ export const en: Translation = {
         title: 'AI-Powered Slides',
         description: 'Generate professional presentations from any document or topic in seconds.',
       },
-      video: {
-        title: 'Multilingual Dubbing',
-        description: 'Dub your videos into multiple languages with natural-sounding AI voices.',
+      conversion: {
+        title: 'Document Conversion',
+        description: 'Convert Word, PDF, Excel, and images to PowerPoint presentations instantly.',
       },
       analytics: {
         title: 'Performance Analytics',
@@ -61,7 +61,7 @@ export const en: Translation = {
     recentProjects: 'Recent Projects',
     quickActions: 'Quick Actions',
     createPresentation: 'Create Presentation',
-    uploadVideo: 'Upload Video',
+    convertDocument: 'Convert Document',
     viewAnalytics: 'View Analytics',
     settings: 'Settings',
   },
@@ -90,13 +90,11 @@ export const en: Translation = {
       title: 'Platform',
       dashboard: 'Dashboard',
       presentations: 'Presentations',
-      dubbing: 'Video Dubbing',
       analytics: 'Analytics',
     },
     tools: {
       title: 'Tools',
       createPresentation: 'Create Presentation',
-      uploadVideo: 'Upload Video',
       apiDocs: 'API Documentation',
       settings: 'Settings',
     },
@@ -121,14 +119,14 @@ export const en: Translation = {
       linkedin: 'LinkedIn',
     },
     brand: {
-      tagline: 'AI Content Platform',
-      description: 'Create presentations and dub videos with the power of AI. Transform your content workflow.',
+      tagline: 'AI Presentation Platform',
+      description: 'Create professional presentations with AI. Transform documents into slides instantly.',
     },
     readyToStart: {
       title: 'Ready to get started?',
-      subtitle: 'Create your first AI-powered content today.',
+      subtitle: 'Create your first AI-powered presentation today.',
       createButton: 'Create Presentation',
-      uploadButton: 'Upload Video',
+      uploadButton: 'Convert Document',
     },
     bottom: {
       allRightsReserved: 'All rights reserved',
@@ -140,7 +138,7 @@ export const en: Translation = {
 
   descriptions: {
     aiGeneratedSlides: 'AI-generated slides',
-    multilingualDubbing: 'Multilingual dubbing',
+    documentConversion: 'Document to presentation conversion',
     overviewAndStats: 'Overview and stats',
     managePresentations: 'Manage presentations',
     performanceInsights: 'Performance insights',

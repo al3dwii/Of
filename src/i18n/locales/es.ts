@@ -4,10 +4,10 @@ export const es: Translation = {
   nav: {
     home: 'Inicio',
     slides: 'Diapositivas',
-    video: 'Video',
+    tools: 'Herramientas',
     dashboard: 'Panel',
     presentations: 'Presentaciones',
-    analytics: 'Analíticas',
+    analytics: 'Análisis',
     search: 'Buscar',
     notifications: 'Notificaciones',
     openMenu: 'Abrir menú',
@@ -23,10 +23,10 @@ export const es: Translation = {
 
   home: {
     hero: {
-      title: 'Crea diapositivas y videos con IA',
-      subtitle: 'Sube un documento o pega un tema. Lo convertimos en contenido limpio y con marca—rápido.',
-      ctaSlides: 'Abrir Espacio de Diapositivas',
-      ctaVideo: 'Abrir Espacio de Video',
+      title: 'Crea presentaciones con IA',
+      subtitle: 'Sube un documento o pega un tema. Lo convertimos en diapositivas profesionales—rápido.',
+      ctaSlides: 'Crear Presentación',
+      ctaConvert: 'Convertir Documento',
     },
     features: {
       title: 'Características Potentes',
@@ -34,9 +34,9 @@ export const es: Translation = {
         title: 'Diapositivas con IA',
         description: 'Genera presentaciones profesionales desde cualquier documento o tema en segundos.',
       },
-      video: {
-        title: 'Doblaje Multilingüe',
-        description: 'Dobla tus videos a múltiples idiomas con voces de IA de sonido natural.',
+      conversion: {
+        title: 'Conversión de Documentos',
+        description: 'Convierte Word, PDF, Excel e imágenes a presentaciones de PowerPoint al instante.',
       },
       analytics: {
         title: 'Analíticas de Rendimiento',
@@ -61,7 +61,7 @@ export const es: Translation = {
     recentProjects: 'Proyectos Recientes',
     quickActions: 'Acciones Rápidas',
     createPresentation: 'Crear Presentación',
-    uploadVideo: 'Subir Video',
+    convertDocument: 'Convertir Documento',
     viewAnalytics: 'Ver Analíticas',
     settings: 'Configuración',
   },
@@ -90,13 +90,11 @@ export const es: Translation = {
       title: 'Plataforma',
       dashboard: 'Panel',
       presentations: 'Presentaciones',
-      dubbing: 'Doblaje de Video',
       analytics: 'Analíticas',
     },
     tools: {
       title: 'Herramientas',
       createPresentation: 'Crear Presentación',
-      uploadVideo: 'Subir Video',
       apiDocs: 'Documentación API',
       settings: 'Configuración',
     },
@@ -121,14 +119,14 @@ export const es: Translation = {
       linkedin: 'LinkedIn',
     },
     brand: {
-      tagline: 'Plataforma de Contenido IA',
-      description: 'Crea presentaciones y dobla videos con el poder de la IA. Transforma tu flujo de trabajo de contenido.',
+      tagline: 'Plataforma de Presentaciones IA',
+      description: 'Crea presentaciones profesionales con IA. Transforma documentos en diapositivas al instante.',
     },
     readyToStart: {
       title: '¿Listo para comenzar?',
-      subtitle: 'Crea tu primer contenido impulsado por IA hoy.',
+      subtitle: 'Crea tu primera presentación con IA hoy.',
       createButton: 'Crear Presentación',
-      uploadButton: 'Subir Video',
+      uploadButton: 'Convertir Documento',
     },
     bottom: {
       allRightsReserved: 'Todos los derechos reservados',
@@ -140,7 +138,7 @@ export const es: Translation = {
 
   descriptions: {
     aiGeneratedSlides: 'Diapositivas generadas por IA',
-    multilingualDubbing: 'Doblaje multilingüe',
+    documentConversion: 'Conversión de documentos a presentaciones',
     overviewAndStats: 'Resumen y estadísticas',
     managePresentations: 'Administrar presentaciones',
     performanceInsights: 'Información de rendimiento',

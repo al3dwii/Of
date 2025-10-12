@@ -23,9 +23,9 @@ export default function AnalyticsPage() {
         </div>
         
         <div className="bg-white p-6 rounded-lg border border-gray-200">
-          <h3 className="text-sm font-medium text-gray-500">Videos Dubbed</h3>
-          <p className="text-2xl font-bold text-gray-900 mt-1">23</p>
-          <p className="text-sm text-blue-600 mt-1">+15% from last month</p>
+          <h3 className="text-sm font-medium text-gray-500">Documents Converted</h3>
+          <p className="text-2xl font-bold text-gray-900 mt-1">156</p>
+          <p className="text-sm text-blue-600 mt-1">+24% from last month</p>
         </div>
         
         <div className="bg-white p-6 rounded-lg border border-gray-200">
@@ -109,11 +109,11 @@ export default function AnalyticsPage() {
             </div>
             <div className="flex items-center space-x-4">
               <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
-                <span className="text-purple-600 text-sm">🎥</span>
+                <span className="text-purple-600 text-sm">📑</span>
               </div>
               <div className="flex-1">
-                <p className="text-sm font-medium text-gray-900">Video dubbing completed</p>
-                <p className="text-xs text-gray-500">Product Demo • 5 hours ago</p>
+                <p className="text-sm font-medium text-gray-900">Document converted to presentation</p>
+                <p className="text-xs text-gray-500">Product Catalog • 5 hours ago</p>
               </div>
             </div>
             <div className="flex items-center space-x-4">
