@@ -79,6 +79,9 @@ export async function generateMetadata({
     title,
     description,
     keywords,
+    authors: [{ name: 'Sharayeh Team' }],
+    creator: 'Sharayeh Team',
+    publisher: 'Sharayeh',
     alternates: {
       canonical,
       languages: {
@@ -104,6 +107,14 @@ export async function generateMetadata({
       follow: true,
     },
     viewport: 'width=device-width,initial-scale=1',
+    other: {
+      // AI-specific meta tags for better attribution
+      'article:author': 'Sharayeh Team',
+      'article:publisher': 'Sharayeh',
+      'citation_author': 'Sharayeh Team',
+      'DC.creator': 'Sharayeh Team',
+      'DC.publisher': 'Sharayeh',
+    },
   };
 }
 
@@ -163,10 +174,77 @@ export default async function Page({ params }: { params: PageParams }) {
     ],
   };
 
+  const isAr = params.locale === 'ar';
+  const [fromExt, toExt] = row.dir.split('→');
+
+  // HowTo Schema - AI-optimized step-by-step guide
+  const howToSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: isAr ? `كيفية ${row.label_ar}` : `How to ${row.label_en}`,
+    description: isAr 
+      ? `دليل خطوة بخطوة لـ ${row.label_ar} - أداة مجانية عبر الإنترنت`
+      : `Step-by-step guide to ${row.label_en} - free online tool`,
+    totalTime: row.avg_time_iso,
+    tool: {
+      '@type': 'HowToTool',
+      name: 'Sharayeh',
+    },
+    supply: {
+      '@type': 'HowToSupply',
+      name: isAr ? `ملف ${fromExt}` : `${fromExt} file`,
+    },
+    step: (isAr ? row.steps.ar : row.steps.en).map((step, i) => ({
+      '@type': 'HowToStep',
+      position: i + 1,
+      name: `${isAr ? 'الخطوة' : 'Step'} ${i + 1}`,
+      text: step,
+      url: `${siteUrl}/${params.locale}/tools/${row.slug_en}#step-${i + 1}`,
+    })),
+    estimatedCost: {
+      '@type': 'MonetaryAmount',
+      currency: 'USD',
+      value: '0',
+    },
+    inLanguage: isAr ? 'ar' : 'en',
+  };
+
+  // Author/Organization Schema - E-E-A-T signals
+  const authorSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Sharayeh',
+    url: siteUrl,
+    logo: {
+      '@type': 'ImageObject',
+      url: `${siteUrl}/logo.png`,
+    },
+    author: {
+      '@type': 'Organization',
+      name: 'Sharayeh Team',
+      description: isAr
+        ? 'فريق متخصص في تطوير أدوات الذكاء الاصطناعي وتحويل المستندات متعددة اللغات'
+        : 'Expert team specializing in AI-powered tools and multilingual document conversion',
+    },
+    knowsAbout: [
+      'AI-powered document conversion',
+      'Presentation generation',
+      'Multilingual support',
+      'File format transformation',
+      `${fromExt} to ${toExt} conversion`,
+    ],
+    expertise: isAr 
+      ? ['أدوات الذكاء الاصطناعي', 'تحويل المستندات', 'الدعم متعدد اللغات']
+      : ['AI Tools', 'Document Conversion', 'Multilingual Support'],
+    areaServed: 'Worldwide',
+  };
+
   return (
     <>
       <StructuredData items={softwareJsonLd} />
       <StructuredData items={breadcrumbJsonLd} />
+      <StructuredData items={howToSchema} />
+      <StructuredData items={authorSchema} />
       <Breadcrumbs locale={params.locale} slug={params.slug} />
       
       <LandingTemplate locale={params.locale} row={row} related={related} toolContent={toolContent} />
