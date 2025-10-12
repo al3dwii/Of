@@ -130,5 +130,677 @@
       "Step 2",
       "Step 3"
     ]
+  },
+  "pdf_to_slides_ai": {
+    "ar": [
+      "ارفع ملف PDF الخاص بك",
+      "انتظر بينما يحلل الذكاء الاصطناعي المحتوى",
+      "احصل على شرائح احترافية جاهزة للتعديل"
+    ],
+    "en": [
+      "Upload your PDF file",
+      "Wait while AI analyzes the content",
+      "Get professional slides ready to edit"
+    ]
+  },
+  "markdown_to_slides": {
+    "ar": [
+      "ارفع ملف Markdown أو الصق محتواه",
+      "اضغط «حوِّل إلى شرائح»",
+      "نزّل عرض تقديمي منسق تلقائيًا"
+    ],
+    "en": [
+      "Upload Markdown file or paste content",
+      "Click \"Convert to Slides\"",
+      "Download auto-formatted presentation"
+    ]
+  },
+  "doc_to_slides": {
+    "ar": [
+      "ارفع مستند Word الخاص بك",
+      "اضغط «حوِّل إلى شرائح» وانتظر ثوانٍ",
+      "احصل على عرض تقديمي كامل"
+    ],
+    "en": [
+      "Upload your Word document",
+      "Click \"Convert to Slides\" and wait seconds",
+      "Get a complete presentation"
+    ]
+  },
+  "document_to_slides": {
+    "ar": [
+      "ارفع أي مستند (Word, PDF, Google Doc)",
+      "دع الذكاء الاصطناعي يحلل ويُنشئ الشرائح",
+      "نزّل أو شارك عرضك التقديمي"
+    ],
+    "en": [
+      "Upload any document (Word, PDF, Google Doc)",
+      "Let AI analyze and create slides",
+      "Download or share your presentation"
+    ]
+  },
+  "ai_slide_generator": {
+    "ar": [
+      "اكتب موضوع العرض التقديمي",
+      "اضغط «أنشئ بالذكاء الاصطناعي» وانتظر لحظات",
+      "احصل على شرائح كاملة مع تصميم احترافي"
+    ],
+    "en": [
+      "Enter your presentation topic",
+      "Click \"Generate with AI\" and wait moments",
+      "Get complete slides with professional design"
+    ]
+  },
+  "text_to_slides_ai": {
+    "ar": [
+      "الصق النص أو اكتب محتواك",
+      "دع الذكاء الاصطناعي ينظم ويُنسق الشرائح",
+      "نزّل عرضك التقديمي الجاهز"
+    ],
+    "en": [
+      "Paste text or write your content",
+      "Let AI organize and format slides",
+      "Download your ready presentation"
+    ]
+  },
+  "text_to_slides": {
+    "ar": [
+      "الصق نصك في المربع",
+      "اضغط «حوِّل إلى شرائح»",
+      "احصل على عرض تقديمي منسق"
+    ],
+    "en": [
+      "Paste your text in the box",
+      "Click \"Convert to Slides\"",
+      "Get a formatted presentation"
+    ]
+  },
+  "ai_make_slides": {
+    "ar": [
+      "اختر موضوعك أو الصق محتواك",
+      "حدد نمط التصميم المفضل",
+      "احصل على شرائح مُنشأة تلقائيًا"
+    ],
+    "en": [
+      "Choose your topic or paste content",
+      "Select preferred design style",
+      "Get auto-generated slides"
+    ]
+  },
+  "slides_to_notes": {
+    "ar": [
+      "ارفع ملف PowerPoint الخاص بك",
+      "اضغط «استخرج الملاحظات»",
+      "احصل على مستند Word منظم"
+    ],
+    "en": [
+      "Upload your PowerPoint file",
+      "Click \"Extract Notes\"",
+      "Get an organized Word document"
+    ]
+  },
+  "ai_slide_generator_main": {
+    "ar": [
+      "اكتب موضوعك أو فكرتك",
+      "اختر قالب التصميم (اختياري)",
+      "احصل على عرض تقديمي كامل في دقائق"
+    ],
+    "en": [
+      "Write your topic or idea",
+      "Choose design template (optional)",
+      "Get complete presentation in minutes"
+    ]
+  },
+  "pdf_to_slides_main": {
+    "ar": [
+      "ارفع ملف PDF",
+      "اضغط «حوِّل إلى شرائح»",
+      "نزّل عرض PowerPoint قابل للتعديل"
+    ],
+    "en": [
+      "Upload PDF file",
+      "Click \"Convert to Slides\"",
+      "Download editable PowerPoint"
+    ]
+  },
+  "pdf_to_google_slides": {
+    "ar": [
+      "ارفع ملف PDF الخاص بك",
+      "اختر «تحويل إلى Google Slides»",
+      "افتح في Google Drive مباشرة"
+    ],
+    "en": [
+      "Upload your PDF file",
+      "Choose \"Convert to Google Slides\"",
+      "Open directly in Google Drive"
+    ]
+  },
+  "text_to_presentation": {
+    "ar": [
+      "الصق نصك أو اكتبه",
+      "اضغط «أنشئ عرض تقديمي»",
+      "احصل على شرائح منظمة تلقائيًا"
+    ],
+    "en": [
+      "Paste or write your text",
+      "Click \"Create Presentation\"",
+      "Get auto-organized slides"
+    ]
+  },
+  "pdf_to_summary": {
+    "ar": [
+      "ارفع ملف PDF للتلخيص",
+      "دع الذكاء الاصطناعي يقرأ ويحلل المحتوى",
+      "احصل على ملخص شامل للنقاط الرئيسية"
+    ],
+    "en": [
+      "Upload PDF for summarization",
+      "Let AI read and analyze content",
+      "Get comprehensive summary of key points"
+    ]
+  },
+  "make_presentation_text": {
+    "ar": [
+      "الصق النص الطويل أو المقال",
+      "اختر عدد الشرائح المطلوبة",
+      "احصل على عرض تقديمي كامل"
+    ],
+    "en": [
+      "Paste long text or article",
+      "Choose desired number of slides",
+      "Get complete presentation"
+    ]
+  },
+  "ai_presentation_generator": {
+    "ar": [
+      "اكتب موضوع العرض التقديمي",
+      "حدد نوع الجمهور والغرض",
+      "احصل على عرض احترافي مُنشأ بالكامل"
+    ],
+    "en": [
+      "Enter presentation topic",
+      "Specify audience type and purpose",
+      "Get fully generated professional presentation"
+    ]
+  },
+  "ai_presentation_maker": {
+    "ar": [
+      "اكتب فكرتك أو موضوعك",
+      "اختر نمط وألوان التصميم",
+      "احصل على عرض تقديمي جاهز للعرض"
+    ],
+    "en": [
+      "Write your idea or topic",
+      "Choose design style and colors",
+      "Get presentation ready to present"
+    ]
+  },
+  "ai_ppt_maker": {
+    "ar": [
+      "اكتب موضوع البوربوينت",
+      "حدد عدد الشرائح المطلوبة",
+      "احصل على PPT كامل بالمحتوى والتصميم"
+    ],
+    "en": [
+      "Write PowerPoint topic",
+      "Set desired number of slides",
+      "Get complete PPT with content and design"
+    ]
+  },
+  "ai_powerpoint_gen": {
+    "ar": [
+      "أدخل موضوعك أو الصق نصك",
+      "اختر قالب التصميم المناسب",
+      "نزّل PowerPoint احترافي فورًا"
+    ],
+    "en": [
+      "Enter topic or paste text",
+      "Choose suitable design template",
+      "Download professional PowerPoint instantly"
+    ]
+  },
+  "ai_ppt_gen_main": {
+    "ar": [
+      "اكتب موضوع العرض بالعربية أو الإنجليزية",
+      "حدد أسلوب التصميم المفضل",
+      "احصل على PPT كامل في ثوانٍ"
+    ],
+    "en": [
+      "Write topic in Arabic or English",
+      "Select preferred design style",
+      "Get complete PPT in seconds"
+    ]
+  },
+  "ai_slide_maker_main": {
+    "ar": [
+      "أدخل محتواك أو موضوعك",
+      "دع الذكاء الاصطناعي يُصمم الشرائح",
+      "نزّل أو شارك عرضك المُصمم"
+    ],
+    "en": [
+      "Enter your content or topic",
+      "Let AI design the slides",
+      "Download or share your designed presentation"
+    ]
+  },
+  "html_to_slides": {
+    "ar": [
+      "ارفع ملف HTML أو الصق رابط الصفحة",
+      "اضغط \"حوّل إلى شرائح\"",
+      "احصل على عرض PowerPoint منظم"
+    ],
+    "en": [
+      "Upload HTML file or paste page URL",
+      "Click \"Convert to Slides\"",
+      "Get organized PowerPoint presentation"
+    ]
+  },
+  "slide_template_gen": {
+    "ar": [
+      "اختر نمط التصميم والألوان",
+      "حدد عدد الشرائح المطلوبة",
+      "نزّل قالبك الجاهز للاستخدام"
+    ],
+    "en": [
+      "Choose design style and colors",
+      "Set desired number of slides",
+      "Download your ready-to-use template"
+    ]
+  },
+  "gsheets_to_slides": {
+    "ar": [
+      "اربط حساب Google واختر جدول البيانات",
+      "حدد البيانات والرسوم البيانية المطلوبة",
+      "احصل على عرض تقديمي مع الجداول والرسوم"
+    ],
+    "en": [
+      "Connect Google account and select spreadsheet",
+      "Choose data and charts to include",
+      "Get presentation with tables and charts"
+    ]
+  },
+  "combine_presentations": {
+    "ar": [
+      "ارفع عدة ملفات PowerPoint",
+      "رتّب الملفات حسب الترتيب المطلوب",
+      "احصل على عرض واحد موحد"
+    ],
+    "en": [
+      "Upload multiple PowerPoint files",
+      "Arrange files in desired order",
+      "Get single combined presentation"
+    ]
+  },
+  "ppt_to_gdoc": {
+    "ar": [
+      "ارفع ملف PowerPoint",
+      "اضغط \"حوّل إلى Google Doc\"",
+      "افتح المستند في Google Drive"
+    ],
+    "en": [
+      "Upload PowerPoint file",
+      "Click \"Convert to Google Doc\"",
+      "Open document in Google Drive"
+    ]
+  },
+  "word_to_gslides": {
+    "ar": [
+      "ارفع مستند Word الخاص بك",
+      "دع الذكاء الاصطناعي يحلل ويُنشئ الشرائح",
+      "افتح العرض في Google Slides"
+    ],
+    "en": [
+      "Upload your Word document",
+      "Let AI analyze and create slides",
+      "Open presentation in Google Slides"
+    ]
+  },
+  "speaker_notes_gen": {
+    "ar": [
+      "ارفع عرض PowerPoint الخاص بك",
+      "اضغط \"أنشئ ملاحظات المتحدث\"",
+      "احصل على سكريبت كامل للعرض"
+    ],
+    "en": [
+      "Upload your PowerPoint presentation",
+      "Click \"Generate Speaker Notes\"",
+      "Get complete presentation script"
+    ]
+  },
+  "auto_gen_slides": {
+    "ar": [
+      "اكتب موضوع العرض التقديمي",
+      "اختر عدد الشرائح ونمط التصميم",
+      "احصل على شرائح مُنشأة تلقائيًا"
+    ],
+    "en": [
+      "Write presentation topic",
+      "Choose number of slides and design style",
+      "Get auto-generated slides"
+    ]
+  },
+  "outline_generator": {
+    "ar": [
+      "اكتب موضوعك أو أهداف العرض",
+      "دع الذكاء الاصطناعي يُنشئ الهيكل",
+      "احصل على مخطط منطقي ومنظم"
+    ],
+    "en": [
+      "Write your topic or presentation goals",
+      "Let AI create the structure",
+      "Get logical and organized outline"
+    ]
+  },
+  "beamer_to_ppt": {
+    "ar": [
+      "ارفع ملف LaTeX Beamer",
+      "انتظر بينما يحوّل المعادلات والصيغ",
+      "احصل على PowerPoint قابل للتعديل"
+    ],
+    "en": [
+      "Upload LaTeX Beamer file",
+      "Wait while equations and formulas convert",
+      "Get editable PowerPoint"
+    ]
+  },
+  "figma_to_slides": {
+    "ar": [
+      "اربط حساب Figma أو ارفع الملف",
+      "اختر الإطارات المطلوبة",
+      "احصل على PowerPoint مع التصاميم"
+    ],
+    "en": [
+      "Connect Figma account or upload file",
+      "Select desired frames",
+      "Get PowerPoint with designs"
+    ]
+  },
+  "split_ppt_slides": {
+    "ar": [
+      "ارفع عرض PowerPoint",
+      "حدد الشرائح أو النطاقات للفصل",
+      "احصل على ملفات منفصلة"
+    ],
+    "en": [
+      "Upload PowerPoint presentation",
+      "Select slides or ranges to separate",
+      "Get separate files"
+    ]
+  },
+  "redesign_ppt_ai": {
+    "ar": [
+      "ارفع عرض PowerPoint القديم",
+      "اختر نمط التصميم الجديد",
+      "احصل على عرض محدّث واحترافي"
+    ],
+    "en": [
+      "Upload old PowerPoint presentation",
+      "Choose new design style",
+      "Get updated professional presentation"
+    ]
+  },
+  "notion_to_slides": {
+    "ar": [
+      "الصق رابط صفحة Notion أو ارفع التصدير",
+      "دع الذكاء الاصطناعي يحلل المحتوى",
+      "احصل على عرض تقديمي منظم"
+    ],
+    "en": [
+      "Paste Notion page link or upload export",
+      "Let AI analyze content",
+      "Get organized presentation"
+    ]
+  },
+  "ppt_to_odp": {
+    "ar": [
+      "ارفع ملف PowerPoint",
+      "اضغط \"حوّل إلى ODP\"",
+      "نزّل ملف OpenDocument"
+    ],
+    "en": [
+      "Upload PowerPoint file",
+      "Click \"Convert to ODP\"",
+      "Download OpenDocument file"
+    ]
+  },
+  "ppt_to_outline": {
+    "ar": [
+      "ارفع عرض PowerPoint",
+      "دع الذكاء الاصطناعي يستخرج الهيكل",
+      "احصل على مخطط منظم"
+    ],
+    "en": [
+      "Upload PowerPoint presentation",
+      "Let AI extract structure",
+      "Get organized outline"
+    ]
+  },
+  "ai_deck_builder": {
+    "ar": [
+      "اكتب أهداف العرض والجمهور المستهدف",
+      "اختر القالب والنمط المناسب",
+      "احصل على عرض احترافي كامل"
+    ],
+    "en": [
+      "Write presentation goals and target audience",
+      "Choose appropriate template and style",
+      "Get complete professional presentation"
+    ]
+  },
+  "extract_text_ppt": {
+    "ar": [
+      "ارفع ملف PowerPoint",
+      "اضغط \"استخرج النصوص\"",
+      "احصل على ملف نصي بجميع المحتويات"
+    ],
+    "en": [
+      "Upload PowerPoint file",
+      "Click \"Extract Text\"",
+      "Get text file with all content"
+    ]
+  },
+  "website_to_ppt": {
+    "ar": [
+      "الصق رابط الموقع أو الصفحة",
+      "دع الذكاء الاصطناعي يستخرج المحتوى",
+      "احصل على عرض تقديمي من محتوى الموقع"
+    ],
+    "en": [
+      "Paste website or page URL",
+      "Let AI extract content",
+      "Get presentation from website content"
+    ]
+  },
+  "latex_to_ppt": {
+    "ar": [
+      "ارفع ملف أو مستند LaTeX",
+      "انتظر بينما يحوّل المعادلات والصيغ",
+      "احصل على PowerPoint مع المعادلات"
+    ],
+    "en": [
+      "Upload LaTeX file or document",
+      "Wait while equations and formulas convert",
+      "Get PowerPoint with equations"
+    ]
+  },
+  "gen_ppt_from_text": {
+    "ar": [
+      "الصق النص أو اكتبه",
+      "دع الذكاء الاصطناعي يُنظم المحتوى",
+      "نزّل عرض PowerPoint جاهز"
+    ],
+    "en": [
+      "Paste or write text",
+      "Let AI organize content",
+      "Download ready PowerPoint"
+    ]
+  },
+  "chatgpt_to_ppt": {
+    "ar": [
+      "الصق نص ChatGPT أو المحادثة",
+      "اضغط \"حوّل إلى عرض تقديمي\"",
+      "احصل على شرائح منظمة من المحتوى"
+    ],
+    "en": [
+      "Paste ChatGPT text or conversation",
+      "Click \"Convert to Presentation\"",
+      "Get organized slides from content"
+    ]
+  },
+  "video_to_slides": {
+    "ar": [
+      "ارفع ملف الفيديو",
+      "دع الذكاء الاصطناعي يستخرج الإطارات والنصوص",
+      "احصل على عرض تقديمي من الفيديو"
+    ],
+    "en": [
+      "Upload video file",
+      "Let AI extract frames and text",
+      "Get presentation from video"
+    ]
+  },
+  "md_to_gslides": {
+    "ar": [
+      "ارفع ملف Markdown",
+      "دع الذكاء الاصطناعي يُنشئ الشرائح",
+      "افتح العرض في Google Slides"
+    ],
+    "en": [
+      "Upload Markdown file",
+      "Let AI create slides",
+      "Open presentation in Google Slides"
+    ]
+  },
+  "youtube_to_slides": {
+    "ar": [
+      "الصق رابط فيديو YouTube",
+      "دع الذكاء الاصطناعي يحلل المحتوى",
+      "احصل على عرض تقديمي من الفيديو"
+    ],
+    "en": [
+      "Paste YouTube video URL",
+      "Let AI analyze content",
+      "Get presentation from video"
+    ]
+  },
+  "ai_pres_creator": {
+    "ar": [
+      "اكتب موضوعك وأهداف العرض",
+      "اختر النمط ونوع الجمهور",
+      "احصل على عرض كامل مُنشأ تلقائيًا"
+    ],
+    "en": [
+      "Write topic and presentation goals",
+      "Choose style and audience type",
+      "Get complete auto-generated presentation"
+    ]
+  },
+  "merge_pptx": {
+    "ar": [
+      "ارفع عدة ملفات PPTX",
+      "رتّب الملفات حسب الترتيب المطلوب",
+      "نزّل ملف واحد مدمج"
+    ],
+    "en": [
+      "Upload multiple PPTX files",
+      "Arrange files in desired order",
+      "Download single merged file"
+    ]
+  },
+  "odp_to_ppt": {
+    "ar": [
+      "ارفع ملف OpenDocument (ODP)",
+      "اضغط \"حوّل إلى PowerPoint\"",
+      "نزّل ملف PPTX قابل للتعديل"
+    ],
+    "en": [
+      "Upload OpenDocument (ODP) file",
+      "Click \"Convert to PowerPoint\"",
+      "Download editable PPTX file"
+    ]
+  },
+  "md_to_ppt": {
+    "ar": [
+      "ارفع ملف Markdown أو الصق المحتوى",
+      "دع الذكاء الاصطناعي يُنشئ الشرائح",
+      "نزّل عرض PowerPoint منسق"
+    ],
+    "en": [
+      "Upload Markdown file or paste content",
+      "Let AI create slides",
+      "Download formatted PowerPoint"
+    ]
+  },
+  "ai_deck_gen": {
+    "ar": [
+      "اكتب موضوع العرض والهدف",
+      "اختر نوع العرض (أعمال، تعليم، تسويق)",
+      "احصل على مجموعة شرائح احترافية"
+    ],
+    "en": [
+      "Write presentation topic and goal",
+      "Choose presentation type (business, education, marketing)",
+      "Get professional slide deck"
+    ]
+  },
+  "pdf_to_ppt_editable": {
+    "ar": [
+      "ارفع ملف PDF",
+      "دع الذكاء الاصطناعي يُنشئ شرائح قابلة للتعديل",
+      "احصل على PowerPoint يمكن تعديل كل عناصره"
+    ],
+    "en": [
+      "Upload PDF file",
+      "Let AI create editable slides",
+      "Get PowerPoint with fully editable elements"
+    ]
+  },
+  "ppt_to_keynote": {
+    "ar": [
+      "ارفع ملف PowerPoint",
+      "اضغط \"حوّل إلى Keynote\"",
+      "نزّل ملف Keynote للاستخدام على Mac"
+    ],
+    "en": [
+      "Upload PowerPoint file",
+      "Click \"Convert to Keynote\"",
+      "Download Keynote file for Mac use"
+    ]
+  },
+  "jpg_to_ppt": {
+    "ar": [
+      "ارفع صور JPG المطلوبة",
+      "رتّب الصور حسب الترتيب المطلوب",
+      "احصل على عرض PowerPoint مع شريحة لكل صورة"
+    ],
+    "en": [
+      "Upload desired JPG images",
+      "Arrange images in desired order",
+      "Get PowerPoint with slide per image"
+    ]
+  },
+  "summarize_ppt": {
+    "ar": [
+      "ارفع عرض PowerPoint",
+      "دع الذكاء الاصطناعي يحلل المحتوى",
+      "احصل على ملخص شامل للنقاط الرئيسية"
+    ],
+    "en": [
+      "Upload PowerPoint presentation",
+      "Let AI analyze content",
+      "Get comprehensive summary of key points"
+    ]
+  },
+  "png_to_ppt": {
+    "ar": [
+      "ارفع صور PNG المطلوبة",
+      "رتّب الصور وحدد التخطيط",
+      "احصل على عرض PowerPoint احترافي"
+    ],
+    "en": [
+      "Upload desired PNG images",
+      "Arrange images and choose layout",
+      "Get professional PowerPoint presentation"
+    ]
   }
 }
