@@ -6,7 +6,6 @@ import { cn } from '@/lib/utils'
 import { 
   LayoutDashboard, 
   Presentation, 
-  Video, 
   FileText, 
   Settings, 
   Plus,
@@ -17,7 +16,6 @@ import { Button } from '@/components/ui/button'
 const navigation = [
   { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
   { name: 'Presentations', href: '/dashboard/presentations', icon: Presentation },
-  { name: 'Video Dubbing', href: '/dashboard/dubbing', icon: Video },
   { name: 'Projects', href: '/dashboard/projects', icon: FolderOpen },
   { name: 'Files', href: '/dashboard/files', icon: FileText },
   { name: 'Settings', href: '/dashboard/settings', icon: Settings },
@@ -31,9 +29,9 @@ export function DashboardSidebar() {
       <div className="p-6">
         <div className="flex items-center space-x-2">
           <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-            <span className="text-white font-bold text-sm">A</span>
+            <span className="text-white font-bold text-sm">S</span>
           </div>
-          <span className="text-xl font-bold text-gray-900">Agentic</span>
+          <span className="text-xl font-bold text-gray-900">Sharayeh</span>
         </div>
       </div>
       

@@ -33,10 +33,10 @@ export function QuickActionMenu() {
       color: 'bg-blue-50 text-blue-700 hover:bg-blue-100'
     },
     {
-      name: 'Upload Video',
-      href: '/dashboard/dubbing',
-      icon: '🎥',
-      description: 'Add multilingual dubbing',
+      name: 'Convert Document',
+      href: '/dashboard/presentations/new',
+      icon: '📄',
+      description: 'Word, PDF, Excel to PowerPoint',
       color: 'bg-purple-50 text-purple-700 hover:bg-purple-100'
     },
     {

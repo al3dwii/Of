@@ -5,7 +5,6 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { 
   Presentation, 
-  Video, 
   Home, 
   Settings, 
   Menu,
@@ -23,12 +22,6 @@ const navigation = [
     icon: Presentation,
     enabled: featureFlags.presentations 
   },
-  { 
-    name: 'Dubbing', 
-    href: '/dubbing', 
-    icon: Video,
-    enabled: featureFlags.dubbing 
-  },
   { name: 'Settings', href: '/settings', icon: Settings },
 ].filter(item => item.enabled !== false)
 
@@ -43,7 +36,7 @@ export function Sidebar() {
     )}>
       <div className="flex items-center justify-between p-4">
         {!isCollapsed && (
-          <h1 className="text-xl font-bold">Agentic</h1>
+          <h1 className="text-xl font-bold">Sharayeh</h1>
         )}
         <Button
           variant="ghost"

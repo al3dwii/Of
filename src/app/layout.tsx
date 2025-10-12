@@ -23,25 +23,23 @@ const tajawal = Tajawal({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://yourdomain.com'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'),
   title: {
-    default: 'Agentic - AI Content Creation Platform',
-    template: '%s | Agentic'
+    default: 'Sharayeh - AI Presentation Generator | Document to PowerPoint Converter',
+    template: '%s | Sharayeh'
   },
-  description: 'Create professional presentations, dub videos, convert documents, and translate content with AI. Fast, accurate, and powerful automation tools for business and education.',
+  description: 'Transform documents into professional presentations with AI. Convert Word, PDF, Excel, and images to PowerPoint slides instantly. AI-powered presentation maker for business and education.',
   keywords: [
-    'AI content creation',
-    'AI presentations',
-    'video dubbing',
-    'document conversion',
-    'AI translation',
-    'PowerPoint generator',
-    'automation tools',
-    'business productivity'
+    'AI presentation generator',
+    'document to PowerPoint',
+    'Word to PowerPoint',
+    'PDF to slides',
+    'AI presentation maker',
+    'PowerPoint converter'
   ],
-  authors: [{ name: 'Agentic' }],
-  creator: 'Agentic',
-  publisher: 'Agentic',
+  authors: [{ name: 'Sharayeh Team' }],
+  creator: 'Sharayeh',
+  publisher: 'Sharayeh',
   robots: {
     index: true,
     follow: true,
@@ -56,25 +54,25 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: process.env.NEXT_PUBLIC_SITE_URL || 'https://yourdomain.com',
-    siteName: 'Agentic',
-    title: 'Agentic - AI Content Creation Platform',
-    description: 'Create professional presentations, dub videos, and convert documents with AI',
+    url: process.env.NEXT_PUBLIC_SITE_URL,
+    siteName: 'Sharayeh',
+    title: 'Sharayeh - AI Presentation Generator',
+    description: 'Transform documents into professional presentations with AI. Convert Word, PDF, Excel to PowerPoint instantly.',
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Agentic AI Platform'
+        alt: 'Sharayeh AI Presentation Generator'
       }
     ]
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Agentic - AI Content Creation Platform',
-    description: 'Create professional presentations, dub videos, and convert documents with AI',
+    title: 'Sharayeh - AI Presentation Generator',
+    description: 'Transform documents into professional presentations with AI. Convert Word, PDF, Excel to PowerPoint instantly.',
     images: ['/og-image.png'],
-    creator: '@agentic'
+    creator: '@sharayeh'
   },
   verification: {
     google: process.env.NEXT_PUBLIC_GOOGLE_VERIFICATION,
@@ -130,20 +128,19 @@ export default function RootLayout({
               __html: JSON.stringify({
                 '@context': 'https://schema.org',
                 '@type': 'Organization',
-                name: 'Agentic',
-                url: process.env.NEXT_PUBLIC_SITE_URL || 'https://yourdomain.com',
-                logo: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://yourdomain.com'}/logo.png`,
-                description: 'AI-powered content creation platform for presentations, videos, documents, and translations',
+                name: 'Sharayeh',
+                url: process.env.NEXT_PUBLIC_SITE_URL || 'https://sharayeh.com',
+                logo: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://sharayeh.com'}/logo.png`,
+                description: 'AI-powered presentation generator. Transform documents into professional PowerPoint presentations instantly.',
                 sameAs: [
-                  // TODO: Add your real social media URLs or remove if not applicable
-                  'https://twitter.com/agentic',
-                  'https://www.facebook.com/agentic',
-                  'https://www.linkedin.com/company/agentic',
+                  'https://twitter.com/sharayeh',
+                  'https://www.facebook.com/sharayeh',
+                  'https://www.linkedin.com/company/sharayeh',
                 ],
                 contactPoint: {
                   '@type': 'ContactPoint',
                   contactType: 'Customer Service',
-                  email: 'support@yourdomain.com', // TODO: Update with real email
+                  email: 'support@sharayeh.com',
                   availableLanguage: ['English', 'Arabic', 'Spanish']
                 }
               })

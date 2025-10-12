@@ -4,7 +4,7 @@ export default function HelpPage() {
       <div>
         <h1 className="text-3xl font-bold text-gray-900">Help & Support</h1>
         <p className="text-gray-600 mt-2">
-          Get help with Agentic AI Content Platform
+          Get help with Sharayeh AI Presentation Generator
         </p>
       </div>
 
@@ -42,11 +42,11 @@ export default function HelpPage() {
 
               <details className="group">
                 <summary className="flex items-center justify-between p-4 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100">
-                  <h3 className="font-medium text-gray-900">What video formats are supported for dubbing?</h3>
+                  <h3 className="font-medium text-gray-900">What document formats can I convert to presentations?</h3>
                   <span className="text-gray-500 group-open:rotate-180 transition-transform">↓</span>
                 </summary>
                 <div className="mt-4 p-4 text-sm text-gray-600 bg-gray-50 rounded-lg">
-                  <p>We support MP4, AVI, and MOV video formats up to 500MB in size. The video should have clear audio for best dubbing results.</p>
+                  <p>We support Word (DOCX), PDF, Excel (XLSX), and various image formats. Documents up to 500MB can be converted to professional PowerPoint presentations.</p>
                 </div>
               </details>
 
@@ -86,10 +86,10 @@ export default function HelpPage() {
               
               <a href="#" className="p-4 border border-gray-200 rounded-lg hover:border-purple-300 hover:bg-purple-50 transition-colors">
                 <div className="flex items-center space-x-3 mb-2">
-                  <span className="text-2xl">🎥</span>
-                  <h3 className="font-medium text-gray-900">Video Dubbing</h3>
+                  <span className="text-2xl">📄</span>
+                  <h3 className="font-medium text-gray-900">Document Conversion</h3>
                 </div>
-                <p className="text-sm text-gray-600">Upload and dub videos in multiple languages</p>
+                <p className="text-sm text-gray-600">Convert Word, PDF, Excel to PowerPoint slides</p>
               </a>
               
               <a href="#" className="p-4 border border-gray-200 rounded-lg hover:border-green-300 hover:bg-green-50 transition-colors">
@@ -97,7 +97,7 @@ export default function HelpPage() {
                   <span className="text-2xl">🔧</span>
                   <h3 className="font-medium text-gray-900">API Integration</h3>
                 </div>
-                <p className="text-sm text-gray-600">Integrate Agentic with your existing workflow</p>
+                <p className="text-sm text-gray-600">Integrate Sharayeh with your existing workflow</p>
               </a>
               
               <a href="#" className="p-4 border border-gray-200 rounded-lg hover:border-yellow-300 hover:bg-yellow-50 transition-colors">
@@ -117,11 +117,11 @@ export default function HelpPage() {
           <div className="bg-white rounded-lg border border-gray-200 p-6">
             <h2 className="text-lg font-medium text-gray-900 mb-4">Contact Support</h2>
             <div className="space-y-4">
-              <a href="mailto:support@agentic.ai" className="flex items-center space-x-3 p-3 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors">
+              <a href="mailto:support@sharayeh.com" className="flex items-center space-x-3 p-3 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors">
                 <span className="text-blue-600">📧</span>
                 <div>
                   <p className="text-sm font-medium text-blue-900">Email Support</p>
-                  <p className="text-xs text-blue-700">support@agentic.ai</p>
+                  <p className="text-xs text-blue-700">support@sharayeh.com</p>
                 </div>
               </a>
               

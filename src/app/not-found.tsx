@@ -58,7 +58,7 @@ export default function NotFound() {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             {[
               { name: 'AI Presentations', href: '/en/slides', icon: '🎨' },
-              { name: 'Video Dubbing', href: '/en/video', icon: '🎥' },
+              { name: 'Document Converter', href: '/en/tools', icon: '📄' },
               { name: 'PDF Converter', href: '/en/pdf', icon: '📄' },
               { name: 'Documents', href: '/en/documents', icon: '📝' },
               { name: 'Translate', href: '/en/translate', icon: '🌐' },

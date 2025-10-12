@@ -37,7 +37,6 @@ export function Footer() {
       links: [
         { name: t.footer.platform.dashboard, href: '/dashboard' },
         { name: t.footer.platform.presentations, href: '/dashboard/presentations' },
-        { name: t.footer.platform.dubbing, href: '/dashboard/dubbing' },
         { name: t.footer.platform.analytics, href: '/dashboard/analytics' },
       ]
     },
@@ -45,7 +44,6 @@ export function Footer() {
       title: t.footer.tools.title,
       links: [
         { name: t.footer.tools.createPresentation, href: '/dashboard/presentations/new' },
-        { name: t.footer.tools.uploadVideo, href: '/dashboard/dubbing' },
         { name: t.footer.tools.apiDocs, href: '/dashboard/api-docs' },
         { name: t.footer.tools.settings, href: '/dashboard/settings' },
       ]
@@ -156,10 +154,10 @@ export function Footer() {
                   {t.footer.readyToStart.createButton}
                 </Link>
                 <Link
-                  href={hrefFor('/dashboard/dubbing')}
+                  href={hrefFor('/dashboard')}
                   className="bg-white text-gray-700 px-4 py-2 rounded-lg text-sm font-medium border border-gray-300 hover:bg-gray-50 transition-colors"
                 >
-                  {t.footer.readyToStart.uploadButton}
+                  View Dashboard
                 </Link>
               </div>
             </div>

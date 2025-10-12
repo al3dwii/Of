@@ -8,28 +8,30 @@ import type { Locale } from '@/data/locales'
 
 // Base site configuration
 export const siteConfig = {
-  name: 'Agentic - AI Content Creation Platform',
-  description: 'Create professional presentations, dub videos, convert documents, and translate content with artificial intelligence. Powered by advanced AI for business and education.',
+  name: 'Sharayeh - AI Presentation Generator',
+  description: 'Transform documents into professional presentations with AI. Convert Word, PDF, Excel, and images to PowerPoint slides instantly. AI-powered presentation maker for business and education.',
   url: process.env.NEXT_PUBLIC_SITE_URL || 'https://sharayeh.com',
   ogImage: '/og-image.png',
-  twitterHandle: '@agentic',
+  twitterHandle: '@sharayeh',
   keywords: [
-    'AI content creation',
-    'AI presentations',
-    'video dubbing',
-    'document conversion',
-    'AI translation',
+    'AI presentation generator',
+    'AI presentation maker',
+    'document to presentation',
+    'Word to PowerPoint',
+    'PDF to PowerPoint',
+    'AI slide generator',
+    'presentation creator',
     'PowerPoint generator',
     'AI slides',
-    'video localization',
-    'PDF converter',
-    'presentation maker',
-    'artificial intelligence',
-    'automation tools',
-    'business productivity',
-    'content automation'
+    'document conversion',
+    'Excel to presentation',
+    'image to presentation',
+    'automatic presentation',
+    'business presentations',
+    'AI PowerPoint',
+    'presentation automation'
   ],
-  author: 'Agentic',
+  author: 'Sharayeh Team',
   language: 'en',
   themeColor: '#2563eb',
 }
@@ -41,39 +43,45 @@ export const localeMetadata: Record<Locale, {
   keywords: string[]
 }> = {
   en: {
-    title: 'Agentic - AI Content Creation Platform',
-    description: 'Create professional presentations, dub videos, convert documents, and translate content with AI. Fast, accurate, and powerful automation tools for business.',
+    title: 'Sharayeh - AI Presentation Generator & Document to PowerPoint Converter',
+    description: 'Create professional presentations from documents instantly with AI. Convert Word, PDF, Excel, and images to PowerPoint slides. Fast, accurate presentation maker for business and education.',
     keywords: [
+      'AI presentation generator',
+      'document to PowerPoint',
+      'Word to PowerPoint converter',
+      'PDF to slides',
       'AI presentation maker',
-      'video dubbing AI',
-      'document converter',
-      'AI translation',
+      'automatic slide generator',
       'PowerPoint AI',
-      'content creation tools'
+      'presentation automation'
     ]
   },
   ar: {
-    title: 'أجينتك - منصة إنشاء المحتوى بالذكاء الاصطناعي',
-    description: 'أنشئ عروض تقديمية احترافية، ودبلج مقاطع فيديو، وحوّل المستندات، وترجم المحتوى باستخدام الذكاء الاصطناعي. أدوات أتمتة سريعة ودقيقة وقوية للأعمال.',
+    title: 'شرايح - مولد العروض التقديمية بالذكاء الاصطناعي',
+    description: 'حوّل المستندات إلى عروض تقديمية احترافية بالذكاء الاصطناعي. تحويل Word وPDF وExcel والصور إلى شرائح بوربوينت فوراً. صانع عروض تقديمية بالذكاء الاصطناعي للأعمال والتعليم.',
     keywords: [
-      'صانع العروض التقديمية بالذكاء الاصطناعي',
-      'دبلجة الفيديو بالذكاء الاصطناعي',
-      'محول المستندات',
-      'الترجمة بالذكاء الاصطناعي',
-      'بوربوينت بالذكاء الاصطناعي',
-      'أدوات إنشاء المحتوى'
+      'مولد العروض التقديمية بالذكاء الاصطناعي',
+      'تحويل المستندات إلى بوربوينت',
+      'Word إلى PowerPoint',
+      'PDF إلى شرائح',
+      'صانع العروض التقديمية',
+      'بوربوينت تلقائي',
+      'شرائح بالذكاء الاصطناعي',
+      'أتمتة العروض التقديمية'
     ]
   },
   es: {
-    title: 'Agentic - Plataforma de Creación de Contenido con IA',
-    description: 'Crea presentaciones profesionales, dobla videos, convierte documentos y traduce contenido con IA. Herramientas de automatización rápidas, precisas y potentes para empresas.',
+    title: 'Sharayeh - Generador de Presentaciones con IA',
+    description: 'Transforma documentos en presentaciones profesionales con IA. Convierte Word, PDF, Excel e imágenes a diapositivas de PowerPoint al instante. Creador de presentaciones con IA para empresas y educación.',
     keywords: [
-      'creador de presentaciones con IA',
-      'doblaje de video con IA',
-      'conversor de documentos',
-      'traducción con IA',
-      'PowerPoint con IA',
-      'herramientas de creación de contenido'
+      'generador de presentaciones con IA',
+      'documento a PowerPoint',
+      'Word a PowerPoint',
+      'PDF a diapositivas',
+      'creador de presentaciones',
+      'PowerPoint automático',
+      'diapositivas con IA',
+      'automatización de presentaciones'
     ]
   }
 }
@@ -200,15 +208,14 @@ export function generateOrganizationSchema() {
     logo: `${siteConfig.url}/logo.png`,
     description: siteConfig.description,
     sameAs: [
-      // Add your social media profiles
-      'https://twitter.com/agentic',
-      'https://linkedin.com/company/agentic',
-      'https://facebook.com/agentic',
+      'https://twitter.com/sharayeh',
+      'https://linkedin.com/company/sharayeh',
+      'https://facebook.com/sharayeh',
     ],
     contactPoint: {
       '@type': 'ContactPoint',
       contactType: 'customer service',
-      email: 'support@yourdomain.com',
+      email: 'support@sharayeh.com',
       availableLanguage: ['English', 'Arabic', 'Spanish'],
     },
   }
