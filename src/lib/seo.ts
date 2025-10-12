@@ -10,7 +10,7 @@ import type { Locale } from '@/data/locales'
 export const siteConfig = {
   name: 'Agentic - AI Content Creation Platform',
   description: 'Create professional presentations, dub videos, convert documents, and translate content with artificial intelligence. Powered by advanced AI for business and education.',
-  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://yourdomain.com',
+  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://sharayeh.com',
   ogImage: '/og-image.png',
   twitterHandle: '@agentic',
   keywords: [

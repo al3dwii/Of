@@ -62,10 +62,10 @@ export function Footer() {
     {
       title: t.footer.company.title,
       links: [
-        { name: t.footer.company.about, href: '#' },
-        { name: t.footer.company.privacy, href: '#' },
-        { name: t.footer.company.terms, href: '#' },
-        { name: t.footer.company.security, href: '#' },
+        { name: t.footer.company.about, href: '/about' },
+        { name: t.footer.company.privacy, href: '/privacy' },
+        { name: t.footer.company.terms, href: '/terms' },
+        { name: t.footer.company.security, href: '/security' },
       ]
     }
   ]
