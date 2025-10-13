@@ -4,16 +4,17 @@ import type { Metadata } from "next"
 import { type Locale } from "@/data/locales"
 import { slidesLandings } from "@/data/landings.slides"
 import { getPageCopy } from "@/utils/copy"
+import { getTranslation } from "@/i18n"
 
 interface PageProps {
   params: { locale: Locale }
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const copy = getPageCopy('home', params.locale)
+  const t = getTranslation(params.locale)
   return {
-    title: copy.h1,
-    description: copy.subhead,
+    title: t.home.hero.title,
+    description: t.home.hero.subtitle,
     alternates: {
       canonical: `/${params.locale}`,
     },
@@ -22,6 +23,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default function HomePage({ params }: PageProps) {
   const { locale } = params
+  const t = getTranslation(locale)
   const copy = getPageCopy('home', locale)
   const isAr = locale === "ar"
   const featured = slidesLandings.filter((x) => x.locale === locale).slice(0, 6)
@@ -36,10 +38,10 @@ export default function HomePage({ params }: PageProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-              {copy.h1}
+              {t.home.hero.title}
             </h1>
             <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-              {copy.subhead}
+              {t.home.hero.subtitle}
             </p>
             
             {/* CTA Buttons */}
@@ -48,16 +50,14 @@ export default function HomePage({ params }: PageProps) {
                 href={`/${locale}/dashboard`}
                 className="bg-blue-600 text-white px-8 py-3 rounded-lg text-lg font-medium hover:bg-blue-700 transition-colors shadow-lg"
               >
-                {copy.primaryCTA}
+                {t.home.hero.ctaSlides}
               </Link>
-              {copy.secondaryCTA && (
-                <Link
-                  href={`/${locale}/slides`}
-                  className="bg-white text-gray-700 px-8 py-3 rounded-lg text-lg font-medium border border-gray-300 hover:bg-gray-50 transition-colors"
-                >
-                  {copy.secondaryCTA}
-                </Link>
-              )}
+              <Link
+                href={`/${locale}/slides`}
+                className="bg-white text-gray-700 px-8 py-3 rounded-lg text-lg font-medium border border-gray-300 hover:bg-gray-50 transition-colors"
+              >
+                {t.home.hero.ctaConvert}
+              </Link>
             </div>
           </div>
         </div>
@@ -173,8 +173,8 @@ export default function HomePage({ params }: PageProps) {
             "@context": "https://schema.org",
             "@type": "WebSite",
             url: `https://yoursite.com/${locale}`,
-            name: "AI Presentation Generator",
-            description: copy.subhead,
+            name: t.brand.name,
+            description: t.home.hero.subtitle,
             inLanguage: locale,
             potentialAction: {
               "@type": "SearchAction",
