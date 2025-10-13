@@ -23,8 +23,8 @@ export const es: Translation = {
 
   home: {
     hero: {
-      title: 'Crea presentaciones con IA',
-      subtitle: 'Sube un documento o pega un tema. Lo convertimos en diapositivas profesionales—rápido.',
+      title: 'Presentaciones hermosas y alineadas con tu marca en minutos.',
+      subtitle: 'Sharayeh convierte indicaciones, Word, PDF, imágenes y HTML en presentaciones completamente editables—con tipografía árabe impecable y soporte nativo de RTL.',
       ctaSlides: 'Crear Presentación',
       ctaConvert: 'Convertir Documento',
     },

@@ -23,8 +23,8 @@ export const en: Translation = {
 
   home: {
     hero: {
-      title: 'Create presentations with AI',
-      subtitle: 'Upload a document or paste a topic. We turn it into professional slides—fast.',
+      title: 'Beautiful, on-brand presentations in minutes.',
+      subtitle: 'Sharayeh turns prompts, Word, PDF, images, and HTML into fully editable decks—with flawless Arabic typography and native RTL support.',
       ctaSlides: 'Create Presentation',
       ctaConvert: 'Convert Document',
     },
