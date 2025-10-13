@@ -4,7 +4,7 @@ export default function ApiDocsPage() {
       <div>
         <h1 className="text-3xl font-bold text-gray-900">API Documentation</h1>
         <p className="text-gray-600 mt-2">
-          Complete reference for the Agentic Kernel API
+          Complete reference for the Sharayeh API
         </p>
       </div>
 
@@ -16,7 +16,7 @@ export default function ApiDocsPage() {
             <nav className="space-y-2">
               <a href="#authentication" className="block text-sm text-blue-600 hover:text-blue-700">Authentication</a>
               <a href="#presentations" className="block text-sm text-gray-600 hover:text-gray-900">Presentations</a>
-              <a href="#dubbing" className="block text-sm text-gray-600 hover:text-gray-900">Video Dubbing</a>
+              <a href="#conversion" className="block text-sm text-gray-600 hover:text-gray-900">Document Conversion</a>
               <a href="#webhooks" className="block text-sm text-gray-600 hover:text-gray-900">Webhooks</a>
               <a href="#errors" className="block text-sm text-gray-600 hover:text-gray-900">Error Codes</a>
             </nav>
@@ -29,12 +29,12 @@ export default function ApiDocsPage() {
           <div className="bg-white rounded-lg border border-gray-200 p-6">
             <h2 className="text-xl font-medium text-gray-900 mb-4">Getting Started</h2>
             <p className="text-gray-600 mb-4">
-              The Agentic Kernel API provides programmatic access to AI-powered content generation features.
+              The Sharayeh API provides programmatic access to AI-powered presentation generation and document conversion features.
             </p>
             
             <div className="bg-gray-50 p-4 rounded-lg">
               <h3 className="text-sm font-medium text-gray-900 mb-2">Base URL</h3>
-              <code className="text-sm text-gray-800">https://api.agentic.ai/v1</code>
+              <code className="text-sm text-gray-800">https://api.sharayeh.com/v1</code>
             </div>
           </div>
 
@@ -50,7 +50,7 @@ export default function ApiDocsPage() {
               <pre className="text-sm text-gray-800 overflow-x-auto">
 {`curl -H "Authorization: Bearer YOUR_API_KEY" \\
      -H "Content-Type: application/json" \\
-     https://api.agentic.ai/v1/presentations`}
+     https://api.sharayeh.com/v1/presentations`}
               </pre>
             </div>
           </div>
@@ -105,7 +105,7 @@ export default function ApiDocsPage() {
   "status": "completed",
   "title": "Q4 Sales Report",
   "slides": 10,
-  "download_url": "https://api.agentic.ai/files/pres_abc123.pptx",
+  "download_url": "https://api.sharayeh.com/files/pres_abc123.pptx",
   "created_at": "2025-09-13T15:00:00Z",
   "completed_at": "2025-09-13T15:03:00Z"
 }`}</pre>
@@ -114,36 +114,36 @@ export default function ApiDocsPage() {
             </div>
           </div>
 
-          {/* Dubbing API */}
-          <div id="dubbing" className="bg-white rounded-lg border border-gray-200 p-6">
-            <h2 className="text-xl font-medium text-gray-900 mb-4">Video Dubbing API</h2>
+          {/* Document Conversion API */}
+          <div id="conversion" className="bg-white rounded-lg border border-gray-200 p-6">
+            <h2 className="text-xl font-medium text-gray-900 mb-4">Document Conversion API</h2>
             
             <div className="space-y-6">
-              {/* Upload Video */}
+              {/* Convert Document */}
               <div className="border border-gray-200 rounded-lg p-4">
                 <div className="flex items-center space-x-2 mb-3">
                   <span className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-medium">POST</span>
-                  <code className="text-sm">/dubbing</code>
+                  <code className="text-sm">/convert</code>
                 </div>
-                <p className="text-sm text-gray-600 mb-3">Upload a video for AI dubbing</p>
+                <p className="text-sm text-gray-600 mb-3">Convert documents to PowerPoint presentations</p>
                 
                 <h4 className="text-sm font-medium text-gray-900 mb-2">Request (multipart/form-data)</h4>
                 <div className="bg-gray-50 p-3 rounded text-sm overflow-x-auto">
-                  <pre>{`title: "Product Demo"
-description: "Marketing video for new product"
-sourceLanguage: "en"
-targetLanguages: ["es", "fr", "de"]
-video: [binary file data]`}</pre>
+                  <pre>{`title: "Product Catalog"
+description: "Catalog presentation from PDF"
+format: "pptx"
+theme: "modern"
+document: [binary file data - PDF, Word, or Excel]`}</pre>
                 </div>
                 
                 <h4 className="text-sm font-medium text-gray-900 mb-2 mt-4">Response</h4>
                 <div className="bg-gray-50 p-3 rounded text-sm overflow-x-auto">
                   <pre>{`{
-  "id": "dub_xyz789",
+  "id": "conv_xyz789",
   "status": "processing",
-  "title": "Product Demo",
-  "source_language": "en",
-  "target_languages": ["es", "fr", "de"],
+  "title": "Product Catalog",
+  "format": "pptx",
+  "source_type": "pdf",
   "estimated_completion": "2025-09-13T16:00:00Z"
 }`}</pre>
                 </div>
@@ -194,7 +194,7 @@ video: [binary file data]`}</pre>
                   <span className="text-2xl">🐍</span>
                   <div>
                     <h3 className="font-medium text-gray-900">Python SDK</h3>
-                    <p className="text-sm text-gray-600">pip install agentic-python</p>
+                    <p className="text-sm text-gray-600">pip install sharayeh-python</p>
                   </div>
                 </div>
               </a>
@@ -204,7 +204,7 @@ video: [binary file data]`}</pre>
                   <span className="text-2xl">📦</span>
                   <div>
                     <h3 className="font-medium text-gray-900">Node.js SDK</h3>
-                    <p className="text-sm text-gray-600">npm install agentic-node</p>
+                    <p className="text-sm text-gray-600">npm install sharayeh-node</p>
                   </div>
                 </div>
               </a>
