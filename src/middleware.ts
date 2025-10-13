@@ -1,11 +1,25 @@
-// Temporarily disabled Clerk middleware for development
+import { clerkMiddleware } from '@clerk/nextjs/server'
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
 const LOCALES = ['en', 'ar', 'es'] as const;
 const DEFAULT_LOCALE = 'en';
 
-export function middleware(request: NextRequest) {
+export default clerkMiddleware((auth: any, req: NextRequest) => {
+  const pathname = req.nextUrl.pathname;
+  
+  // Check if it's a dashboard route
+  const isDashboardRoute = /^\/(en|ar|es)\/dashboard/.test(pathname);
+  
+  // Protect dashboard routes
+  if (isDashboardRoute) {
+    auth().protect()
+  }
+  
+  return handleLocaleMiddleware(req)
+})
+
+function handleLocaleMiddleware(request: any) {
   const pathname = request.nextUrl.pathname;
   
   // Check if pathname is missing locale
@@ -26,7 +40,7 @@ export function middleware(request: NextRequest) {
       preferredLocale = localeCookie;
     } else if (acceptLanguage) {
       // Parse accept-language header
-      const languages = acceptLanguage.split(',').map(lang => lang.split(';')[0].trim().toLowerCase());
+      const languages = acceptLanguage.split(',').map((lang: string) => lang.split(';')[0].trim().toLowerCase());
       for (const lang of languages) {
         if (lang.startsWith('ar')) {
           preferredLocale = 'ar';

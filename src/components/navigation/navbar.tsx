@@ -4,6 +4,8 @@ import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
 import { LOCALES, type Locale } from "@/data/locales";
+import { UserButton, useUser } from '@clerk/nextjs';
+
 
 import Image from 'next/image';
 
@@ -18,9 +20,22 @@ interface NavItem {
   descriptionEs?: string
 }
 
+interface dash {
+  href: string
+  labelEn: string
+  labelAr: string
+  labelEs: string
+  icon: string
+  description?: string
+  descriptionAr?: string
+  descriptionEs?: string
+}
+
 export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isLangDropdownOpen, setIsLangDropdownOpen] = useState(false)
+  const { isSignedIn } = useUser();
+
 
   const router = useRouter();
   const pathname = usePathname() || "/";
@@ -117,7 +132,13 @@ export function Navbar() {
   descriptionAr: "مدونة متعددة اللغات وتحديثات",
   descriptionEs: "Blog multilingüe y actualizaciones"
 },
- { 
+ 
+  ];
+  
+  const dash: dash[] = [
+
+
+  { 
       href: "dashboard", 
       labelEn: "Dashboard", 
       labelAr: "لوحة التحكم",
@@ -163,6 +184,7 @@ export function Navbar() {
               sizes="(max-width: 768px) 100vw, 50vw"
             />
           </div>
+          
             {/* <div className="w-9 h-9 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-sm">O</span>
             </div> */}
@@ -176,6 +198,7 @@ export function Navbar() {
             </div>
           </Link>
         </div>
+        
 
         {/* Center: Desktop links */}
         <ul className="hidden md:flex items-center gap-2">
@@ -205,33 +228,71 @@ export function Navbar() {
           })}
         </ul>
 
+         <div className="flex items-center gap-4">
+
+          {isSignedIn ? (
+            <>
+              {dash.map((item) => (
+                
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`group relative px-3 py-2 rounded-md text-sm border transition flex items-center gap-2 ${
+                    isActive(item.href)
+                      ? "bg-white text-black border-white"
+                      : "border-white/10 bg-white/5 text-white hover:border-yellow-300"
+                  }`}
+                >
+                  {item.labelAr}
+                </Link>
+              ))}
+              <UserButton afterSignOutUrl="/" />
+            </>
+          ) : (
+            <div className="flex gap-2">
+              <Link
+                href="/sign-up"
+                className="bg-[#7859ff] text-white py-2 px-4 rounded-xl hover:bg-[#7859ff]/80"
+              >
+                التسجيل
+              </Link>
+              <Link
+                href="/sign-in"
+                className="bg-[#5f4b8b]/60 text-white py-2 px-4 rounded-xl hover:bg-[#7859ff]/80"
+              >
+                الدخول
+              </Link>
+            </div>
+          )}
+        </div>
+
         {/* Right: Actions + Lang toggle + mobile button */}
         <div className="flex items-center gap-2">
           {/* Search Button - Desktop only */}
-          <button 
+          {/* <button 
             className="hidden sm:flex p-2 text-white/60 hover:text-white rounded-lg hover:bg-white/10 transition-colors"
             aria-label={currentLocale === 'ar' ? "بحث" : currentLocale === 'es' ? "Buscar" : "Search"}
           >
             <span className="text-lg">🔍</span>
-          </button>
+          </button> */}
 
           {/* Notifications - Desktop only */}
-          <button 
+          {/* <button 
             className="hidden sm:flex relative p-2 text-white/60 hover:text-white rounded-lg hover:bg-white/10 transition-colors"
             aria-label={currentLocale === 'ar' ? "الإشعارات" : currentLocale === 'es' ? "Notificaciones" : "Notifications"}
           >
             <span className="text-lg">🔔</span>
             <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
-          </button>
+          </button> */}
 
           {/* User Profile - Desktop only */}
-          <div className="hidden sm:block relative">
+          {/* <div className="hidden sm:block relative">
             <button className="flex items-center gap-2 p-2 rounded-lg hover:bg-white/10 transition-colors">
               <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
                 <span className="text-sm font-medium text-white">U</span>
               </div>
             </button>
-          </div>
+          </div> */}
 
           {/* Language selector dropdown */}
           <div className="relative">
@@ -390,6 +451,7 @@ export function Navbar() {
           })}
 
           {/* Mobile-only actions */}
+{/*           
           <li className="pt-2 border-t border-white/10">
             <div className="flex gap-2">
               <button 
@@ -407,7 +469,9 @@ export function Navbar() {
                 <span>{currentLocale === 'ar' ? "الإشعارات" : currentLocale === 'es' ? "Notificaciones" : "Notifications"}</span>
               </button>
             </div>
-          </li>
+          </li> */}
+
+          
 
           {/* Language selector in drawer */}
           <li>

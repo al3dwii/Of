@@ -16,7 +16,11 @@
     "postinstall": "prisma generate || echo 'Prisma generate failed, will retry during build'"
   },
   "dependencies": {
-    "@clerk/nextjs": "^4.29.0",
+    "@clerk/clerk-sdk-node": "^5.0.74",
+    "@clerk/localizations": "^3.17.2",
+    "@clerk/nextjs": "^5.7.1",
+    "@clerk/themes": "^1.7.20",
+    "@clerk/types": "^4.62.1",
     "@hookform/resolvers": "^3.3.2",
     "@prisma/client": "^5.22.0",
     "prisma": "^5.22.0",

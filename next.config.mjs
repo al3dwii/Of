@@ -12,7 +12,7 @@ const nextConfig = {
             key: 'Content-Security-Policy',
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://clerk.{YOUR_DOMAIN}.dev",
+              "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://notable-turtle-75.clerk.accounts.dev",
               "style-src 'self' 'unsafe-inline'",
               "img-src 'self' data: https:",
               "font-src 'self' data:",
