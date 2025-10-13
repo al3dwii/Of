@@ -43,7 +43,7 @@ export function Navbar() {
 
   // Determine current locale from the first segment (fallback to 'en')
   const currentLocale = useMemo<Locale>(() => {
-    const m = pathname.match(/^\/(en|ar|es)(\/|$)/);
+    const m = pathname.match(/^\/(en|ar|es|fr)(\/|$)/);
     return (m?.[1] as Locale) || "en";
   }, [pathname]);
 
@@ -52,7 +52,7 @@ export function Navbar() {
   // Preserve the rest of the path after locale, e.g.
   // /ar/slides/convert-word-to-ppt?x=1 -> "slides/convert-word-to-ppt"
   const restPath = useMemo(() => {
-    const stripped = pathname.replace(/^\/(en|ar|es)(?=\/|$)/, "");
+    const stripped = pathname.replace(/^\/(en|ar|es|fr)(?=\/|$)/, "");
     return stripped.replace(/^\/+/, ""); // remove leading slash
   }, [pathname]);
 

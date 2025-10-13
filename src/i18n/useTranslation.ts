@@ -9,7 +9,7 @@ export function useTranslation(): { t: Translation; locale: Locale } {
   const pathname = usePathname()
 
   const locale = useMemo<Locale>(() => {
-    const match = pathname?.match(/^\/(en|ar|es)(\/|$)/)
+    const match = pathname?.match(/^\/(en|ar|es|fr)(\/|$)/)
     return (match?.[1] as Locale) || 'en'
   }, [pathname])
 

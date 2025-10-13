@@ -25,6 +25,10 @@ export async function generateMetadata({ params }: PageParams) {
       title: 'Blog | Consejos y Guías de Conversión de PowerPoint',
       description: 'Lee los últimos artículos sobre conversión de PowerPoint, automatización de documentos, herramientas de IA y consejos de productividad.',
     },
+    fr: {
+      title: 'Blog | Conseils et Guides de Conversion PowerPoint',
+      description: 'Lisez les derniers articles sur la conversion PowerPoint, l\'automatisation des documents, les outils IA et les conseils de productivité.',
+    },
   };
 
   const meta = metaData[locale] || metaData.en;

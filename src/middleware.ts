@@ -2,14 +2,14 @@ import { clerkMiddleware } from '@clerk/nextjs/server'
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
-const LOCALES = ['en', 'ar', 'es'] as const;
+const LOCALES = ['en', 'ar', 'es', 'fr'] as const;
 const DEFAULT_LOCALE = 'en';
 
 export default clerkMiddleware((auth: any, req: NextRequest) => {
   const pathname = req.nextUrl.pathname;
   
   // Check if it's a dashboard route
-  const isDashboardRoute = /^\/(en|ar|es)\/dashboard/.test(pathname);
+  const isDashboardRoute = /^\/(en|ar|es|fr)\/dashboard/.test(pathname);
   
   // Protect dashboard routes
   if (isDashboardRoute) {
@@ -48,6 +48,9 @@ function handleLocaleMiddleware(request: any) {
         } else if (lang.startsWith('es')) {
           preferredLocale = 'es';
           break;
+        } else if (lang.startsWith('fr')) {
+          preferredLocale = 'fr';
+          break;
         } else if (lang.startsWith('en')) {
           preferredLocale = 'en';
           break;
@@ -63,7 +66,7 @@ function handleLocaleMiddleware(request: any) {
   const response = NextResponse.next();
   
   // Detect locale from URL for headers
-  const localeMatch = pathname.match(/^\/(en|ar|es)(\/|$)/);
+  const localeMatch = pathname.match(/^\/(en|ar|es|fr)(\/|$)/);
   const locale = localeMatch?.[1] || DEFAULT_LOCALE;
   
   // Set headers for RTL detection

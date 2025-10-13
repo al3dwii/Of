@@ -18,7 +18,7 @@ interface PillarLite {
 }
 
 interface Props {
-  locale: 'en' | 'ar' | 'es';
+  locale: 'en' | 'ar' | 'es' | 'fr';
   pillars: PillarLite[];
 }
 

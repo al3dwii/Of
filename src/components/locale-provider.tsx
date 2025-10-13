@@ -8,7 +8,7 @@ export function LocaleProvider({ children }: { children: React.ReactNode }) {
   
   useEffect(() => {
     // Detect locale from pathname
-    const localeMatch = pathname?.match(/^\/(en|ar|es)(\/|$)/)
+    const localeMatch = pathname?.match(/^\/(en|ar|es|fr)(\/|$)/)
     const locale = localeMatch?.[1] || 'en'
     const isRTL = locale === 'ar'
     

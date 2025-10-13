@@ -41,6 +41,13 @@ export function generateMetadata({
       keywords:
         'soluciones PowerPoint, conversión documentos, herramientas oficina, software presentaciones, convertidor PDF, Word a PowerPoint, herramientas empresariales, recursos educativos',
     },
+    fr: {
+      title: 'Solutions et Outils PowerPoint | Suite de Conversion',
+      description:
+        'Explorez nos solutions PowerPoint complètes pour le travail de bureau, l\'éducation, les présentations d\'entreprise et plus encore. Plus de 57 outils gratuits en ligne pour tous vos besoins de conversion de documents.',
+      keywords:
+        'solutions PowerPoint, conversion documents, outils bureau, logiciel présentation, convertisseur PDF, Word vers PowerPoint, outils entreprise, ressources éducatives',
+    },
   };
 
   const current = metadata[locale] || metadata.en;
@@ -56,6 +63,7 @@ export function generateMetadata({
         en: `${site.baseUrl}/en/solutions`,
         ar: `${site.baseUrl}/ar/solutions`,
         es: `${site.baseUrl}/es/solutions`,
+        fr: `${site.baseUrl}/fr/solutions`,
       },
     },
     openGraph: {
@@ -63,7 +71,7 @@ export function generateMetadata({
       description: current.description,
       url: canonicalUrl,
       siteName: locale === 'ar' ? site.nameAr : site.nameEn,
-      locale: locale === 'ar' ? 'ar_SA' : locale === 'es' ? 'es_ES' : 'en_US',
+      locale: locale === 'ar' ? 'ar_SA' : locale === 'es' ? 'es_ES' : locale === 'fr' ? 'fr_FR' : 'en_US',
       type: 'website',
       images: [
         {
@@ -110,6 +118,11 @@ export default async function SolutionsPage({
       paragraph:
         'Transforma tu flujo de trabajo con nuestra suite completa de herramientas de PowerPoint y conversión de documentos. Ya seas un estudiante trabajando en tareas, un educador creando cursos interactivos, o un profesional de negocios preparando presentaciones, tenemos la solución perfecta para ti. Explora nuestras categorías seleccionadas a continuación para encontrar herramientas adaptadas a tus necesidades específicas—todas gratuitas, rápidas y basadas en navegador.',
     },
+    fr: {
+      heading: 'Solutions PowerPoint pour Chaque Besoin',
+      paragraph:
+        'Transformez votre flux de travail avec notre suite complète d\'outils PowerPoint et de conversion de documents. Que vous soyez un étudiant travaillant sur des devoirs, un éducateur créant des cours interactifs, ou un professionnel d\'affaires préparant des présentations, nous avons la solution parfaite pour vous. Explorez nos catégories sélectionnées ci-dessous pour trouver des outils adaptés à vos besoins spécifiques—tous gratuits, rapides et basés sur navigateur.',
+    },
   };
 
   const content = introContent[locale] || introContent.en;
@@ -131,6 +144,11 @@ export default async function SolutionsPage({
       title: 'Soluciones y Herramientas de PowerPoint | Suite de Conversión',
       description:
         'Explora nuestras soluciones completas de PowerPoint para trabajo de oficina, educación, presentaciones empresariales y más. Más de 57 herramientas gratuitas en línea para todas tus necesidades de conversión.',
+    },
+    fr: {
+      title: 'Solutions et Outils PowerPoint | Suite de Conversion',
+      description:
+        'Explorez nos solutions PowerPoint complètes pour le travail de bureau, l\'éducation, les présentations d\'entreprise et plus encore. Plus de 57 outils gratuits en ligne pour tous vos besoins de conversion de documents.',
     },
   };
 

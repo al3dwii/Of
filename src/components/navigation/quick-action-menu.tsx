@@ -18,8 +18,8 @@ export function QuickActionMenu() {
   
   // Detect locale from pathname
   const currentLocale = useMemo(() => {
-    const localeMatch = pathname?.match(/^\/(en|ar|es)(\/|$)/)
-    return (localeMatch?.[1] as 'en' | 'ar' | 'es') || 'en'
+    const localeMatch = pathname?.match(/^\/(en|ar|es|fr)(\/|$)/)
+    return (localeMatch?.[1] as 'en' | 'ar' | 'es' | 'fr') || 'en'
   }, [pathname])
   
   const isAr = currentLocale === 'ar'

@@ -57,8 +57,8 @@ export function DashboardSidebar() {
   const pathname = usePathname()
   
   // Extract locale from pathname
-  const locale = pathname?.match(/^\/(en|ar|es)/)?.[1] || 'en'
-  const cleanPathname = pathname?.replace(/^\/(en|ar|es)/, '') || ''
+  const locale = pathname?.match(/^\/(en|ar|es|fr)/)?.[1] || 'en'
+  const cleanPathname = pathname?.replace(/^\/(en|ar|es|fr)/, '') || ''
 
   return (
     <div className="w-64 bg-white border-r border-gray-200 min-h-screen flex flex-col">

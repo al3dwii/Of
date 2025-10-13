@@ -234,7 +234,7 @@ export const dataSource = {
   /** Fetch a pillar localized to the requested locale */
   findPillar: async (
     slug: string,
-    locale: 'en' | 'ar' | 'es'
+    locale: 'en' | 'ar' | 'es' | 'fr'
   ): Promise<LocalizedPillar | undefined> => {
     const pillar = pillars.find((p) => p.slug === slug);
     if (!pillar) return undefined;

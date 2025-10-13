@@ -74,7 +74,7 @@ export default function TestAgenticPage() {
   const logsEndRef = useRef<HTMLDivElement>(null);
   
   // Detect locale from pathname
-  const locale = pathname?.match(/^\/(en|ar|es)/)?.[1] || 'en';
+  const locale = pathname?.match(/^\/(en|ar|es|fr)/)?.[1] || 'en';
 
   const scrollToBottom = () => {
     logsEndRef.current?.scrollIntoView({ behavior: 'smooth' });

@@ -83,6 +83,20 @@ export const localeMetadata: Record<Locale, {
       'diapositivas con IA',
       'automatización de presentaciones'
     ]
+  },
+  fr: {
+    title: 'Sharayeh - Générateur de Présentations IA',
+    description: 'Transformez des documents en présentations professionnelles avec l\'IA. Convertissez Word, PDF, Excel et images en diapositives PowerPoint instantanément. Créateur de présentations IA pour entreprises et éducation.',
+    keywords: [
+      'générateur de présentations IA',
+      'document vers PowerPoint',
+      'Word vers PowerPoint',
+      'PDF vers diapositives',
+      'créateur de présentations',
+      'PowerPoint automatique',
+      'diapositives IA',
+      'automatisation de présentations'
+    ]
   }
 }
 
