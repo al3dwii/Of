@@ -45,6 +45,21 @@ export interface Translation {
         description: string
       }
     }
+    howItWorks: {
+      title: string
+      steps: string[]
+    }
+    socialProof: {
+      title: string
+      stats: string[]
+    }
+    faq: {
+      title: string
+      items: {
+        q: string
+        a: string
+      }[]
+    }
     popularLandings: {
       title: string
       arabic: string

@@ -43,6 +43,48 @@ export const en: Translation = {
         description: 'Track engagement and get insights on how your content performs.',
       },
     },
+    howItWorks: {
+      title: 'How It Works',
+      steps: [
+        'Upload your document or enter a prompt',
+        'Our AI analyzes and structures your content',
+        'Review and customize your presentation',
+        'Export and share with your audience',
+      ],
+    },
+    socialProof: {
+      title: 'Trusted by Teams Worldwide',
+      stats: [
+        '10,000+ presentations created',
+        '50+ languages supported',
+        '99.9% uptime guarantee',
+      ],
+    },
+    faq: {
+      title: 'Frequently Asked Questions',
+      items: [
+        {
+          q: 'What file formats can I upload?',
+          a: 'You can upload Word documents (.docx), PDF files, images (JPG, PNG), and HTML files. We also support direct text input.',
+        },
+        {
+          q: 'Does it support Arabic and RTL languages?',
+          a: 'Yes! Sharayeh has native support for Arabic typography and right-to-left (RTL) languages, ensuring perfect text rendering.',
+        },
+        {
+          q: 'Can I edit the presentations after generation?',
+          a: 'Absolutely! All generated presentations are fully editable. You can modify text, images, layouts, and styling as needed.',
+        },
+        {
+          q: 'How long does it take to generate a presentation?',
+          a: 'Most presentations are generated in 30-60 seconds, depending on the length and complexity of your content.',
+        },
+        {
+          q: 'Is my data secure?',
+          a: 'Yes, we use enterprise-grade encryption and follow strict data privacy protocols. Your documents are processed securely and never shared.',
+        },
+      ],
+    },
     popularLandings: {
       title: 'Popular landings',
       arabic: 'Arabic',

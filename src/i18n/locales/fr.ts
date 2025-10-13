@@ -43,6 +43,48 @@ export const fr: Translation = {
         description: 'Suivez l\'engagement et obtenez des informations sur les performances de votre contenu.',
       },
     },
+    howItWorks: {
+      title: 'Comment ça Marche',
+      steps: [
+        'Téléchargez votre document ou entrez une invite',
+        'Notre IA analyse et structure votre contenu',
+        'Révisez et personnalisez votre présentation',
+        'Exportez et partagez avec votre public',
+      ],
+    },
+    socialProof: {
+      title: 'Approuvé par des Équipes du Monde Entier',
+      stats: [
+        'Plus de 10 000 présentations créées',
+        'Plus de 50 langues supportées',
+        'Garantie de disponibilité de 99,9%',
+      ],
+    },
+    faq: {
+      title: 'Questions Fréquemment Posées',
+      items: [
+        {
+          q: 'Quels formats de fichiers puis-je télécharger?',
+          a: 'Vous pouvez télécharger des documents Word (.docx), des fichiers PDF, des images (JPG, PNG) et des fichiers HTML. Nous prenons également en charge la saisie de texte directe.',
+        },
+        {
+          q: 'Est-ce qu\'il prend en charge l\'arabe et les langues RTL?',
+          a: 'Oui! Sharayeh dispose d\'un support natif pour la typographie arabe et les langues de droite à gauche (RTL), garantissant un rendu de texte parfait.',
+        },
+        {
+          q: 'Puis-je modifier les présentations après leur génération?',
+          a: 'Absolument! Toutes les présentations générées sont entièrement modifiables. Vous pouvez modifier le texte, les images, les mises en page et le style selon vos besoins.',
+        },
+        {
+          q: 'Combien de temps faut-il pour générer une présentation?',
+          a: 'La plupart des présentations sont générées en 30 à 60 secondes, en fonction de la longueur et de la complexité de votre contenu.',
+        },
+        {
+          q: 'Mes données sont-elles sécurisées?',
+          a: 'Oui, nous utilisons un cryptage de niveau entreprise et suivons des protocoles stricts de confidentialité des données. Vos documents sont traités en toute sécurité et ne sont jamais partagés.',
+        },
+      ],
+    },
     popularLandings: {
       title: 'Pages populaires',
       arabic: 'Arabe',

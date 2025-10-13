@@ -43,6 +43,48 @@ export const es: Translation = {
         description: 'Rastrea el compromiso y obtén información sobre el rendimiento de tu contenido.',
       },
     },
+    howItWorks: {
+      title: 'Cómo Funciona',
+      steps: [
+        'Sube tu documento o ingresa una indicación',
+        'Nuestra IA analiza y estructura tu contenido',
+        'Revisa y personaliza tu presentación',
+        'Exporta y comparte con tu audiencia',
+      ],
+    },
+    socialProof: {
+      title: 'Confiado por Equipos en Todo el Mundo',
+      stats: [
+        'Más de 10,000 presentaciones creadas',
+        'Más de 50 idiomas soportados',
+        'Garantía de tiempo de actividad del 99.9%',
+      ],
+    },
+    faq: {
+      title: 'Preguntas Frecuentes',
+      items: [
+        {
+          q: '¿Qué formatos de archivo puedo subir?',
+          a: 'Puedes subir documentos de Word (.docx), archivos PDF, imágenes (JPG, PNG) y archivos HTML. También admitimos entrada de texto directa.',
+        },
+        {
+          q: '¿Soporta árabe e idiomas RTL?',
+          a: '¡Sí! Sharayeh tiene soporte nativo para tipografía árabe e idiomas de derecha a izquierda (RTL), asegurando una representación perfecta del texto.',
+        },
+        {
+          q: '¿Puedo editar las presentaciones después de generarlas?',
+          a: '¡Absolutamente! Todas las presentaciones generadas son completamente editables. Puedes modificar texto, imágenes, diseños y estilos según sea necesario.',
+        },
+        {
+          q: '¿Cuánto tiempo tarda en generarse una presentación?',
+          a: 'La mayoría de las presentaciones se generan en 30-60 segundos, dependiendo de la longitud y complejidad de tu contenido.',
+        },
+        {
+          q: '¿Mis datos están seguros?',
+          a: 'Sí, utilizamos encriptación de nivel empresarial y seguimos estrictos protocolos de privacidad de datos. Tus documentos se procesan de forma segura y nunca se comparten.',
+        },
+      ],
+    },
     popularLandings: {
       title: 'Páginas populares',
       arabic: 'Árabe',
