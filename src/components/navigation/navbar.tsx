@@ -95,37 +95,18 @@ export function Navbar() {
       descriptionAr: "الشرائح المولدة بالذكاء الاصطناعي",
       descriptionEs: "Diapositivas generadas por IA"
     },
+    { 
+      href: "tools", 
+      labelEn: "Tools", 
+      labelAr: "الأدوات",
+      labelEs: "Diapositivas",
+      icon: "📄", 
+      description: "AI-generated slides",
+      descriptionAr: "الشرائح المولدة بالذكاء الاصطناعي",
+      descriptionEs: "Diapositivas generadas por IA"
+    },
   
-    { 
-      href: "dashboard", 
-      labelEn: "Dashboard", 
-      labelAr: "لوحة التحكم",
-      labelEs: "Panel",
-      icon: "📊", 
-      description: "Overview and stats",
-      descriptionAr: "نظرة عامة وإحصائيات",
-      descriptionEs: "Resumen y estadísticas"
-    },
-    { 
-      href: "dashboard/presentations", 
-      labelEn: "Presentations", 
-      labelAr: "العروض التقديمية",
-      labelEs: "Presentaciones",
-      icon: "📑", 
-      description: "Manage presentations",
-      descriptionAr: "إدارة العروض التقديمية",
-      descriptionEs: "Administrar presentaciones"
-    },
-    { 
-      href: "dashboard/analytics", 
-      labelEn: "Analytics", 
-      labelAr: "التحليلات",
-      labelEs: "Analíticas",
-      icon: "📈", 
-      description: "Performance insights",
-      descriptionAr: "رؤى الأداء",
-      descriptionEs: "Información de rendimiento"
-    },
+  
      {
   href: "blog",
   labelEn: "Blog",
@@ -136,6 +117,16 @@ export function Navbar() {
   descriptionAr: "مدونة متعددة اللغات وتحديثات",
   descriptionEs: "Blog multilingüe y actualizaciones"
 },
+ { 
+      href: "dashboard", 
+      labelEn: "Dashboard", 
+      labelAr: "لوحة التحكم",
+      labelEs: "Panel",
+      icon: "📊", 
+      description: "Overview and stats",
+      descriptionAr: "نظرة عامة وإحصائيات",
+      descriptionEs: "Resumen y estadísticas"
+    },
   ];
 
   return (
