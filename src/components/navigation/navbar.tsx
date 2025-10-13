@@ -14,10 +14,12 @@ interface NavItem {
   labelEn: string
   labelAr: string
   labelEs: string
+  labelFr: string
   icon: string
   description?: string
   descriptionAr?: string
   descriptionEs?: string
+  descriptionFr?: string
 }
 
 interface dash {
@@ -25,10 +27,12 @@ interface dash {
   labelEn: string
   labelAr: string
   labelEs: string
+  labelFr: string
   icon: string
   description?: string
   descriptionAr?: string
   descriptionEs?: string
+  descriptionFr?: string
 }
 
 export function Navbar() {
@@ -89,12 +93,14 @@ export function Navbar() {
   const getLabel = (item: NavItem) => {
     if (currentLocale === 'ar') return item.labelAr
     if (currentLocale === 'es') return item.labelEs
+    if (currentLocale === 'fr') return item.labelFr
     return item.labelEn
   }
 
   const getDescription = (item: NavItem) => {
     if (currentLocale === 'ar') return item.descriptionAr || item.description
     if (currentLocale === 'es') return item.descriptionEs || item.description
+    if (currentLocale === 'fr') return item.descriptionFr || item.description
     return item.description
   }
 
@@ -104,21 +110,25 @@ export function Navbar() {
       href: "solutions", 
       labelEn: "Solutions", 
       labelAr: "الحلول",
-      labelEs: "Diapositivas",
+      labelEs: "Soluciones",
+      labelFr: "Solutions",
       icon: "📄", 
       description: "AI-generated slides",
       descriptionAr: "الشرائح المولدة بالذكاء الاصطناعي",
-      descriptionEs: "Diapositivas generadas por IA"
+      descriptionEs: "Diapositivas generadas por IA",
+      descriptionFr: "Diapositives générées par IA"
     },
     { 
       href: "tools", 
       labelEn: "Tools", 
       labelAr: "الأدوات",
-      labelEs: "Diapositivas",
+      labelEs: "Herramientas",
+      labelFr: "Outils",
       icon: "📄", 
       description: "AI-generated slides",
       descriptionAr: "الشرائح المولدة بالذكاء الاصطناعي",
-      descriptionEs: "Diapositivas generadas por IA"
+      descriptionEs: "Diapositivas generadas por IA",
+      descriptionFr: "Diapositives générées par IA"
     },
   
   
@@ -127,10 +137,12 @@ export function Navbar() {
   labelEn: "Blog",
   labelAr: "المدونة",
   labelEs: "Blog",
+  labelFr: "Blog",
   icon: "📝",
   description: "Multilingual blog and updates",
   descriptionAr: "مدونة متعددة اللغات وتحديثات",
-  descriptionEs: "Blog multilingüe y actualizaciones"
+  descriptionEs: "Blog multilingüe y actualizaciones",
+  descriptionFr: "Blog multilingue et mises à jour"
 },
  
   ];
@@ -143,10 +155,12 @@ export function Navbar() {
       labelEn: "Dashboard", 
       labelAr: "لوحة التحكم",
       labelEs: "Panel",
+      labelFr: "Tableau de bord",
       icon: "📊", 
       description: "Overview and stats",
       descriptionAr: "نظرة عامة وإحصائيات",
-      descriptionEs: "Resumen y estadísticas"
+      descriptionEs: "Resumen y estadísticas",
+      descriptionFr: "Aperçu et statistiques"
     },
   ];
 
@@ -390,6 +404,28 @@ export function Navbar() {
                       <span className="text-xl">🇪🇸</span>
                       <span className="flex-1 text-left">Español</span>
                       {currentLocale === 'es' && (
+                        <svg className="w-4 h-4 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                      )}
+                    </button>
+
+                    {/* French */}
+                    <button
+                      type="button"
+                      onClick={() => {
+                        switchToLanguage('fr');
+                        setIsLangDropdownOpen(false);
+                      }}
+                      className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm transition-colors ${
+                        currentLocale === 'fr'
+                          ? 'bg-white/10 text-white'
+                          : 'text-white/80 hover:bg-white/5 hover:text-white'
+                      }`}
+                    >
+                      <span className="text-xl">🇫🇷</span>
+                      <span className="flex-1 text-left">Français</span>
+                      {currentLocale === 'fr' && (
                         <svg className="w-4 h-4 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
                           <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                         </svg>
