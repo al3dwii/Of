@@ -185,4 +185,99 @@ export const en: Translation = {
     managePresentations: 'Manage presentations',
     performanceInsights: 'Performance insights',
   },
+
+  tools: {
+    hero: {
+      title: 'All Conversion Tools',
+      subtitle: 'free tools to convert your files. Transform documents, presentations, and media with ease.',
+      searchPlaceholder: 'Search for a tool...',
+    },
+    categories: {
+      toolsLabel: 'Tools',
+      popular: 'Popular',
+      searches: 'searches',
+      tryNow: 'Try Now',
+    },
+    cta: {
+      title: 'Ready to Get Started?',
+      subtitle: 'Choose any tool above and start converting your files for free.',
+    },
+    breadcrumb: {
+      home: 'Home',
+      tools: 'Tools',
+    },
+  },
+
+  docToSlides: {
+    hero: {
+      title: 'Convert Documents to Slides',
+      subtitle: 'Transform your Word documents, PDFs, and text files into professional presentations in seconds with AI.',
+      ctaPrimary: 'Start Converting',
+      ctaSecondary: 'View Examples',
+    },
+    features: {
+      title: 'Powerful Features',
+      items: [
+        'Upload Word, PDF, or text files',
+        'AI-powered content extraction and formatting',
+        'Professional slide layouts and designs',
+        'Automatic bullet points and structure',
+        'Export to PowerPoint or PDF',
+        'Support for images and tables',
+      ],
+    },
+    howItWorks: {
+      title: 'How It Works',
+      steps: [
+        'Upload your document (Word, PDF, or text)',
+        'Our AI analyzes and structures your content',
+        'Review and customize your presentation',
+      ],
+    },
+    faq: {
+      title: 'Frequently Asked Questions',
+      items: [
+        {
+          q: 'What document formats are supported?',
+          a: 'We support Word documents (.docx), PDF files (.pdf), and plain text files (.txt). You can also paste text directly.',
+        },
+        {
+          q: 'How long does the conversion take?',
+          a: 'Most documents are converted in 30-60 seconds, depending on the length and complexity of your content.',
+        },
+        {
+          q: 'Can I edit the slides after conversion?',
+          a: 'Yes! All generated presentations are fully editable. You can modify text, change layouts, add or remove slides, and customize colors.',
+        },
+        {
+          q: 'What output formats are available?',
+          a: 'You can export your presentation as PowerPoint (.pptx) or PDF (.pdf) format.',
+        },
+        {
+          q: 'Is my document data secure?',
+          a: 'Absolutely. We use enterprise-grade encryption and your documents are processed securely. Files are automatically deleted after conversion.',
+        },
+      ],
+    },
+    cta: {
+      title: 'Ready to Convert Your Documents?',
+      button: 'Start Converting',
+    },
+  },
+
+  toolPage: {
+    aiPrompt: {
+      describe: 'Describe what you want to create and let AI do the work for you',
+      quickExamples: 'Quick Examples:',
+    },
+    features: {
+      lightningFast: 'Lightning Fast',
+      professionalDesign: 'Professional Design',
+      multiLanguage: 'Multi-Language',
+    },
+    related: {
+      title: 'Related Tools',
+    },
+  },
 }
+

@@ -164,4 +164,72 @@ export interface Translation {
     managePresentations: string
     performanceInsights: string
   }
+
+  // Tools Page
+  tools: {
+    hero: {
+      title: string
+      subtitle: string
+      searchPlaceholder: string
+    }
+    categories: {
+      toolsLabel: string
+      popular: string
+      searches: string
+      tryNow: string
+    }
+    cta: {
+      title: string
+      subtitle: string
+    }
+    breadcrumb: {
+      home: string
+      tools: string
+    }
+  }
+
+  // Doc to Slides Tool
+  docToSlides: {
+    hero: {
+      title: string
+      subtitle: string
+      ctaPrimary: string
+      ctaSecondary: string
+    }
+    features: {
+      title: string
+      items: string[]
+    }
+    howItWorks: {
+      title: string
+      steps: string[]
+    }
+    faq: {
+      title: string
+      items: {
+        q: string
+        a: string
+      }[]
+    }
+    cta: {
+      title: string
+      button: string
+    }
+  }
+
+  // Dynamic Tool Pages
+  toolPage: {
+    aiPrompt: {
+      describe: string
+      quickExamples: string
+    }
+    features: {
+      lightningFast: string
+      professionalDesign: string
+      multiLanguage: string
+    }
+    related: {
+      title: string
+    }
+  }
 }

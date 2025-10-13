@@ -2,14 +2,15 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Search, ArrowRight, Sparkles } from 'lucide-react';
 import { getConverters } from '@/lib/server/converters';
-import { LOCALES } from '@/data/locales';
+import { LOCALES, type Locale } from '@/data/locales';
 import { siteUrl } from '@/utils/seo';
 import StructuredData from '@/components/StructuredData';
+import { getTranslation } from '@/i18n';
 
 /* ------------------------------------------------------------------ */
 /* Types                                                               */
 /* ------------------------------------------------------------------ */
-type PageParams = { locale: 'en' | 'ar' };
+type PageParams = { locale: Locale };
 
 /* ------------------------------------------------------------------ */
 /* Rendering strategy                                                  */
@@ -32,16 +33,10 @@ export async function generateMetadata({
   params: PageParams;
 }): Promise<Metadata> {
   const { locale } = params;
-  const isAr = locale === 'ar';
+  const t = getTranslation(locale);
 
-  const title = isAr
-    ? 'جميع الأدوات - أدوات تحويل الملفات المجانية | Sharayeh'
-    : 'All Tools - Free File Conversion Tools | Sharayeh';
-
-  const description = isAr
-    ? 'استكشف مجموعتنا الكاملة من أدوات تحويل الملفات المجانية عبر الإنترنت. حوّل المستندات والعروض التقديمية والفيديو والصوت بسهولة.'
-    : 'Explore our complete collection of free online file conversion tools. Convert documents, presentations, videos, and audio files with ease.';
-
+  const title = `${t.tools.hero.title} - ${t.brand.name}`;
+  const description = t.tools.hero.subtitle;
   const canonical = `${siteUrl}/${locale}/tools`;
 
   return {
@@ -79,6 +74,7 @@ export async function generateMetadata({
 /* ------------------------------------------------------------------ */
 export default async function ToolsPage({ params }: { params: PageParams }) {
   const { locale } = params;
+  const t = getTranslation(locale);
   const isAr = locale === 'ar';
   const tools = getConverters();
 
@@ -108,13 +104,13 @@ export default async function ToolsPage({ params }: { params: PageParams }) {
       {
         '@type': 'ListItem',
         position: 1,
-        name: isAr ? 'الرئيسية' : 'Home',
+        name: t.tools.breadcrumb.home,
         item: `${siteUrl}/${locale}`,
       },
       {
         '@type': 'ListItem',
         position: 2,
-        name: isAr ? 'الأدوات' : 'Tools',
+        name: t.tools.breadcrumb.tools,
         item: `${siteUrl}/${locale}/tools`,
       },
     ],
@@ -124,10 +120,8 @@ export default async function ToolsPage({ params }: { params: PageParams }) {
   const collectionJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
-    name: isAr ? 'أدوات تحويل الملفات' : 'File Conversion Tools',
-    description: isAr
-      ? 'مجموعة كاملة من أدوات تحويل الملفات المجانية'
-      : 'Complete collection of free file conversion tools',
+    name: t.tools.hero.title,
+    description: t.tools.hero.subtitle,
     url: `${siteUrl}/${locale}/tools`,
     inLanguage: locale,
   };
@@ -149,13 +143,13 @@ export default async function ToolsPage({ params }: { params: PageParams }) {
                     href={`/${locale}`}
                     className="text-blue-100 hover:text-white hover:underline transition-colors"
                   >
-                    {isAr ? 'الرئيسية' : 'Home'}
+                    {t.tools.breadcrumb.home}
                   </Link>
                   <span className="text-blue-300 select-none">/</span>
                 </li>
                 <li>
                   <span className="text-white font-semibold">
-                    {isAr ? 'الأدوات' : 'Tools'}
+                    {t.tools.breadcrumb.tools}
                   </span>
                 </li>
               </ol>
@@ -165,20 +159,18 @@ export default async function ToolsPage({ params }: { params: PageParams }) {
               <div className="flex items-center gap-2 mb-4">
                 <Sparkles className="w-8 h-8" />
                 <h1 className="text-4xl md:text-5xl font-bold">
-                  {isAr ? 'جميع أدوات التحويل' : 'All Conversion Tools'}
+                  {t.tools.hero.title}
                 </h1>
               </div>
               <p className="text-xl text-blue-100 mb-8">
-                {isAr
-                  ? `اكتشف ${tools.length} أداة مجانية لتحويل الملفات. حوّل المستندات والعروض التقديمية والوسائط بسهولة.`
-                  : `Discover ${tools.length} free tools to convert your files. Transform documents, presentations, and media with ease.`}
+                {`${tools.length} ${t.tools.hero.subtitle}`}
               </p>
 
               {/* Search Bar */}
               <div className="relative max-w-2xl">
                 <input
                   type="text"
-                  placeholder={isAr ? 'ابحث عن أداة...' : 'Search for a tool...'}
+                  placeholder={t.tools.hero.searchPlaceholder}
                   className="w-full px-6 py-2 rounded-lg text-gray-900 placeholder-gray-500 shadow-lg focus:outline-none focus:ring-4 focus:ring-blue-300"
                   id="toolSearch"
                 />
@@ -202,10 +194,10 @@ export default async function ToolsPage({ params }: { params: PageParams }) {
                   </div>
                   <div>
                     <h2 className="text-2xl font-bold text-gray-900">
-                      {isAr ? `أدوات ${category}` : `${category} Tools`}
+                      {isAr ? `أدوات ${category}` : `${category} ${t.tools.categories.toolsLabel}`}
                     </h2>
                     <p className="text-sm text-gray-600">
-                      {categoryTools.length} {isAr ? 'أداة' : 'tools'}
+                      {categoryTools.length} {t.tools.categories.toolsLabel}
                     </p>
                   </div>
                 </div>
@@ -250,12 +242,12 @@ export default async function ToolsPage({ params }: { params: PageParams }) {
 
                         {tool.search_vol && (
                           <div className="text-xs text-gray-500">
-                            {isAr ? 'شائع' : 'Popular'}: {Number(tool.search_vol).toLocaleString()} {isAr ? 'بحث' : 'searches'}
+                            {t.tools.categories.popular}: {Number(tool.search_vol).toLocaleString()} {t.tools.categories.searches}
                           </div>
                         )}
 
                         <div className="mt-4 flex items-center text-blue-600 font-medium text-sm group-hover:translate-x-1 transition-transform">
-                          {isAr ? 'جرب الآن' : 'Try Now'}
+                          {t.tools.categories.tryNow}
                           <ArrowRight className="w-4 h-4 ml-1" />
                         </div>
                       </Link>
@@ -271,12 +263,10 @@ export default async function ToolsPage({ params }: { params: PageParams }) {
         <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-16 mt-12">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-3xl font-bold mb-4">
-              {isAr ? 'جاهز للبدء؟' : 'Ready to Get Started?'}
+              {t.tools.cta.title}
             </h2>
             <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-              {isAr
-                ? 'اختر أي أداة من الأعلى وابدأ في تحويل ملفاتك مجانًا.'
-                : 'Choose any tool above and start converting your files for free.'}
+              {t.tools.cta.subtitle}
             </p>
           </div>
         </div>

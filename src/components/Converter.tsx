@@ -2,6 +2,7 @@
 'use client';
 
 import { useState } from 'react';
+import type { Locale } from '@/data/locales';
 // import CreatePresentation from '@/components/custom/CpClientWrapper';
 
 // interface ConverterProps {
@@ -11,7 +12,7 @@ import { useState } from 'react';
 // }
 
 export interface ConverterProps {        // ← عدّل export
-  locale: 'en' | 'ar';
+  locale: Locale;
   proxyPath: string;
   templateGalleryPath?: string;
 }

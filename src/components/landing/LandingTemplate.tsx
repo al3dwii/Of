@@ -16,9 +16,11 @@ import Link from 'next/link';
 import type { Converter as ConverterRow } from '@/lib/server/converters';
 import type { ToolContent } from '@/lib/server/tool-content';
 import { getArVariations, getEnVariations } from '@/utils/variations';
+import { getTranslation } from '@/i18n';
+import type { Locale } from '@/data/locales';
 
 interface LandingTemplateProps {
-  locale: 'en' | 'ar';
+  locale: Locale;
   row: ConverterRow;
   related: ConverterRow[];
   toolContent?: ToolContent;
@@ -37,6 +39,7 @@ export default function LandingTemplate({
   toolContent,
 }: LandingTemplateProps) {
   const router = useRouter();
+  const t = getTranslation(locale);
   const isAr = locale === 'ar';
 
   // Generate keyword variations for on‑page copy
@@ -134,10 +137,7 @@ export default function LandingTemplate({
               {isAr ? `استخدم الذكاء الاصطناعي: ${row.label_ar}` : `Use AI to ${row.label_en}`}
             </h2> */}
             <p className="text-gray-600 text-lg">
-              {isAr 
-                ? 'صف ما تريد إنشاءه ودع الذكاء الاصطناعي يعمل من أجلك'
-                : 'Describe what you want to create and let AI do the work for you'
-              }
+              {t.toolPage.aiPrompt.describe}
             </p>
           </div>
 
@@ -151,7 +151,7 @@ export default function LandingTemplate({
             {/* Quick Examples */}
             {/* <div className="mt-4 pt-4 border-t border-gray-200">
               <p className="text-xs font-medium text-gray-600 mb-2">
-                {isAr ? 'أمثلة سريعة:' : 'Quick Examples:'}
+                {t.toolPage.aiPrompt.quickExamples}
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                 {(() => {
@@ -237,9 +237,9 @@ export default function LandingTemplate({
           {/* Features List */}
           <div className="grid grid-cols-3 gap-4 mt-6">
             {[
-              { icon: '⚡', label: isAr ? 'سريع جداً' : 'Lightning Fast' },
-              { icon: '🎨', label: isAr ? 'تصميم احترافي' : 'Professional Design' },
-              { icon: '🌐', label: isAr ? 'متعدد اللغات' : 'Multi-Language' },
+              { icon: '⚡', label: t.toolPage.features.lightningFast },
+              { icon: '🎨', label: t.toolPage.features.professionalDesign },
+              { icon: '🌐', label: t.toolPage.features.multiLanguage },
             ].map((feature, idx) => (
               <div key={idx} className="text-center">
                 <div className="text-2xl mb-1">{feature.icon}</div>
@@ -282,7 +282,7 @@ export default function LandingTemplate({
       <script src="https://widget.senja.io/widget/004b216b-7496-4544-943b-fada94eb906d/platform.js" type="text/javascript" async></script>
 <div className="senja-embed" data-id="004b216b-7496-4544-943b-fada94eb906d" data-mode="shadow" data-lazyload="false"></div>
 
-          <h3 className="text-xl font-bold">تم البحث أيضاً عن</h3>
+          <h3 className="text-xl font-bold">{t.toolPage.related.title}</h3>
           <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
             {related.map((c) => (
               <li key={c.slug_en}>

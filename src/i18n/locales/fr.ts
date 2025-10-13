@@ -185,4 +185,99 @@ export const fr: Translation = {
     managePresentations: 'Gérer les présentations',
     performanceInsights: 'Informations sur les performances',
   },
+
+  tools: {
+    hero: {
+      title: 'Tous les Outils de Conversion',
+      subtitle: 'outils gratuits pour convertir vos fichiers. Transformez documents, présentations et médias avec facilité.',
+      searchPlaceholder: 'Rechercher un outil...',
+    },
+    categories: {
+      toolsLabel: 'outils',
+      popular: 'Populaire',
+      searches: 'recherches',
+      tryNow: 'Essayer Maintenant',
+    },
+    cta: {
+      title: 'Prêt à Commencer?',
+      subtitle: 'Choisissez n\'importe quel outil ci-dessus et commencez à convertir vos fichiers gratuitement.',
+    },
+    breadcrumb: {
+      home: 'Accueil',
+      tools: 'Outils',
+    },
+  },
+
+  docToSlides: {
+    hero: {
+      title: 'Convertir des Documents en Diapositives',
+      subtitle: 'Transformez vos documents Word, PDF et fichiers texte en présentations professionnelles en quelques secondes avec l\'IA.',
+      ctaPrimary: 'Commencer la Conversion',
+      ctaSecondary: 'Voir les Exemples',
+    },
+    features: {
+      title: 'Fonctionnalités Puissantes',
+      items: [
+        'Téléchargez des fichiers Word, PDF ou texte',
+        'Extraction et formatage de contenu par IA',
+        'Mises en page et designs de diapositives professionnels',
+        'Points de liste et structure automatiques',
+        'Exporter vers PowerPoint ou PDF',
+        'Support des images et tableaux',
+      ],
+    },
+    howItWorks: {
+      title: 'Comment ça Marche',
+      steps: [
+        'Téléchargez votre document (Word, PDF ou texte)',
+        'Notre IA analyse et structure votre contenu',
+        'Révisez et personnalisez votre présentation',
+      ],
+    },
+    faq: {
+      title: 'Questions Fréquemment Posées',
+      items: [
+        {
+          q: 'Quels formats de documents sont pris en charge?',
+          a: 'Nous prenons en charge les documents Word (.docx), les fichiers PDF (.pdf) et les fichiers texte brut (.txt). Vous pouvez également coller du texte directement.',
+        },
+        {
+          q: 'Combien de temps prend la conversion?',
+          a: 'La plupart des documents sont convertis en 30 à 60 secondes, selon la longueur et la complexité de votre contenu.',
+        },
+        {
+          q: 'Puis-je modifier les diapositives après la conversion?',
+          a: 'Oui! Toutes les présentations générées sont entièrement modifiables. Vous pouvez modifier le texte, changer les mises en page, ajouter ou supprimer des diapositives et personnaliser les couleurs.',
+        },
+        {
+          q: 'Quels formats de sortie sont disponibles?',
+          a: 'Vous pouvez exporter votre présentation au format PowerPoint (.pptx) ou PDF (.pdf).',
+        },
+        {
+          q: 'Les données de mon document sont-elles sécurisées?',
+          a: 'Absolument. Nous utilisons un cryptage de niveau entreprise et vos documents sont traités en toute sécurité. Les fichiers sont automatiquement supprimés après la conversion.',
+        },
+      ],
+    },
+    cta: {
+      title: 'Prêt à Convertir vos Documents?',
+      button: 'Commencer la Conversion',
+    },
+  },
+
+  toolPage: {
+    aiPrompt: {
+      describe: 'Décrivez ce que vous voulez créer et laissez l\'IA faire le travail pour vous',
+      quickExamples: 'Exemples Rapides:',
+    },
+    features: {
+      lightningFast: 'Ultra Rapide',
+      professionalDesign: 'Design Professionnel',
+      multiLanguage: 'Multi-Langue',
+    },
+    related: {
+      title: 'Outils Connexes',
+    },
+  },
 }
+

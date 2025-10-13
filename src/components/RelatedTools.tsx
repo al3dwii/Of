@@ -1,10 +1,12 @@
 // src/components/RelatedTools.tsx
 import Link from 'next/link';
 import type { Converter as ConverterRow } from '@/lib/server/converters';
+import type { Locale } from '@/data/locales';
+import { getTranslation } from '@/i18n';
 
 interface RelatedToolsProps {
   tools: ConverterRow[];
-  locale: 'en' | 'ar';
+  locale: Locale;
   className?: string;
 }
 
@@ -19,11 +21,12 @@ interface RelatedToolsProps {
  * @param className - Optional additional CSS classes
  */
 export default function RelatedTools({ tools, locale, className = '' }: RelatedToolsProps) {
+  const t = getTranslation(locale);
   const isAr = locale === 'ar';
   
   if (tools.length === 0) return null;
 
-  const heading = isAr ? 'أدوات ذات صلة' : 'Related Tools';
+  const heading = t.toolPage.related.title;
   const subheading = isAr 
     ? 'اكتشف المزيد من أدوات التحويل المفيدة'
     : 'Discover more useful conversion tools';
