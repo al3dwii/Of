@@ -46,7 +46,7 @@ export default function HomePage({ params }: PageProps) {
                 {t.home.hero.ctaSlides}
               </Link>
               <Link
-                href={`/${locale}/slides`}
+                href={`/${locale}/templates`}
                 className="bg-white text-gray-700 px-8 py-3 rounded-lg text-lg font-medium border border-gray-300 hover:bg-gray-50 transition-colors"
               >
                 {t.home.hero.ctaConvert}

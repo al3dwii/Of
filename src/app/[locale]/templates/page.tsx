@@ -1,132 +1,206 @@
-import Link from "next/link";
-import type { Metadata } from "next";
-import type { Locale } from "@/data/locales";
-import { getPageCopy } from "@/utils/copy";
+'use client'
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { locale: Locale };
-}): Promise<Metadata> {
-  const copy = getPageCopy('templatesThemes', params.locale);
-  return {
-    title: copy.h1,
-    description: copy.subhead,
-    alternates: {
-      canonical: `/${params.locale}/templates`,
-    },
-  };
-}
+import { useState } from "react";
+import Link from "next/link";
+import type { Locale } from "@/data/locales";
+import { templates, templateCategories, getTemplatesByCategory, type TemplateCategory } from "@/data/templates";
 
 export default function TemplatesPage({ params }: { params: { locale: Locale } }) {
-  const copy = getPageCopy('templatesThemes', params.locale);
+  const [selectedCategory, setSelectedCategory] = useState<TemplateCategory | 'all'>('all');
   const isAr = params.locale === "ar";
+  
+  const filteredTemplates = getTemplatesByCategory(selectedCategory);
+  
+  // Get localized category name
+  const getCategoryName = (category: typeof templateCategories[0]) => {
+    switch (params.locale) {
+      case 'ar': return category.nameAr;
+      case 'es': return category.nameEs;
+      case 'fr': return category.nameFr;
+      default: return category.name;
+    }
+  };
+  
+  const getCategoryDescription = (category: typeof templateCategories[0]) => {
+    switch (params.locale) {
+      case 'ar': return category.descriptionAr;
+      case 'es': return category.descriptionEs;
+      case 'fr': return category.descriptionFr;
+      default: return category.description;
+    }
+  };
+  
+  const getTemplateTitle = (template: typeof templates[0]) => {
+    switch (params.locale) {
+      case 'ar': return template.titleAr;
+      case 'es': return template.titleEs;
+      case 'fr': return template.titleFr;
+      default: return template.title;
+    }
+  };
+  
+  const getTemplateDescription = (template: typeof templates[0]) => {
+    switch (params.locale) {
+      case 'ar': return template.descriptionAr;
+      case 'es': return template.descriptionEs;
+      case 'fr': return template.descriptionFr;
+      default: return template.description;
+    }
+  };
 
   return (
-    <main className="min-h-screen" dir={isAr ? "rtl" : "ltr"}>
+    <main className="min-h-screen bg-gray-50" dir={isAr ? "rtl" : "ltr"}>
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-br from-indigo-50 via-white to-pink-50">
+      <section className="bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-              {copy.h1}
+          <div className="text-center text-white">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">
+              {isAr ? 'قوالب العروض التقديمية' : params.locale === 'es' ? 'Plantillas de Presentación' : params.locale === 'fr' ? 'Modèles de Présentation' : 'Presentation Templates'}
             </h1>
-            <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-              {copy.subhead}
+            <p className="text-xl opacity-90 max-w-2xl mx-auto">
+              {isAr ? 'اختر من مجموعة متنوعة من القوالب الاحترافية' : params.locale === 'es' ? 'Elige entre una variedad de plantillas profesionales' : params.locale === 'fr' ? 'Choisissez parmi une variété de modèles professionnels' : 'Choose from a variety of professional templates'}
             </p>
-            
-            <Link
-              href={`/${params.locale}/dashboard`}
-              className="inline-block bg-indigo-600 text-white px-8 py-3 rounded-lg text-lg font-medium hover:bg-indigo-700 transition-colors shadow-lg"
-            >
-              {copy.primaryCTA}
-            </Link>
           </div>
         </div>
       </section>
 
-      {/* Categories Grid */}
-      {copy.features && (
-        <section className="py-16 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">
-              {copy.features.title}
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {copy.features.items.map((category, idx) => (
-                <div key={idx} className="p-6 rounded-lg border border-gray-200 hover:border-indigo-300 hover:shadow-lg transition-all cursor-pointer">
-                  <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-4">
-                    <span className="text-2xl">{['💼', '📊', '📱', '🎓', '📚', '🔬', '📈', '📋'][idx % 8]}</span>
+      {/* Main Content with Sidebar */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="flex flex-col lg:flex-row gap-8">
+          
+          {/* Sidebar */}
+          <aside className="lg:w-64 flex-shrink-0">
+            <div className="bg-white rounded-lg border border-gray-200 p-4 sticky top-4">
+              <h2 className="text-lg font-bold text-gray-900 mb-4">
+                {isAr ? 'الفئات' : params.locale === 'es' ? 'Categorías' : params.locale === 'fr' ? 'Catégories' : 'Categories'}
+              </h2>
+              
+              <nav className="space-y-1">
+                {/* All Templates */}
+                <button
+                  onClick={() => setSelectedCategory('all')}
+                  className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all ${
+                    selectedCategory === 'all'
+                      ? 'bg-gradient-to-r from-indigo-50 to-purple-50 text-indigo-700 border border-indigo-200'
+                      : 'text-gray-700 hover:bg-gray-50'
+                  }`}
+                >
+                  <span className="text-lg">🎯</span>
+                  <span>{isAr ? 'جميع القوالب' : params.locale === 'es' ? 'Todas las Plantillas' : params.locale === 'fr' ? 'Tous les Modèles' : 'All Templates'}</span>
+                  <span className="ml-auto text-xs bg-gray-100 px-2 py-0.5 rounded-full">{templates.length}</span>
+                </button>
+                
+                {/* Category Buttons */}
+                {templateCategories.map((category) => {
+                  const categoryTemplates = templates.filter(t => t.category === category.id);
+                  return (
+                    <button
+                      key={category.id}
+                      onClick={() => setSelectedCategory(category.id)}
+                      className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all ${
+                        selectedCategory === category.id
+                          ? 'bg-gradient-to-r from-indigo-50 to-purple-50 text-indigo-700 border border-indigo-200'
+                          : 'text-gray-700 hover:bg-gray-50'
+                      }`}
+                    >
+                      <span className="text-lg">{category.icon}</span>
+                      <span className="flex-1 text-left">{getCategoryName(category)}</span>
+                      <span className="text-xs bg-gray-100 px-2 py-0.5 rounded-full">{categoryTemplates.length}</span>
+                    </button>
+                  );
+                })}
+              </nav>
+            </div>
+          </aside>
+
+          {/* Template Grid */}
+          <div className="flex-1">
+            {/* Header */}
+            <div className="mb-6">
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                {selectedCategory === 'all' 
+                  ? (isAr ? 'جميع القوالب' : params.locale === 'es' ? 'Todas las Plantillas' : params.locale === 'fr' ? 'Tous les Modèles' : 'All Templates')
+                  : getCategoryName(templateCategories.find(c => c.id === selectedCategory)!)
+                }
+              </h2>
+              <p className="text-gray-600">
+                {filteredTemplates.length} {isAr ? 'قالب' : params.locale === 'es' ? 'plantillas' : params.locale === 'fr' ? 'modèles' : 'templates'}
+              </p>
+            </div>
+
+            {/* Template Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+              {filteredTemplates.map((template) => (
+                <div
+                  key={template.id}
+                  className="bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-lg transition-all group"
+                >
+                  {/* Thumbnail */}
+                  <div className="relative aspect-video bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden">
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="text-center p-6">
+                        <div className="text-4xl mb-2">{templateCategories.find(c => c.id === template.category)?.icon}</div>
+                        <div className="text-sm font-medium text-gray-700">{template.slides} slides</div>
+                      </div>
+                    </div>
+                    {template.isPremium && (
+                      <div className="absolute top-2 right-2 bg-yellow-400 text-yellow-900 px-2 py-1 rounded text-xs font-bold">
+                        {isAr ? 'مميز' : params.locale === 'es' ? 'Premium' : params.locale === 'fr' ? 'Premium' : 'Premium'}
+                      </div>
+                    )}
+                    {/* Color Palette */}
+                    <div className="absolute bottom-2 left-2 flex gap-1">
+                      {template.colors.map((color, idx) => (
+                        <div
+                          key={idx}
+                          className="w-5 h-5 rounded-full border-2 border-white shadow-sm"
+                          style={{ backgroundColor: color }}
+                        />
+                      ))}
+                    </div>
                   </div>
-                  <p className="text-gray-900 font-semibold">{category.split(':')[0]}</p>
-                  {category.includes(':') && (
-                    <p className="text-sm text-gray-600 mt-1">{category.split(':')[1]?.trim()}</p>
-                  )}
+
+                  {/* Content */}
+                  <div className="p-4">
+                    <h3 className="font-bold text-gray-900 mb-1 group-hover:text-indigo-600 transition-colors">
+                      {getTemplateTitle(template)}
+                    </h3>
+                    <p className="text-sm text-gray-600 mb-4">
+                      {getTemplateDescription(template)}
+                    </p>
+
+                    {/* Actions */}
+                    <div className="flex gap-2">
+                      <Link
+                        href={`/${params.locale}/dashboard/presentations/new?template=${template.id}`}
+                        className="flex-1 bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-indigo-700 transition-colors text-center"
+                      >
+                        {isAr ? 'استخدم القالب' : params.locale === 'es' ? 'Usar Plantilla' : params.locale === 'fr' ? 'Utiliser' : 'Use Template'}
+                      </Link>
+                      <button className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors">
+                        {isAr ? 'معاينة' : params.locale === 'es' ? 'Vista Previa' : params.locale === 'fr' ? 'Aperçu' : 'Preview'}
+                      </button>
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
-          </div>
-        </section>
-      )}
 
-      {/* How It Works */}
-      {copy.howItWorks && (
-        <section className="py-16 bg-gray-50">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">
-              {copy.howItWorks.title}
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-              {copy.howItWorks.steps.map((step, idx) => (
-                <div key={idx} className="text-center">
-                  <div className="w-12 h-12 bg-indigo-600 text-white rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">
-                    {idx + 1}
-                  </div>
-                  <p className="text-gray-700 text-sm leading-relaxed">{step}</p>
-                </div>
-              ))}
-            </div>
+            {/* Empty State */}
+            {filteredTemplates.length === 0 && (
+              <div className="text-center py-12">
+                <div className="text-6xl mb-4">📋</div>
+                <h3 className="text-xl font-medium text-gray-900 mb-2">
+                  {isAr ? 'لا توجد قوالب' : params.locale === 'es' ? 'No hay plantillas' : params.locale === 'fr' ? 'Aucun modèle' : 'No templates found'}
+                </h3>
+                <p className="text-gray-600">
+                  {isAr ? 'جرب فئة أخرى' : params.locale === 'es' ? 'Prueba otra categoría' : params.locale === 'fr' ? 'Essayez une autre catégorie' : 'Try another category'}
+                </p>
+              </div>
+            )}
           </div>
-        </section>
-      )}
-
-      {/* FAQ Section */}
-      {copy.faq && (
-        <section className="py-16 bg-white">
-          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">
-              {copy.faq.title}
-            </h2>
-            <div className="space-y-4">
-              {copy.faq.items.map((item, idx) => (
-                <details key={idx} className="bg-white p-6 rounded-lg border border-gray-200 hover:border-indigo-300 transition-colors">
-                  <summary className="font-semibold cursor-pointer text-lg text-gray-900">
-                    {item.q}
-                  </summary>
-                  <p className="mt-3 text-gray-700 leading-relaxed">{item.a}</p>
-                </details>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Final CTA */}
-      {copy.footerCTA && (
-        <section className="py-16 bg-gradient-to-r from-indigo-600 to-pink-600">
-          <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-white mb-8">
-              {copy.footerCTA}
-            </h2>
-            <Link
-              href={`/${params.locale}/dashboard`}
-              className="inline-block bg-white text-indigo-600 px-8 py-3 rounded-lg text-lg font-medium hover:bg-gray-100 transition-colors shadow-lg"
-            >
-              {copy.primaryCTA}
-            </Link>
-          </div>
-        </section>
-      )}
+        </div>
+      </div>
     </main>
   );
 }
