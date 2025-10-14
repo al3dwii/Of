@@ -257,7 +257,7 @@ export function Navbar() {
                       : "border-white/10 bg-white/5 text-white hover:border-yellow-300"
                   }`}
                 >
-                  {item.labelAr}
+                  {getLabel(item)}
                 </Link>
               ))}
               <UserButton afterSignOutUrl="/" />
@@ -268,13 +268,13 @@ export function Navbar() {
                 href="/sign-up"
                 className="bg-[#7859ff] text-white py-2 px-4 rounded-xl hover:bg-[#7859ff]/80"
               >
-                التسجيل
+                {currentLocale === 'ar' ? 'التسجيل' : currentLocale === 'es' ? 'Registrarse' : currentLocale === 'fr' ? "S'inscrire" : 'Sign Up'}
               </Link>
               <Link
                 href="/sign-in"
                 className="bg-[#5f4b8b]/60 text-white py-2 px-4 rounded-xl hover:bg-[#7859ff]/80"
               >
-                الدخول
+                {currentLocale === 'ar' ? 'الدخول' : currentLocale === 'es' ? 'Iniciar Sesión' : currentLocale === 'fr' ? 'Se Connecter' : 'Sign In'}
               </Link>
             </div>
           )}
