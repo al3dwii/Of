@@ -66,11 +66,11 @@ export default function TemplatesPage({ params }: { params: { locale: Locale } }
 
       {/* Main Content with Sidebar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="flex flex-col lg:flex-row gap-8">
+        <div className="flex flex-col lg:flex-row gap-6">
           
           {/* Sidebar */}
-          <aside className="lg:w-64 flex-shrink-0">
-            <div className="bg-white rounded-lg border border-gray-200 p-4 sticky top-4">
+          <aside className="lg:w-56 flex-shrink-0">
+            <div className="bg-white rounded-lg border border-gray-200 p-3 sticky top-4">
               <h2 className="text-lg font-bold text-gray-900 mb-4">
                 {isAr ? 'الفئات' : params.locale === 'es' ? 'Categorías' : params.locale === 'fr' ? 'Catégories' : 'Categories'}
               </h2>
@@ -129,18 +129,18 @@ export default function TemplatesPage({ params }: { params: { locale: Locale } }
             </div>
 
             {/* Template Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-7">
               {filteredTemplates.map((template) => (
                 <div
                   key={template.id}
-                  className="bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-lg transition-all group"
+                  className="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-xl transition-all group transform hover:scale-105"
                 >
                   {/* Thumbnail */}
                   <div className="relative aspect-video bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden">
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="text-center p-6">
-                        <div className="text-4xl mb-2">{templateCategories.find(c => c.id === template.category)?.icon}</div>
-                        <div className="text-sm font-medium text-gray-700">{template.slides} slides</div>
+                      <div className="text-center p-8">
+                        <div className="text-5xl mb-3">{templateCategories.find(c => c.id === template.category)?.icon}</div>
+                        <div className="text-base font-medium text-gray-700">{template.slides} slides</div>
                       </div>
                     </div>
                     {template.isPremium && (
@@ -161,11 +161,11 @@ export default function TemplatesPage({ params }: { params: { locale: Locale } }
                   </div>
 
                   {/* Content */}
-                  <div className="p-4">
-                    <h3 className="font-bold text-gray-900 mb-1 group-hover:text-indigo-600 transition-colors">
+                  <div className="p-5">
+                    <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-indigo-600 transition-colors">
                       {getTemplateTitle(template)}
                     </h3>
-                    <p className="text-sm text-gray-600 mb-4">
+                    <p className="text-base text-gray-600 mb-5">
                       {getTemplateDescription(template)}
                     </p>
 
@@ -173,13 +173,16 @@ export default function TemplatesPage({ params }: { params: { locale: Locale } }
                     <div className="flex gap-2">
                       <Link
                         href={`/${params.locale}/dashboard/presentations/new?template=${template.id}`}
-                        className="flex-1 bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-indigo-700 transition-colors text-center"
+                        className="flex-1 bg-indigo-600 text-white px-5 py-2.5 rounded-lg text-base font-medium hover:bg-indigo-700 transition-colors text-center"
                       >
                         {isAr ? 'استخدم القالب' : params.locale === 'es' ? 'Usar Plantilla' : params.locale === 'fr' ? 'Utiliser' : 'Use Template'}
                       </Link>
-                      <button className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors">
+                      <Link
+                        href={`/${params.locale}/templates/preview/${template.id}`}
+                        className="px-5 py-2.5 border border-gray-300 rounded-lg text-base font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+                      >
                         {isAr ? 'معاينة' : params.locale === 'es' ? 'Vista Previa' : params.locale === 'fr' ? 'Aperçu' : 'Preview'}
-                      </button>
+                      </Link>
                     </div>
                   </div>
                 </div>
