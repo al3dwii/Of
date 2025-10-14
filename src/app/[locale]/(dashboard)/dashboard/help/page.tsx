@@ -181,9 +181,6 @@ export default function HelpPage() {
           <div className="bg-white rounded-lg border border-gray-200 p-6">
             <h2 className="text-lg font-medium text-gray-900 mb-4">Resources</h2>
             <div className="space-y-2">
-              <a href="/dashboard/api-docs" className="block text-sm text-blue-600 hover:text-blue-700">
-                📚 API Documentation
-              </a>
               <a href="#" className="block text-sm text-blue-600 hover:text-blue-700">
                 🎓 Video Tutorials
               </a>

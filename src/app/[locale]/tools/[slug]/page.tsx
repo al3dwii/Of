@@ -20,7 +20,8 @@ import { getToolContent } from '@/lib/server/tool-content';
 /* ------------------------------------------------------------------ */
 /* Types                                                               */
 /* ------------------------------------------------------------------ */
-type PageParams = { locale: 'en' | 'ar'; slug: string };
+import type { Locale } from '@/data/locales';
+type PageParams = { locale: Locale; slug: string };
 
 /* ------------------------------------------------------------------ */
 /* Rendering strategy                                                  */

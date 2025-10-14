@@ -40,7 +40,6 @@ const navigationSections: NavigationSection[] = [
   {
     title: 'Resources',
     items: [
-      { name: 'API Documentation', href: '/dashboard/api-docs', icon: FileCode },
       { name: 'Changelog', href: '/dashboard/changelog', icon: Clock, badge: 'New', badgeColor: 'bg-blue-100 text-blue-700' },
       { name: 'Help & Support', href: '/dashboard/help', icon: HelpCircle },
     ]

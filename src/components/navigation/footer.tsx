@@ -44,7 +44,6 @@ export function Footer() {
       title: t.footer.tools.title,
       links: [
         { name: t.footer.tools.createPresentation, href: '/dashboard/presentations/new' },
-        { name: t.footer.tools.apiDocs, href: '/dashboard/api-docs' },
         { name: t.footer.tools.settings, href: '/dashboard/settings' },
       ]
     },
@@ -178,9 +177,6 @@ export function Footer() {
             <div className="flex items-center space-x-4 mt-4 md:mt-0">
               <Link href={hrefFor('/dashboard/help')} className="text-sm text-gray-500 hover:text-gray-700">
                 {t.footer.bottom.needHelp}
-              </Link>
-              <Link href={hrefFor('/dashboard/api-docs')} className="text-sm text-gray-500 hover:text-gray-700">
-                {t.footer.tools.apiDocs}
               </Link>
               <div className="text-sm text-gray-500">
                 {t.footer.bottom.version}

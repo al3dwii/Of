@@ -45,13 +45,6 @@ export function QuickActionMenu() {
       icon: '📈',
       description: 'Check performance metrics',
       color: 'bg-green-50 text-green-700 hover:bg-green-100'
-    },
-    {
-      name: 'API Docs',
-      href: '/dashboard/api-docs',
-      icon: '📚',
-      description: 'Integration guide',
-      color: 'bg-yellow-50 text-yellow-700 hover:bg-yellow-100'
     }
   ]
 

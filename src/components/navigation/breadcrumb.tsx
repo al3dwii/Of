@@ -53,9 +53,6 @@ export function Breadcrumb() {
           case 'help':
             displayName = 'Help & Support'
             break
-          case 'api-docs':
-            displayName = 'API Documentation'
-            break
           case 'changelog':
             displayName = 'What\'s New'
             break
