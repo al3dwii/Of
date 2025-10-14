@@ -9,7 +9,7 @@ export default function TemplatesPage({ params }: { params: { locale: Locale } }
   const [selectedCategory, setSelectedCategory] = useState<TemplateCategory | 'all'>('all');
   const isAr = params.locale === "ar";
   
-  const filteredTemplates = getTemplatesByCategory(selectedCategory);
+  const filteredTemplates = getTemplatesByCategory(selectedCategory, params.locale);
   
   // Get localized category name
   const getCategoryName = (category: typeof templateCategories[0]) => {
@@ -87,12 +87,12 @@ export default function TemplatesPage({ params }: { params: { locale: Locale } }
                 >
                   <span className="text-lg">🎯</span>
                   <span>{isAr ? 'جميع القوالب' : params.locale === 'es' ? 'Todas las Plantillas' : params.locale === 'fr' ? 'Tous les Modèles' : 'All Templates'}</span>
-                  <span className="ml-auto text-xs bg-gray-100 px-2 py-0.5 rounded-full">{templates.length}</span>
+                  <span className="ml-auto text-xs bg-gray-100 px-2 py-0.5 rounded-full">{templates.filter(t => t.locales.includes(params.locale)).length}</span>
                 </button>
                 
                 {/* Category Buttons */}
                 {templateCategories.map((category) => {
-                  const categoryTemplates = templates.filter(t => t.category === category.id);
+                  const categoryTemplates = templates.filter(t => t.category === category.id && t.locales.includes(params.locale));
                   return (
                     <button
                       key={category.id}

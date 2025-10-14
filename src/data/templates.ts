@@ -15,6 +15,7 @@ export interface Template {
   isPremium: boolean
   slides: number
   colors: string[]
+  locales: ('en' | 'ar' | 'es' | 'fr')[] // Which locales this template is available for
 }
 
 export type TemplateCategory = 
@@ -140,7 +141,7 @@ export const templateCategories: CategoryInfo[] = [
 ]
 
 export const templates: Template[] = [
-  // Business Templates
+  // English Templates
   {
     id: 'business-1',
     title: 'Corporate Business Plan',
@@ -155,7 +156,8 @@ export const templates: Template[] = [
     thumbnail: '/templates/business-1.jpg',
     isPremium: false,
     slides: 20,
-    colors: ['#1E40AF', '#FFFFFF', '#F3F4F6']
+    colors: ['#1E40AF', '#FFFFFF', '#F3F4F6'],
+    locales: ['en']
   },
   {
     id: 'business-2',
@@ -171,7 +173,8 @@ export const templates: Template[] = [
     thumbnail: '/templates/business-2.jpg',
     isPremium: true,
     slides: 15,
-    colors: ['#059669', '#FFFFFF', '#ECFDF5']
+    colors: ['#059669', '#FFFFFF', '#ECFDF5'],
+    locales: ['en', 'es']
   },
   {
     id: 'business-3',
@@ -187,10 +190,11 @@ export const templates: Template[] = [
     thumbnail: '/templates/business-3.jpg',
     isPremium: false,
     slides: 25,
-    colors: ['#7C3AED', '#FFFFFF', '#F5F3FF']
+    colors: ['#7C3AED', '#FFFFFF', '#F5F3FF'],
+    locales: ['en', 'fr']
   },
 
-  // Education Templates
+  // Education Templates - Distributed across locales
   {
     id: 'education-1',
     title: 'Classroom Lesson',
@@ -205,7 +209,8 @@ export const templates: Template[] = [
     thumbnail: '/templates/education-1.jpg',
     isPremium: false,
     slides: 18,
-    colors: ['#DC2626', '#FFFFFF', '#FEF2F2']
+    colors: ['#DC2626', '#FFFFFF', '#FEF2F2'],
+    locales: ['ar', 'fr']
   },
   {
     id: 'education-2',
@@ -221,7 +226,8 @@ export const templates: Template[] = [
     thumbnail: '/templates/education-2.jpg',
     isPremium: false,
     slides: 12,
-    colors: ['#2563EB', '#FFFFFF', '#EFF6FF']
+    colors: ['#2563EB', '#FFFFFF', '#EFF6FF'],
+    locales: ['en', 'es']
   },
   {
     id: 'education-3',
@@ -237,7 +243,8 @@ export const templates: Template[] = [
     thumbnail: '/templates/education-3.jpg',
     isPremium: true,
     slides: 30,
-    colors: ['#0891B2', '#FFFFFF', '#ECFEFF']
+    colors: ['#0891B2', '#FFFFFF', '#ECFEFF'],
+    locales: ['ar']
   },
 
   // Marketing Templates
@@ -255,7 +262,8 @@ export const templates: Template[] = [
     thumbnail: '/templates/marketing-1.jpg',
     isPremium: false,
     slides: 22,
-    colors: ['#EC4899', '#FFFFFF', '#FDF2F8']
+    colors: ['#EC4899', '#FFFFFF', '#FDF2F8'],
+    locales: ['es', 'fr']
   },
   {
     id: 'marketing-2',
@@ -271,7 +279,8 @@ export const templates: Template[] = [
     thumbnail: '/templates/marketing-2.jpg',
     isPremium: true,
     slides: 28,
-    colors: ['#F59E0B', '#FFFFFF', '#FFFBEB']
+    colors: ['#F59E0B', '#FFFFFF', '#FFFBEB'],
+    locales: ['ar', 'en']
   },
 
   // Technology Templates
@@ -289,7 +298,8 @@ export const templates: Template[] = [
     thumbnail: '/templates/technology-1.jpg',
     isPremium: false,
     slides: 20,
-    colors: ['#6366F1', '#FFFFFF', '#EEF2FF']
+    colors: ['#6366F1', '#FFFFFF', '#EEF2FF'],
+    locales: ['en', 'fr']
   },
   {
     id: 'technology-2',
@@ -305,7 +315,8 @@ export const templates: Template[] = [
     thumbnail: '/templates/technology-2.jpg',
     isPremium: true,
     slides: 24,
-    colors: ['#10B981', '#FFFFFF', '#D1FAE5']
+    colors: ['#10B981', '#FFFFFF', '#D1FAE5'],
+    locales: ['ar', 'es']
   },
 
   // Healthcare Templates
@@ -323,7 +334,8 @@ export const templates: Template[] = [
     thumbnail: '/templates/healthcare-1.jpg',
     isPremium: false,
     slides: 26,
-    colors: ['#14B8A6', '#FFFFFF', '#CCFBF1']
+    colors: ['#14B8A6', '#FFFFFF', '#CCFBF1'],
+    locales: ['fr']
   },
 
   // Children Templates
@@ -341,7 +353,8 @@ export const templates: Template[] = [
     thumbnail: '/templates/children-1.jpg',
     isPremium: false,
     slides: 15,
-    colors: ['#F472B6', '#FCD34D', '#A78BFA']
+    colors: ['#F472B6', '#FCD34D', '#A78BFA'],
+    locales: ['ar', 'es']
   },
   {
     id: 'children-2',
@@ -357,7 +370,8 @@ export const templates: Template[] = [
     thumbnail: '/templates/children-2.jpg',
     isPremium: false,
     slides: 18,
-    colors: ['#60A5FA', '#FBBF24', '#F87171']
+    colors: ['#60A5FA', '#FBBF24', '#F87171'],
+    locales: ['fr']
   },
 
   // Finance Templates
@@ -375,7 +389,8 @@ export const templates: Template[] = [
     thumbnail: '/templates/finance-1.jpg',
     isPremium: true,
     slides: 32,
-    colors: ['#1F2937', '#FFFFFF', '#F9FAFB']
+    colors: ['#1F2937', '#FFFFFF', '#F9FAFB'],
+    locales: ['en', 'es']
   },
 
   // Creative Templates
@@ -393,15 +408,23 @@ export const templates: Template[] = [
     thumbnail: '/templates/creative-1.jpg',
     isPremium: false,
     slides: 16,
-    colors: ['#8B5CF6', '#EC4899', '#F59E0B']
+    colors: ['#8B5CF6', '#EC4899', '#F59E0B'],
+    locales: ['ar', 'fr']
   }
 ]
 
-export function getTemplatesByCategory(category: TemplateCategory | 'all'): Template[] {
-  if (category === 'all') {
-    return templates
+export function getTemplatesByCategory(
+  category: TemplateCategory | 'all',
+  locale?: 'en' | 'ar' | 'es' | 'fr'
+): Template[] {
+  let filtered = category === 'all' ? templates : templates.filter((template) => template.category === category)
+  
+  // Filter by locale if provided
+  if (locale) {
+    filtered = filtered.filter((template) => template.locales.includes(locale))
   }
-  return templates.filter(t => t.category === category)
+  
+  return filtered
 }
 
 export function getCategoryInfo(id: TemplateCategory): CategoryInfo | undefined {
