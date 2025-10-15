@@ -20,6 +20,7 @@ export default function ViewPresentationPage() {
   const [preloadedSlides, setPreloadedSlides] = useState<Set<number>>(new Set([0]));
   const [showEditPanel, setShowEditPanel] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
+  const [shareUrl, setShareUrl] = useState<string>('');
   
   // Export modal state
   const [showExportModal, setShowExportModal] = useState(false);
@@ -37,6 +38,13 @@ export default function ViewPresentationPage() {
 
       const data = await response.json();
       console.log('Fetched presentation data:', data);
+      
+      // Construct public viewer URL for sharing
+      // Use production domain if available, otherwise use current origin
+      const productionDomain = process.env.NEXT_PUBLIC_PRODUCTION_URL || window.location.origin;
+      const publicViewUrl = `${productionDomain}/public-view/${jobId}`;
+      console.log('Setting share URL to:', publicViewUrl);
+      setShareUrl(publicViewUrl);
       
       // Extract slide HTML from the response and force visibility
       if (data.slides && Array.isArray(data.slides)) {
@@ -204,9 +212,12 @@ export default function ViewPresentationPage() {
   }
 
   const handleShare = () => {
-    const url = window.location.href;
-    navigator.clipboard.writeText(url);
-    alert('Link copied to clipboard!');
+    // Share the public viewer URL (without edit/download buttons)
+    const urlToShare = shareUrl || window.location.href;
+    console.log('Sharing URL:', urlToShare);
+    console.log('Share URL state:', shareUrl);
+    navigator.clipboard.writeText(urlToShare);
+    alert(`Public view link copied to clipboard!\n${urlToShare}`);
   };
 
   const handleEditSuccess = () => {

@@ -7,7 +7,7 @@ export default function LocaleLayout({
 }) {
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       {children}
     </>
   );
