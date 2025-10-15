@@ -6,7 +6,7 @@ import { ChevronLeft, ChevronRight, Maximize2, Minimize2, Share2, Sparkles, Edit
 // import EditPanel from '@/components/EditPanel';
 
 // API URL from environment variable, fallback to localhost for development
-const API_URL = process.env.NEXT_PUBLIC_API_BASE || 'https://presentation-api-production.up.railway.app';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
 export default function ViewPresentationPage() {
   const params = useParams();

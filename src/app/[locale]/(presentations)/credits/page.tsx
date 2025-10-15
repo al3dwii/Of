@@ -42,7 +42,7 @@ export default function CreditsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const API_URL = process.env.NEXT_PUBLIC_API_BASE || 'https://presentation-api-production.up.railway.app';
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
   const fetchCreditsData = async () => {
     try {
