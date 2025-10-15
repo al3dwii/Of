@@ -8,9 +8,10 @@ import { QuickActionMenu } from './navigation/quick-action-menu'
 export function LayoutWrapper({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
   
-  // Check if we're on a fullscreen route (any page in the (fullscreen) route group)
-  // This includes /test-agentic and /view/[jobId]
-  const isFullscreen = pathname?.includes('/agentic') || pathname?.includes('/view/')
+  // Check if we're on a fullscreen route (any page in the (presentations) route group)
+  // Presentations folder includes: /agentic, /credits, /database, /editor, /view
+  const presentationRoutes = ['/agentic', '/credits', '/database', '/editor', '/view']
+  const isFullscreen = presentationRoutes.some(route => pathname?.includes(route))
   
   if (isFullscreen) {
     // Render only children for fullscreen pages
@@ -24,7 +25,7 @@ export function LayoutWrapper({ children }: { children: React.ReactNode }) {
         {children}
       </main>
       <Footer />
-      <QuickActionMenu />
+      {/* <QuickActionMenu /> */}
     </div>
   )
 }

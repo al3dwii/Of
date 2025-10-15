@@ -150,8 +150,6 @@ export default function RootLayout({
         <body>
           <LocaleProvider>
             <LayoutWrapper>
-                    <Navbar />
-
               {children}
             </LayoutWrapper>
           </LocaleProvider>

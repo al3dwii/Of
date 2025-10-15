@@ -13,6 +13,7 @@
     "db:migrate": "./scripts/db-migrate.sh",
     "db:seed": "./scripts/db-seed.sh",
     "gen:sdk": "./scripts/gen-sdk.sh",
+    "sync:routes": "./scripts/sync-shared-routes.sh",
     "postinstall": "prisma generate || echo 'Prisma generate failed, will retry during build'"
   },
   "dependencies": {

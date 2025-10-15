@@ -3,6 +3,11 @@ const nextConfig = {
   experimental: {
     serverComponentsExternalPackages: ['@prisma/client'],
   },
+  webpack: (config) => {
+    // Enable symlink support
+    config.resolve.symlinks = true;
+    return config;
+  },
   headers: async () => {
     return [
       {
