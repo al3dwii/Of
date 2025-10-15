@@ -1,7 +1,7 @@
 import { auth } from '@clerk/nextjs/server'
 import { Logger } from './logger'
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:8000'
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'https://presentation-api-production.up.railway.app'
 
 export interface BackendError {
   message: string

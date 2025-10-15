@@ -44,7 +44,7 @@ export async function fetchStateJson<T = unknown>(base: string, stateUrl: string
 
 import { CreatePresentationRequest, CreatePresentationResponse } from '@/types/api';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://presentation-api-production.up.railway.app';
 
 export class ApiError extends Error {
   constructor(

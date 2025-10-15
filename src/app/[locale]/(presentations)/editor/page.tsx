@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { ChevronLeft, ChevronRight, Save, X, Home, Bold, Italic, Underline, AlignLeft, AlignCenter, AlignRight, Palette, Undo, Redo, Image as ImageIcon, Plus, Copy, Trash2, Menu, ChevronDown, Link, Eye, EyeOff, MessageSquarePlus, Layout, Download } from 'lucide-react';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+const API_URL = process.env.NEXT_PUBLIC_API_BASE || 'https://presentation-api-production.up.railway.app';
 
 // Dynamically import interactjs only in browser
 let interact: any = null;

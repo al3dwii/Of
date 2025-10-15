@@ -63,7 +63,7 @@ export const slidesLandings: SlidesLanding[] = [
       "تحويل Word الى PowerPoint"
     ],
     defaults: {
-      backendBaseUrl: "http://localhost:8000",
+      backendBaseUrl: "https://presentation-api-production.up.railway.app",
       language: "ar",
       slidesCount: 12,
       prompt: "",
@@ -112,7 +112,7 @@ export const slidesLandings: SlidesLanding[] = [
       "create slides from word"
     ],
     defaults: {
-      backendBaseUrl: "http://localhost:8000",
+      backendBaseUrl: "https://presentation-api-production.up.railway.app",
       language: "en",
       slidesCount: 10,
       prompt: "Business plan outline",
@@ -160,7 +160,7 @@ export const slidesLandings: SlidesLanding[] = [
       "تحويل pdf لشرائح",
       "pdf to pptx عربي"
     ],
-    defaults: { backendBaseUrl: "http://localhost:8000", language: "ar", slidesCount: 12 },
+    defaults: { backendBaseUrl: "https://presentation-api-production.up.railway.app", language: "ar", slidesCount: 12 },
     hideControls: ["backend", "language", "slidesCount"],
     features: [
       { title: "استخراج ذكي", desc: "محاولة التعرف على العناوين والنصوص والجداول قدر الإمكان." },
@@ -202,7 +202,7 @@ export const slidesLandings: SlidesLanding[] = [
       "turn pdf into slides",
       "editable slides from pdf"
     ],
-    defaults: { backendBaseUrl: "http://localhost:8000", language: "en", slidesCount: 12 },
+    defaults: { backendBaseUrl: "https://presentation-api-production.up.railway.app", language: "en", slidesCount: 12 },
     hideControls: ["backend", "language", "slidesCount"],
     features: [
       { title: "Smart extraction", desc: "Detects headings and text; simplifies complex layouts when needed." },
@@ -243,7 +243,7 @@ export const slidesLandings: SlidesLanding[] = [
       "توليد شرائح تلقائيًا",
       "slides from outline arabic"
     ],
-    defaults: { backendBaseUrl: "http://localhost:8000", language: "ar", slidesCount: 12, prompt: "" },
+    defaults: { backendBaseUrl: "https://presentation-api-production.up.railway.app", language: "ar", slidesCount: 12, prompt: "" },
     hideControls: ["backend", "language", "slidesCount"],
     features: [
       { title: "توزيع منطقي", desc: "تحويل العناوين إلى أقسام مرتبة ونقاط موجزة." },
@@ -284,7 +284,7 @@ export const slidesLandings: SlidesLanding[] = [
       "create presentation from outline",
       "outline to ppt"
     ],
-    defaults: { backendBaseUrl: "http://localhost:8000", language: "en", slidesCount: 10, prompt: "Business strategy outline" },
+    defaults: { backendBaseUrl: "https://presentation-api-production.up.railway.app", language: "en", slidesCount: 10, prompt: "Business strategy outline" },
     hideControls: ["backend", "language", "slidesCount"],
     features: [
       { title: "Logical structure", desc: "Headings become sections with clear bullet points." },
@@ -327,7 +327,7 @@ export const slidesLandings: SlidesLanding[] = [
       "automated presentation maker",
       "ai powerpoint generator"
     ],
-    defaults: { backendBaseUrl: "http://localhost:8000", language: "en", slidesCount: 12, prompt: "Create a presentation about..." },
+    defaults: { backendBaseUrl: "https://presentation-api-production.up.railway.app", language: "en", slidesCount: 12, prompt: "Create a presentation about..." },
     hideControls: ["backend", "slidesCount"],
     features: [
       { title: "From idea to deck in minutes", desc: "No design skills required." },
@@ -371,7 +371,7 @@ export const slidesLandings: SlidesLanding[] = [
       "مولد شرائح تلقائي",
       "بوربوينت بالذكاء الاصطناعي"
     ],
-    defaults: { backendBaseUrl: "http://localhost:8000", language: "ar", slidesCount: 12, prompt: "إنشاء عرض تقديمي عن..." },
+    defaults: { backendBaseUrl: "https://presentation-api-production.up.railway.app", language: "ar", slidesCount: 12, prompt: "إنشاء عرض تقديمي عن..." },
     hideControls: ["backend", "slidesCount"],
     features: [
       { title: "من الفكرة إلى العرض في دقائق", desc: "لا حاجة لمهارات تصميم." },
@@ -415,7 +415,7 @@ export const slidesLandings: SlidesLanding[] = [
       "ai powerpoint creator",
       "presentation generator online"
     ],
-    defaults: { backendBaseUrl: "http://localhost:8000", language: "en", slidesCount: 12, prompt: "Generate presentation about..." },
+    defaults: { backendBaseUrl: "https://presentation-api-production.up.railway.app", language: "en", slidesCount: 12, prompt: "Generate presentation about..." },
     hideControls: ["backend", "slidesCount"],
     features: [
       { title: "Reliable structure", desc: "Tailored to your audience and goals." },
@@ -459,7 +459,7 @@ export const slidesLandings: SlidesLanding[] = [
       "مولد بوربوينت بالذكاء الاصطناعي",
       "صانع عروض أون لاين"
     ],
-    defaults: { backendBaseUrl: "http://localhost:8000", language: "ar", slidesCount: 12, prompt: "ولّد عرضًا تقديميًا عن..." },
+    defaults: { backendBaseUrl: "https://presentation-api-production.up.railway.app", language: "ar", slidesCount: 12, prompt: "ولّد عرضًا تقديميًا عن..." },
     hideControls: ["backend", "slidesCount"],
     features: [
       { title: "بنية موثوقة", desc: "مخصصة لجمهورك وأهدافك." },
@@ -504,7 +504,7 @@ export const slidesLandings: SlidesLanding[] = [
       "vc pitch deck",
       "pitch deck ai"
     ],
-    defaults: { backendBaseUrl: "http://localhost:8000", language: "en", slidesCount: 12, prompt: "Startup pitch deck for..." },
+    defaults: { backendBaseUrl: "https://presentation-api-production.up.railway.app", language: "en", slidesCount: 12, prompt: "Startup pitch deck for..." },
     hideControls: ["backend", "slidesCount"],
     features: [
       { title: "Proven pitch structure", desc: "Customizable sections for your business." },
@@ -548,7 +548,7 @@ export const slidesLandings: SlidesLanding[] = [
       "pitch deck عربي",
       "عرض للمستثمرين"
     ],
-    defaults: { backendBaseUrl: "http://localhost:8000", language: "ar", slidesCount: 12, prompt: "عرض استثماري لشركة..." },
+    defaults: { backendBaseUrl: "https://presentation-api-production.up.railway.app", language: "ar", slidesCount: 12, prompt: "عرض استثماري لشركة..." },
     hideControls: ["backend", "slidesCount"],
     features: [
       { title: "بنية مجربة", desc: "أقسام قابلة للتخصيص حسب نشاطك." },
@@ -592,7 +592,7 @@ export const slidesLandings: SlidesLanding[] = [
       "academic presentation maker",
       "thesis to slides"
     ],
-    defaults: { backendBaseUrl: "http://localhost:8000", language: "en", slidesCount: 15, prompt: "Research paper presentation" },
+    defaults: { backendBaseUrl: "https://presentation-api-production.up.railway.app", language: "en", slidesCount: 15, prompt: "Research paper presentation" },
     hideControls: ["backend", "slidesCount"],
     features: [
       { title: "Key findings distilled", desc: "With optional graphs and visualizations." },
@@ -636,7 +636,7 @@ export const slidesLandings: SlidesLanding[] = [
       "عرض أكاديمي",
       "رسالة إلى شرائح"
     ],
-    defaults: { backendBaseUrl: "http://localhost:8000", language: "ar", slidesCount: 15, prompt: "عرض تقديمي لورقة بحثية" },
+    defaults: { backendBaseUrl: "https://presentation-api-production.up.railway.app", language: "ar", slidesCount: 15, prompt: "عرض تقديمي لورقة بحثية" },
     hideControls: ["backend", "slidesCount"],
     features: [
       { title: "استخلاص النتائج الرئيسية", desc: "مع رسوم بيانية اختيارية." },
@@ -680,7 +680,7 @@ export const slidesLandings: SlidesLanding[] = [
       "business proposal slides",
       "sales deck maker"
     ],
-    defaults: { backendBaseUrl: "http://localhost:8000", language: "en", slidesCount: 10, prompt: "Sales proposal for..." },
+    defaults: { backendBaseUrl: "https://presentation-api-production.up.railway.app", language: "en", slidesCount: 10, prompt: "Sales proposal for..." },
     hideControls: ["backend", "slidesCount"],
     features: [
       { title: "Industry templates", desc: "Proposal boilerplates by vertical." },
@@ -724,7 +724,7 @@ export const slidesLandings: SlidesLanding[] = [
       "شرائح مقترح أعمال",
       "صانع عرض مبيعات"
     ],
-    defaults: { backendBaseUrl: "http://localhost:8000", language: "ar", slidesCount: 10, prompt: "عرض مبيعات لـ..." },
+    defaults: { backendBaseUrl: "https://presentation-api-production.up.railway.app", language: "ar", slidesCount: 10, prompt: "عرض مبيعات لـ..." },
     hideControls: ["backend", "slidesCount"],
     features: [
       { title: "قوالب حسب الصناعة", desc: "نماذج مقترحات جاهزة." },
@@ -768,7 +768,7 @@ export const slidesLandings: SlidesLanding[] = [
       "classroom slides generator",
       "educational presentation ai"
     ],
-    defaults: { backendBaseUrl: "http://localhost:8000", language: "en", slidesCount: 12, prompt: "Lesson plan for..." },
+    defaults: { backendBaseUrl: "https://presentation-api-production.up.railway.app", language: "en", slidesCount: 12, prompt: "Lesson plan for..." },
     hideControls: ["backend", "slidesCount"],
     features: [
       { title: "Standards mapping", desc: "Align with curriculum objectives." },
@@ -812,7 +812,7 @@ export const slidesLandings: SlidesLanding[] = [
       "مولد شرائح الفصل",
       "عرض تعليمي بالذكاء الاصطناعي"
     ],
-    defaults: { backendBaseUrl: "http://localhost:8000", language: "ar", slidesCount: 12, prompt: "خطة درس لـ..." },
+    defaults: { backendBaseUrl: "https://presentation-api-production.up.railway.app", language: "ar", slidesCount: 12, prompt: "خطة درس لـ..." },
     hideControls: ["backend", "slidesCount"],
     features: [
       { title: "ربط المعايير", desc: "محاذاة مع أهداف المنهج." },
@@ -856,7 +856,7 @@ export const slidesLandings: SlidesLanding[] = [
       "facilitator slides",
       "training deck ai"
     ],
-    defaults: { backendBaseUrl: "http://localhost:8000", language: "en", slidesCount: 15, prompt: "Training workshop on..." },
+    defaults: { backendBaseUrl: "https://presentation-api-production.up.railway.app", language: "en", slidesCount: 15, prompt: "Training workshop on..." },
     hideControls: ["backend", "slidesCount"],
     features: [
       { title: "Activity modules", desc: "Interactive exercises and discussions." },
@@ -900,7 +900,7 @@ export const slidesLandings: SlidesLanding[] = [
       "شرائح المدرب",
       "عرض تدريب بالذكاء الاصطناعي"
     ],
-    defaults: { backendBaseUrl: "http://localhost:8000", language: "ar", slidesCount: 15, prompt: "ورشة تدريبية عن..." },
+    defaults: { backendBaseUrl: "https://presentation-api-production.up.railway.app", language: "ar", slidesCount: 15, prompt: "ورشة تدريبية عن..." },
     hideControls: ["backend", "slidesCount"],
     features: [
       { title: "وحدات الأنشطة", desc: "تمارين تفاعلية ومناقشات." },
@@ -944,7 +944,7 @@ export const slidesLandings: SlidesLanding[] = [
       "report to slides converter",
       "executive deck from report"
     ],
-    defaults: { backendBaseUrl: "http://localhost:8000", language: "en", slidesCount: 12, prompt: "Business report summary..." },
+    defaults: { backendBaseUrl: "https://presentation-api-production.up.railway.app", language: "en", slidesCount: 12, prompt: "Business report summary..." },
     hideControls: ["backend", "slidesCount"],
     features: [
       { title: "Executive summary", desc: "Key takeaways on opening slides." },
@@ -988,7 +988,7 @@ export const slidesLandings: SlidesLanding[] = [
       "محول تقرير لشرائح",
       "عرض تنفيذي من تقرير"
     ],
-    defaults: { backendBaseUrl: "http://localhost:8000", language: "ar", slidesCount: 12, prompt: "ملخص تقرير أعمال..." },
+    defaults: { backendBaseUrl: "https://presentation-api-production.up.railway.app", language: "ar", slidesCount: 12, prompt: "ملخص تقرير أعمال..." },
     hideControls: ["backend", "slidesCount"],
     features: [
       { title: "ملخص تنفيذي", desc: "النقاط الرئيسية في الشرائح الافتتاحية." },
@@ -1032,7 +1032,7 @@ export const slidesLandings: SlidesLanding[] = [
       "ai slide maker",
       "online presentation creator"
     ],
-    defaults: { backendBaseUrl: "http://localhost:8000", language: "en", slidesCount: 10, prompt: "Create presentation about..." },
+    defaults: { backendBaseUrl: "https://presentation-api-production.up.railway.app", language: "en", slidesCount: 10, prompt: "Create presentation about..." },
     hideControls: ["backend"],
     features: [
       { title: "AI planning assistant", desc: "Outline and structure your deck." },
@@ -1075,7 +1075,7 @@ export const slidesLandings: SlidesLanding[] = [
       "صانع شرائح بالذكاء الاصطناعي",
       "منشئ عروض أونلاين"
     ],
-    defaults: { backendBaseUrl: "http://localhost:8000", language: "ar", slidesCount: 10, prompt: "أنشئ عرضًا عن..." },
+    defaults: { backendBaseUrl: "https://presentation-api-production.up.railway.app", language: "ar", slidesCount: 10, prompt: "أنشئ عرضًا عن..." },
     hideControls: ["backend"],
     features: [
       { title: "مساعد تخطيط بالذكاء الاصطناعي", desc: "حدد مخطط وبنية عرضك." },
@@ -1118,7 +1118,7 @@ export const slidesLandings: SlidesLanding[] = [
       "slide translator",
       "multilingual presentation"
     ],
-    defaults: { backendBaseUrl: "http://localhost:8000", language: "en", slidesCount: 10, prompt: "Translate this deck to..." },
+    defaults: { backendBaseUrl: "https://presentation-api-production.up.railway.app", language: "en", slidesCount: 10, prompt: "Translate this deck to..." },
     hideControls: ["backend", "slidesCount"],
     features: [
       { title: "Layout-safe translation", desc: "Text boxes stay in place." },
@@ -1162,7 +1162,7 @@ export const slidesLandings: SlidesLanding[] = [
       "مترجم شرائح",
       "عرض متعدد اللغات"
     ],
-    defaults: { backendBaseUrl: "http://localhost:8000", language: "ar", slidesCount: 10, prompt: "ترجم هذا العرض إلى..." },
+    defaults: { backendBaseUrl: "https://presentation-api-production.up.railway.app", language: "ar", slidesCount: 10, prompt: "ترجم هذا العرض إلى..." },
     hideControls: ["backend", "slidesCount"],
     features: [
       { title: "ترجمة آمنة للتخطيط", desc: "صناديق النص تبقى في مكانها." },
@@ -1206,7 +1206,7 @@ export const slidesLandings: SlidesLanding[] = [
       "arabic english slides",
       "rtl presentation generator"
     ],
-    defaults: { backendBaseUrl: "http://localhost:8000", language: "en", slidesCount: 12, prompt: "Bilingual presentation about..." },
+    defaults: { backendBaseUrl: "https://presentation-api-production.up.railway.app", language: "en", slidesCount: 12, prompt: "Bilingual presentation about..." },
     hideControls: ["backend"],
     features: [
       { title: "RTL + LTR support", desc: "Arabic flows right-to-left automatically." },
@@ -1250,7 +1250,7 @@ export const slidesLandings: SlidesLanding[] = [
       "شرائح عربي إنجليزي",
       "مولد عرض rtl"
     ],
-    defaults: { backendBaseUrl: "http://localhost:8000", language: "ar", slidesCount: 12, prompt: "عرض ثنائي اللغة عن..." },
+    defaults: { backendBaseUrl: "https://presentation-api-production.up.railway.app", language: "ar", slidesCount: 12, prompt: "عرض ثنائي اللغة عن..." },
     hideControls: ["backend"],
     features: [
       { title: "دعم RTL + LTR", desc: "العربية تتدفق من اليمين لليسار تلقائيًا." },
@@ -1294,7 +1294,7 @@ export const slidesLandings: SlidesLanding[] = [
       "marketing strategy slides",
       "ai marketing presentation"
     ],
-    defaults: { backendBaseUrl: "http://localhost:8000", language: "en", slidesCount: 14, prompt: "Marketing plan for..." },
+    defaults: { backendBaseUrl: "https://presentation-api-production.up.railway.app", language: "en", slidesCount: 14, prompt: "Marketing plan for..." },
     hideControls: ["backend", "slidesCount"],
     features: [
       { title: "Strategy frameworks", desc: "4P, STP, SWOT templates." },
@@ -1338,7 +1338,7 @@ export const slidesLandings: SlidesLanding[] = [
       "شرائح استراتيجية تسويقية",
       "عرض تسويقي بالذكاء الاصطناعي"
     ],
-    defaults: { backendBaseUrl: "http://localhost:8000", language: "ar", slidesCount: 14, prompt: "خطة تسويق لـ..." },
+    defaults: { backendBaseUrl: "https://presentation-api-production.up.railway.app", language: "ar", slidesCount: 14, prompt: "خطة تسويق لـ..." },
     hideControls: ["backend", "slidesCount"],
     features: [
       { title: "أطر استراتيجية", desc: "قوالب 4P، STP، SWOT." },
@@ -1382,7 +1382,7 @@ export const slidesLandings: SlidesLanding[] = [
       "google docs to ppt",
       "document to presentation ai"
     ],
-    defaults: { backendBaseUrl: "http://localhost:8000", language: "en", slidesCount: 12, prompt: "Convert Google Doc to slides..." },
+    defaults: { backendBaseUrl: "https://presentation-api-production.up.railway.app", language: "en", slidesCount: 12, prompt: "Convert Google Doc to slides..." },
     hideControls: ["backend", "slidesCount"],
     features: [
       { title: "One-click import", desc: "Paste Google Docs link." },
@@ -1426,7 +1426,7 @@ export const slidesLandings: SlidesLanding[] = [
       "google docs إلى ppt",
       "مستند إلى عرض بالذكاء الاصطناعي"
     ],
-    defaults: { backendBaseUrl: "http://localhost:8000", language: "ar", slidesCount: 12, prompt: "حوّل Google Doc إلى شرائح..." },
+    defaults: { backendBaseUrl: "https://presentation-api-production.up.railway.app", language: "ar", slidesCount: 12, prompt: "حوّل Google Doc إلى شرائح..." },
     hideControls: ["backend", "slidesCount"],
     features: [
       { title: "استيراد بنقرة واحدة", desc: "الصق رابط Google Docs." },
@@ -1470,7 +1470,7 @@ export const slidesLandings: SlidesLanding[] = [
       "notion to ppt",
       "notion deck generator"
     ],
-    defaults: { backendBaseUrl: "http://localhost:8000", language: "en", slidesCount: 10, prompt: "Convert Notion page to slides..." },
+    defaults: { backendBaseUrl: "https://presentation-api-production.up.railway.app", language: "en", slidesCount: 10, prompt: "Convert Notion page to slides..." },
     hideControls: ["backend", "slidesCount"],
     features: [
       { title: "Toggle preservation", desc: "Nested content becomes slides." },
@@ -1514,7 +1514,7 @@ export const slidesLandings: SlidesLanding[] = [
       "notion إلى ppt",
       "مولد عرض notion"
     ],
-    defaults: { backendBaseUrl: "http://localhost:8000", language: "ar", slidesCount: 10, prompt: "حوّل صفحة Notion إلى شرائح..." },
+    defaults: { backendBaseUrl: "https://presentation-api-production.up.railway.app", language: "ar", slidesCount: 10, prompt: "حوّل صفحة Notion إلى شرائح..." },
     hideControls: ["backend", "slidesCount"],
     features: [
       { title: "حفظ القوائم القابلة للطي", desc: "المحتوى المتداخل يصبح شرائح." },
@@ -1558,7 +1558,7 @@ export const slidesLandings: SlidesLanding[] = [
       "notes to ppt",
       "meeting deck generator"
     ],
-    defaults: { backendBaseUrl: "http://localhost:8000", language: "en", slidesCount: 8, prompt: "Meeting summary from notes..." },
+    defaults: { backendBaseUrl: "https://presentation-api-production.up.railway.app", language: "en", slidesCount: 8, prompt: "Meeting summary from notes..." },
     hideControls: ["backend", "slidesCount"],
     features: [
       { title: "Key decisions highlighted", desc: "Decisions and outcomes extracted." },
@@ -1602,7 +1602,7 @@ export const slidesLandings: SlidesLanding[] = [
       "ملاحظات إلى ppt",
       "مولد عرض اجتماع"
     ],
-    defaults: { backendBaseUrl: "http://localhost:8000", language: "ar", slidesCount: 8, prompt: "ملخص اجتماع من ملاحظات..." },
+    defaults: { backendBaseUrl: "https://presentation-api-production.up.railway.app", language: "ar", slidesCount: 8, prompt: "ملخص اجتماع من ملاحظات..." },
     hideControls: ["backend", "slidesCount"],
     features: [
       { title: "قرارات رئيسية مميزة", desc: "القرارات والنتائج مستخرجة." },
@@ -1646,7 +1646,7 @@ export const slidesLandings: SlidesLanding[] = [
       "procedure to ppt",
       "compliance deck generator"
     ],
-    defaults: { backendBaseUrl: "http://localhost:8000", language: "en", slidesCount: 12, prompt: "Convert SOP to slides..." },
+    defaults: { backendBaseUrl: "https://presentation-api-production.up.railway.app", language: "en", slidesCount: 12, prompt: "Convert SOP to slides..." },
     hideControls: ["backend", "slidesCount"],
     features: [
       { title: "Step-by-step structure", desc: "Procedures broken into slides." },
@@ -1690,7 +1690,7 @@ export const slidesLandings: SlidesLanding[] = [
       "إجراء إلى ppt",
       "مولد عرض امتثال"
     ],
-    defaults: { backendBaseUrl: "http://localhost:8000", language: "ar", slidesCount: 12, prompt: "حوّل SOP إلى شرائح..." },
+    defaults: { backendBaseUrl: "https://presentation-api-production.up.railway.app", language: "ar", slidesCount: 12, prompt: "حوّل SOP إلى شرائح..." },
     hideControls: ["backend", "slidesCount"],
     features: [
       { title: "بنية خطوة بخطوة", desc: "الإجراءات مقسمة لشرائح." },
@@ -1734,7 +1734,7 @@ export const slidesLandings: SlidesLanding[] = [
       "charts to ppt",
       "data visualization slides"
     ],
-    defaults: { backendBaseUrl: "http://localhost:8000", language: "en", slidesCount: 10, prompt: "Create slides from data..." },
+    defaults: { backendBaseUrl: "https://presentation-api-production.up.railway.app", language: "en", slidesCount: 10, prompt: "Create slides from data..." },
     hideControls: ["backend", "slidesCount"],
     features: [
       { title: "Auto chart selection", desc: "Bar, line, pie based on data type." },
@@ -1778,7 +1778,7 @@ export const slidesLandings: SlidesLanding[] = [
       "رسوم بيانية إلى ppt",
       "شرائح تصور البيانات"
     ],
-    defaults: { backendBaseUrl: "http://localhost:8000", language: "ar", slidesCount: 10, prompt: "أنشئ شرائح من بيانات..." },
+    defaults: { backendBaseUrl: "https://presentation-api-production.up.railway.app", language: "ar", slidesCount: 10, prompt: "أنشئ شرائح من بيانات..." },
     hideControls: ["backend", "slidesCount"],
     features: [
       { title: "اختيار تلقائي للرسوم", desc: "أعمدة، خطوط، دوائر بناءً على نوع البيانات." },
@@ -1822,7 +1822,7 @@ export const slidesLandings: SlidesLanding[] = [
       "academic defense presentation",
       "thesis to ppt"
     ],
-    defaults: { backendBaseUrl: "http://localhost:8000", language: "en", slidesCount: 20, prompt: "Thesis defense presentation..." },
+    defaults: { backendBaseUrl: "https://presentation-api-production.up.railway.app", language: "en", slidesCount: 20, prompt: "Thesis defense presentation..." },
     hideControls: ["backend", "slidesCount"],
     features: [
       { title: "Defense structure", desc: "Introduction, lit review, methods, results, discussion." },
@@ -1866,7 +1866,7 @@ export const slidesLandings: SlidesLanding[] = [
       "عرض دفاع أكاديمي",
       "رسالة إلى ppt"
     ],
-    defaults: { backendBaseUrl: "http://localhost:8000", language: "ar", slidesCount: 20, prompt: "عرض دفاع عن رسالة..." },
+    defaults: { backendBaseUrl: "https://presentation-api-production.up.railway.app", language: "ar", slidesCount: 20, prompt: "عرض دفاع عن رسالة..." },
     hideControls: ["backend", "slidesCount"],
     features: [
       { title: "بنية دفاع", desc: "مقدمة، مراجعة أدبيات، منهجية، نتائج، مناقشة." },
@@ -1910,7 +1910,7 @@ export const slidesLandings: SlidesLanding[] = [
       "sow to slides",
       "bid presentation maker"
     ],
-    defaults: { backendBaseUrl: "http://localhost:8000", language: "en", slidesCount: 15, prompt: "RFP response presentation..." },
+    defaults: { backendBaseUrl: "https://presentation-api-production.up.railway.app", language: "en", slidesCount: 15, prompt: "RFP response presentation..." },
     hideControls: ["backend", "slidesCount"],
     features: [
       { title: "RFP structure", desc: "Requirements, approach, team, pricing." },
@@ -1954,7 +1954,7 @@ export const slidesLandings: SlidesLanding[] = [
       "sow إلى شرائح",
       "صانع عرض عطاء"
     ],
-    defaults: { backendBaseUrl: "http://localhost:8000", language: "ar", slidesCount: 15, prompt: "عرض رد RFP..." },
+    defaults: { backendBaseUrl: "https://presentation-api-production.up.railway.app", language: "ar", slidesCount: 15, prompt: "عرض رد RFP..." },
     hideControls: ["backend", "slidesCount"],
     features: [
       { title: "بنية RFP", desc: "المتطلبات، النهج، الفريق، التسعير." },
@@ -1998,7 +1998,7 @@ export const slidesLandings: SlidesLanding[] = [
       "investor presentation",
       "startup deck generator"
     ],
-    defaults: { backendBaseUrl: "http://localhost:8000", language: "en", slidesCount: 12, prompt: "Startup pitch for..." },
+    defaults: { backendBaseUrl: "https://presentation-api-production.up.railway.app", language: "en", slidesCount: 12, prompt: "Startup pitch for..." },
     hideControls: ["backend", "slidesCount"],
     features: [
       { title: "One-pager format", desc: "Single-page summary." },
@@ -2042,7 +2042,7 @@ export const slidesLandings: SlidesLanding[] = [
       "عرض مستثمرين",
       "مولد عرض شركات ناشئة"
     ],
-    defaults: { backendBaseUrl: "http://localhost:8000", language: "ar", slidesCount: 12, prompt: "عرض شركة ناشئة لـ..." },
+    defaults: { backendBaseUrl: "https://presentation-api-production.up.railway.app", language: "ar", slidesCount: 12, prompt: "عرض شركة ناشئة لـ..." },
     hideControls: ["backend", "slidesCount"],
     features: [
       { title: "صيغة صفحة واحدة", desc: "ملخص صفحة واحدة." },
@@ -2086,7 +2086,7 @@ export const slidesLandings: SlidesLanding[] = [
       "presentation themes",
       "google slides templates"
     ],
-    defaults: { backendBaseUrl: "http://localhost:8000", language: "en", slidesCount: 10, prompt: "Create presentation with template..." },
+    defaults: { backendBaseUrl: "https://presentation-api-production.up.railway.app", language: "en", slidesCount: 10, prompt: "Create presentation with template..." },
     hideControls: ["backend"],
     features: [
       { title: "Template library", desc: "100+ professional designs." },
@@ -2130,7 +2130,7 @@ export const slidesLandings: SlidesLanding[] = [
       "ثيمات عروض",
       "قوالب google slides"
     ],
-    defaults: { backendBaseUrl: "http://localhost:8000", language: "ar", slidesCount: 10, prompt: "أنشئ عرضًا بقالب..." },
+    defaults: { backendBaseUrl: "https://presentation-api-production.up.railway.app", language: "ar", slidesCount: 10, prompt: "أنشئ عرضًا بقالب..." },
     hideControls: ["backend"],
     features: [
       { title: "مكتبة قوالب", desc: "أكثر من 100 تصميم احترافي." },
@@ -2174,7 +2174,7 @@ export const slidesLandings: SlidesLanding[] = [
       "powerpoint notes",
       "presentation script generator"
     ],
-    defaults: { backendBaseUrl: "http://localhost:8000", language: "en", slidesCount: 10, prompt: "Generate speaker notes for..." },
+    defaults: { backendBaseUrl: "https://presentation-api-production.up.railway.app", language: "en", slidesCount: 10, prompt: "Generate speaker notes for..." },
     hideControls: ["backend", "slidesCount"],
     features: [
       { title: "Talking points", desc: "Key points to mention per slide." },
@@ -2218,7 +2218,7 @@ export const slidesLandings: SlidesLanding[] = [
       "ملاحظات باوربوينت",
       "مولد نص عرض"
     ],
-    defaults: { backendBaseUrl: "http://localhost:8000", language: "ar", slidesCount: 10, prompt: "ولّد ملاحظات متحدث لـ..." },
+    defaults: { backendBaseUrl: "https://presentation-api-production.up.railway.app", language: "ar", slidesCount: 10, prompt: "ولّد ملاحظات متحدث لـ..." },
     hideControls: ["backend", "slidesCount"],
     features: [
       { title: "نقاط نقاش", desc: "نقاط رئيسية لذكرها لكل شريحة." },
@@ -2262,7 +2262,7 @@ export const slidesLandings: SlidesLanding[] = [
       "image to slides",
       "scan to presentation"
     ],
-    defaults: { backendBaseUrl: "http://localhost:8000", language: "en", slidesCount: 12, prompt: "Convert scanned document to slides..." },
+    defaults: { backendBaseUrl: "https://presentation-api-production.up.railway.app", language: "en", slidesCount: 12, prompt: "Convert scanned document to slides..." },
     hideControls: ["backend", "slidesCount"],
     features: [
       { title: "OCR accuracy", desc: "99%+ text recognition." },
@@ -2306,7 +2306,7 @@ export const slidesLandings: SlidesLanding[] = [
       "صورة إلى شرائح",
       "مسح إلى عرض"
     ],
-    defaults: { backendBaseUrl: "http://localhost:8000", language: "ar", slidesCount: 12, prompt: "حوّل مستند ممسوح إلى شرائح..." },
+    defaults: { backendBaseUrl: "https://presentation-api-production.up.railway.app", language: "ar", slidesCount: 12, prompt: "حوّل مستند ممسوح إلى شرائح..." },
     hideControls: ["backend", "slidesCount"],
     features: [
       { title: "دقة OCR", desc: "تعرف نصي بدقة أكثر من 99%." },
@@ -2350,7 +2350,7 @@ export const slidesLandings: SlidesLanding[] = [
       "collaborative presentation tool",
       "team powerpoint"
     ],
-    defaults: { backendBaseUrl: "http://localhost:8000", language: "en", slidesCount: 10, prompt: "Team presentation about..." },
+    defaults: { backendBaseUrl: "https://presentation-api-production.up.railway.app", language: "en", slidesCount: 10, prompt: "Team presentation about..." },
     hideControls: ["backend"],
     features: [
       { title: "Real-time editing", desc: "Multiple users edit simultaneously." },
@@ -2394,7 +2394,7 @@ export const slidesLandings: SlidesLanding[] = [
       "أداة عرض تعاونية",
       "باوربوينت فريق"
     ],
-    defaults: { backendBaseUrl: "http://localhost:8000", language: "ar", slidesCount: 10, prompt: "عرض فريق عن..." },
+    defaults: { backendBaseUrl: "https://presentation-api-production.up.railway.app", language: "ar", slidesCount: 10, prompt: "عرض فريق عن..." },
     hideControls: ["backend"],
     features: [
       { title: "تحرير فوري", desc: "عدة مستخدمين يحررون في نفس الوقت." },
