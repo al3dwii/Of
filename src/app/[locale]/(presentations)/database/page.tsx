@@ -47,13 +47,87 @@ interface Presentation {
   published_at: string | null;
 }
 
-type TableName = "users" | "transactions" | "presentations";
+interface Slide {
+  id: string;
+  presentation_id: string;
+  slide_number: number;
+  title: string;
+  content: string;
+  notes: string | null;
+  layout_type: string;
+  background_color: string | null;
+  text_color: string | null;
+  image_url: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+interface Deck {
+  id: string;
+  user_id: string;
+  name: string;
+  description: string | null;
+  is_public: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+interface DeckPresentation {
+  id: string;
+  deck_id: string;
+  presentation_id: string;
+  order_index: number;
+  created_at: string;
+}
+
+interface PresentationShare {
+  id: string;
+  presentation_id: string;
+  shared_by_user_id: string;
+  shared_with_user_id: string;
+  permission_level: string;
+  created_at: string;
+}
+
+interface ApiKey {
+  id: string;
+  user_id: string;
+  key_name: string;
+  key_hash: string;
+  is_active: boolean;
+  last_used_at: string | null;
+  created_at: string;
+  revoked_at: string | null;
+}
+
+interface DatabaseStatus {
+  database: string;
+  tables: {
+    users: number;
+    presentations: number;
+    slides: number;
+    credit_transactions: number;
+    decks: number;
+    deck_presentations: number;
+    presentation_shares: number;
+    api_keys: number;
+  };
+  total_records: number;
+}
+
+type TableName = "users" | "transactions" | "presentations" | "slides" | "decks" | "deck_presentations" | "presentation_shares" | "api_keys" | "overview";
 
 export default function DatabaseViewer() {
-  const [activeTab, setActiveTab] = useState<TableName>("users");
+  const [activeTab, setActiveTab] = useState<TableName>("overview");
   const [users, setUsers] = useState<User[]>([]);
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [presentations, setPresentations] = useState<Presentation[]>([]);
+  const [slides, setSlides] = useState<Slide[]>([]);
+  const [decks, setDecks] = useState<Deck[]>([]);
+  const [deckPresentations, setDeckPresentations] = useState<DeckPresentation[]>([]);
+  const [presentationShares, setPresentationShares] = useState<PresentationShare[]>([]);
+  const [apiKeys, setApiKeys] = useState<ApiKey[]>([]);
+  const [databaseStatus, setDatabaseStatus] = useState<DatabaseStatus | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -69,41 +143,78 @@ export default function DatabaseViewer() {
     setError(null);
 
     try {
-      if (activeTab === "users") {
-        // For now, we'll get default user info
-        const response = await fetch(`${API_BASE}/api/credits`);
-        if (!response.ok) throw new Error("Failed to fetch users");
+      if (activeTab === "overview") {
+        // Fetch database status
+        const response = await fetch(`${API_BASE}/api/admin/database-status`);
+        if (!response.ok) throw new Error("Failed to fetch database status");
         const data = await response.json();
-        
-        // Mock user data from credits response
-        setUsers([
-          {
-            id: data.user_id,
-            email: "default@example.com",
-            username: "default_user",
-            full_name: "Default User",
-            credits: data.credits,
-            total_credits_used: data.total_credits_used,
-            subscription_tier: "free",
-            is_active: true,
-            is_verified: false,
-            created_at: new Date().toISOString(),
-            updated_at: data.last_activity,
-            last_login: null,
-          },
-        ]);
+        setDatabaseStatus(data);
+      } else if (activeTab === "users") {
+        // Fetch all users from admin endpoint
+        const response = await fetch(`${API_BASE}/api/admin/users`);
+        if (!response.ok) {
+          // Fallback to getting default user from credits
+          const creditsResponse = await fetch(`${API_BASE}/api/credits`);
+          if (!creditsResponse.ok) throw new Error("Failed to fetch users");
+          const data = await creditsResponse.json();
+          setUsers([
+            {
+              id: data.user_id,
+              email: "default@example.com",
+              username: "default_user",
+              full_name: "Default User",
+              credits: data.credits,
+              total_credits_used: data.total_credits_used,
+              subscription_tier: "free",
+              is_active: true,
+              is_verified: false,
+              created_at: new Date().toISOString(),
+              updated_at: data.last_activity,
+              last_login: null,
+            },
+          ]);
+        } else {
+          const data = await response.json();
+          setUsers(data.users || []);
+        }
       } else if (activeTab === "transactions") {
         const response = await fetch(`${API_BASE}/api/credits/transactions?limit=100`);
         if (!response.ok) throw new Error("Failed to fetch transactions");
         const data = await response.json();
-        setTransactions(data.transactions);
+        setTransactions(data.transactions || []);
       } else if (activeTab === "presentations") {
-        const response = await fetch(`${API_BASE}/api/presentations/list?user_id=default_user&limit=100`);
+        const response = await fetch(`${API_BASE}/api/presentations/list?limit=100`);
         if (!response.ok) throw new Error("Failed to fetch presentations");
         const data = await response.json();
         setPresentations(data.presentations || []);
+      } else if (activeTab === "slides") {
+        const response = await fetch(`${API_BASE}/api/admin/slides?limit=100`);
+        if (!response.ok) throw new Error("Failed to fetch slides");
+        const data = await response.json();
+        setSlides(data.slides || []);
+      } else if (activeTab === "decks") {
+        const response = await fetch(`${API_BASE}/api/admin/decks?limit=100`);
+        if (!response.ok) throw new Error("Failed to fetch decks");
+        const data = await response.json();
+        setDecks(data.decks || []);
+      } else if (activeTab === "deck_presentations") {
+        const response = await fetch(`${API_BASE}/api/admin/deck-presentations?limit=100`);
+        if (!response.ok) throw new Error("Failed to fetch deck presentations");
+        const data = await response.json();
+        setDeckPresentations(data.deck_presentations || []);
+      } else if (activeTab === "presentation_shares") {
+        const response = await fetch(`${API_BASE}/api/admin/presentation-shares?limit=100`);
+        if (!response.ok) throw new Error("Failed to fetch presentation shares");
+        const data = await response.json();
+        setPresentationShares(data.presentation_shares || []);
+      } else if (activeTab === "api_keys") {
+        const response = await fetch(`${API_BASE}/api/admin/api-keys?limit=100`);
+        if (!response.ok) throw new Error("Failed to fetch API keys");
+        const data = await response.json();
+        setApiKeys(data.api_keys || []);
       }
     } catch (err: any) {
+      console.error("Fetch error:", err);
       setError(err.message);
     } finally {
       setLoading(false);
@@ -180,36 +291,96 @@ export default function DatabaseViewer() {
         )}
         
         {/* Tabs */}
-        <div className="flex space-x-1 bg-black/20 backdrop-blur-sm rounded-lg p-1 mb-6">
+        <div className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-9 gap-2 mb-6">
+          <button
+            onClick={() => setActiveTab("overview")}
+            className={`px-4 py-3 rounded-lg font-medium transition-all text-sm ${
+              activeTab === "overview"
+                ? "bg-purple-600 text-white shadow-lg"
+                : "bg-black/20 text-gray-400 hover:text-white hover:bg-white/5"
+            }`}
+          >
+            📊 Overview
+          </button>
           <button
             onClick={() => setActiveTab("users")}
-            className={`flex-1 px-6 py-3 rounded-lg font-medium transition-all ${
+            className={`px-4 py-3 rounded-lg font-medium transition-all text-sm ${
               activeTab === "users"
                 ? "bg-purple-600 text-white shadow-lg"
-                : "text-gray-400 hover:text-white hover:bg-white/5"
+                : "bg-black/20 text-gray-400 hover:text-white hover:bg-white/5"
             }`}
           >
             👤 Users
           </button>
           <button
-            onClick={() => setActiveTab("transactions")}
-            className={`flex-1 px-6 py-3 rounded-lg font-medium transition-all ${
-              activeTab === "transactions"
-                ? "bg-purple-600 text-white shadow-lg"
-                : "text-gray-400 hover:text-white hover:bg-white/5"
-            }`}
-          >
-            💳 Transactions
-          </button>
-          <button
             onClick={() => setActiveTab("presentations")}
-            className={`flex-1 px-6 py-3 rounded-lg font-medium transition-all ${
+            className={`px-4 py-3 rounded-lg font-medium transition-all text-sm ${
               activeTab === "presentations"
                 ? "bg-purple-600 text-white shadow-lg"
-                : "text-gray-400 hover:text-white hover:bg-white/5"
+                : "bg-black/20 text-gray-400 hover:text-white hover:bg-white/5"
             }`}
           >
-            📊 Presentations
+            📄 Presentations
+          </button>
+          <button
+            onClick={() => setActiveTab("slides")}
+            className={`px-4 py-3 rounded-lg font-medium transition-all text-sm ${
+              activeTab === "slides"
+                ? "bg-purple-600 text-white shadow-lg"
+                : "bg-black/20 text-gray-400 hover:text-white hover:bg-white/5"
+            }`}
+          >
+            🎞️ Slides
+          </button>
+          <button
+            onClick={() => setActiveTab("transactions")}
+            className={`px-4 py-3 rounded-lg font-medium transition-all text-sm ${
+              activeTab === "transactions"
+                ? "bg-purple-600 text-white shadow-lg"
+                : "bg-black/20 text-gray-400 hover:text-white hover:bg-white/5"
+            }`}
+          >
+            💳 Credits
+          </button>
+          <button
+            onClick={() => setActiveTab("decks")}
+            className={`px-4 py-3 rounded-lg font-medium transition-all text-sm ${
+              activeTab === "decks"
+                ? "bg-purple-600 text-white shadow-lg"
+                : "bg-black/20 text-gray-400 hover:text-white hover:bg-white/5"
+            }`}
+          >
+            📚 Decks
+          </button>
+          <button
+            onClick={() => setActiveTab("deck_presentations")}
+            className={`px-4 py-3 rounded-lg font-medium transition-all text-sm ${
+              activeTab === "deck_presentations"
+                ? "bg-purple-600 text-white shadow-lg"
+                : "bg-black/20 text-gray-400 hover:text-white hover:bg-white/5"
+            }`}
+          >
+            🔗 Links
+          </button>
+          <button
+            onClick={() => setActiveTab("presentation_shares")}
+            className={`px-4 py-3 rounded-lg font-medium transition-all text-sm ${
+              activeTab === "presentation_shares"
+                ? "bg-purple-600 text-white shadow-lg"
+                : "bg-black/20 text-gray-400 hover:text-white hover:bg-white/5"
+            }`}
+          >
+            🤝 Shares
+          </button>
+          <button
+            onClick={() => setActiveTab("api_keys")}
+            className={`px-4 py-3 rounded-lg font-medium transition-all text-sm ${
+              activeTab === "api_keys"
+                ? "bg-purple-600 text-white shadow-lg"
+                : "bg-black/20 text-gray-400 hover:text-white hover:bg-white/5"
+            }`}
+          >
+            🔑 API Keys
           </button>
         </div>
 
@@ -224,6 +395,134 @@ export default function DatabaseViewer() {
         {loading && (
           <div className="flex items-center justify-center py-12">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-500"></div>
+          </div>
+        )}
+
+        {/* Overview Tab */}
+        {!loading && activeTab === "overview" && databaseStatus && (
+          <div className="space-y-6">
+            {/* Connection Status */}
+            <div className="bg-green-500/10 border border-green-500/50 rounded-lg p-4">
+              <div className="flex items-center gap-3">
+                <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                <div>
+                  <p className="text-green-300 font-medium">✅ Database Connected</p>
+                  <p className="text-green-400/80 text-sm">
+                    Status: {databaseStatus?.database || 'connecting'} | Total Records: {databaseStatus?.total_records || 0}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Table Stats Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="bg-black/20 backdrop-blur-sm rounded-lg border border-white/10 p-6 hover:border-purple-500/50 transition-all cursor-pointer" onClick={() => setActiveTab("users")}>
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-3xl">👤</span>
+                  <span className="text-2xl font-bold text-purple-400">{databaseStatus?.tables?.users || 0}</span>
+                </div>
+                <h3 className="text-white font-medium">Users</h3>
+                <p className="text-gray-400 text-sm">Registered accounts</p>
+              </div>
+
+              <div className="bg-black/20 backdrop-blur-sm rounded-lg border border-white/10 p-6 hover:border-purple-500/50 transition-all cursor-pointer" onClick={() => setActiveTab("presentations")}>
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-3xl">📄</span>
+                  <span className="text-2xl font-bold text-blue-400">{databaseStatus?.tables?.presentations || 0}</span>
+                </div>
+                <h3 className="text-white font-medium">Presentations</h3>
+                <p className="text-gray-400 text-sm">Generated decks</p>
+              </div>
+
+              <div className="bg-black/20 backdrop-blur-sm rounded-lg border border-white/10 p-6 hover:border-purple-500/50 transition-all cursor-pointer" onClick={() => setActiveTab("slides")}>
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-3xl">🎞️</span>
+                  <span className="text-2xl font-bold text-green-400">{databaseStatus?.tables?.slides || 0}</span>
+                </div>
+                <h3 className="text-white font-medium">Slides</h3>
+                <p className="text-gray-400 text-sm">Individual slides</p>
+              </div>
+
+              <div className="bg-black/20 backdrop-blur-sm rounded-lg border border-white/10 p-6 hover:border-purple-500/50 transition-all cursor-pointer" onClick={() => setActiveTab("transactions")}>
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-3xl">💳</span>
+                  <span className="text-2xl font-bold text-yellow-400">{databaseStatus?.tables?.credit_transactions || 0}</span>
+                </div>
+                <h3 className="text-white font-medium">Transactions</h3>
+                <p className="text-gray-400 text-sm">Credit history</p>
+              </div>
+
+              <div className="bg-black/20 backdrop-blur-sm rounded-lg border border-white/10 p-6 hover:border-purple-500/50 transition-all cursor-pointer" onClick={() => setActiveTab("decks")}>
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-3xl">📚</span>
+                  <span className="text-2xl font-bold text-indigo-400">{databaseStatus?.tables?.decks || 0}</span>
+                </div>
+                <h3 className="text-white font-medium">Decks</h3>
+                <p className="text-gray-400 text-sm">Collections</p>
+              </div>
+
+              <div className="bg-black/20 backdrop-blur-sm rounded-lg border border-white/10 p-6 hover:border-purple-500/50 transition-all cursor-pointer" onClick={() => setActiveTab("deck_presentations")}>
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-3xl">🔗</span>
+                  <span className="text-2xl font-bold text-cyan-400">{databaseStatus?.tables?.deck_presentations || 0}</span>
+                </div>
+                <h3 className="text-white font-medium">Deck Links</h3>
+                <p className="text-gray-400 text-sm">Presentation mappings</p>
+              </div>
+
+              <div className="bg-black/20 backdrop-blur-sm rounded-lg border border-white/10 p-6 hover:border-purple-500/50 transition-all cursor-pointer" onClick={() => setActiveTab("presentation_shares")}>
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-3xl">🤝</span>
+                  <span className="text-2xl font-bold text-pink-400">{databaseStatus?.tables?.presentation_shares || 0}</span>
+                </div>
+                <h3 className="text-white font-medium">Shares</h3>
+                <p className="text-gray-400 text-sm">Shared presentations</p>
+              </div>
+
+              <div className="bg-black/20 backdrop-blur-sm rounded-lg border border-white/10 p-6 hover:border-purple-500/50 transition-all cursor-pointer" onClick={() => setActiveTab("api_keys")}>
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-3xl">🔑</span>
+                  <span className="text-2xl font-bold text-orange-400">{databaseStatus?.tables?.api_keys || 0}</span>
+                </div>
+                <h3 className="text-white font-medium">API Keys</h3>
+                <p className="text-gray-400 text-sm">Authentication keys</p>
+              </div>
+            </div>
+
+            {/* Quick Actions */}
+            <div className="bg-gradient-to-r from-purple-500/10 to-blue-500/10 border border-purple-500/30 rounded-lg p-6">
+              <h3 className="text-white font-medium mb-4">🚀 Quick Actions</h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <button
+                  onClick={() => fetchData()}
+                  className="px-4 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-all flex items-center justify-center gap-2"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                  </svg>
+                  Refresh Stats
+                </button>
+                <button
+                  onClick={() => window.location.href = '/test-agentic'}
+                  className="px-4 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-all flex items-center justify-center gap-2"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                  </svg>
+                  Create Presentation
+                </button>
+                <button
+                  onClick={() => setActiveTab("presentations")}
+                  className="px-4 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-all flex items-center justify-center gap-2"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                  </svg>
+                  View All Presentations
+                </button>
+              </div>
+            </div>
           </div>
         )}
 
@@ -524,25 +823,366 @@ export default function DatabaseViewer() {
           </div>
         )}
 
+        {/* Slides Table */}
+        {!loading && activeTab === "slides" && (
+          <div className="bg-black/20 backdrop-blur-sm rounded-lg border border-white/10 overflow-hidden">
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead className="bg-white/5">
+                  <tr>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                      Slide #
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                      Title
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                      Presentation ID
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                      Layout
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                      Created
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-white/10">
+                  {slides.length === 0 ? (
+                    <tr>
+                      <td colSpan={5} className="px-6 py-8 text-center text-gray-400">
+                        No slides found
+                      </td>
+                    </tr>
+                  ) : (
+                    slides.map((slide) => (
+                      <tr key={slide.id} className="hover:bg-white/5 transition-colors">
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <span className="text-lg font-bold text-yellow-400">
+                            #{slide.slide_number}
+                          </span>
+                        </td>
+                        <td className="px-6 py-4">
+                          <div className="text-sm font-medium text-white max-w-xs truncate">
+                            {slide.title}
+                          </div>
+                          {slide.content && (
+                            <div className="text-xs text-gray-400 max-w-xs truncate mt-1">
+                              {slide.content.substring(0, 100)}...
+                            </div>
+                          )}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-xs text-gray-500 font-mono">
+                          {slide.presentation_id.slice(0, 8)}...
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <span className="px-2 py-1 text-xs font-medium bg-blue-500/20 text-blue-300 rounded-full">
+                            {slide.layout_type}
+                          </span>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
+                          {formatDate(slide.created_at)}
+                        </td>
+                      </tr>
+                    ))
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+
+        {/* Decks Table */}
+        {!loading && activeTab === "decks" && (
+          <div className="bg-black/20 backdrop-blur-sm rounded-lg border border-white/10 overflow-hidden">
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead className="bg-white/5">
+                  <tr>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                      Name
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                      Description
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                      User ID
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                      Public
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                      Created
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-white/10">
+                  {decks.length === 0 ? (
+                    <tr>
+                      <td colSpan={5} className="px-6 py-8 text-center text-gray-400">
+                        No decks found
+                      </td>
+                    </tr>
+                  ) : (
+                    decks.map((deck) => (
+                      <tr key={deck.id} className="hover:bg-white/5 transition-colors">
+                        <td className="px-6 py-4">
+                          <div className="text-sm font-medium text-white">
+                            {deck.name}
+                          </div>
+                        </td>
+                        <td className="px-6 py-4">
+                          <div className="text-sm text-gray-300 max-w-xs truncate">
+                            {deck.description || "N/A"}
+                          </div>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-xs text-gray-500 font-mono">
+                          {deck.user_id.slice(0, 8)}...
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <span
+                            className={`px-2 py-1 text-xs font-medium rounded-full ${
+                              deck.is_public
+                                ? "bg-green-500/20 text-green-300"
+                                : "bg-gray-500/20 text-gray-300"
+                            }`}
+                          >
+                            {deck.is_public ? "Public" : "Private"}
+                          </span>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
+                          {formatDate(deck.created_at)}
+                        </td>
+                      </tr>
+                    ))
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+
+        {/* Deck Presentations Table */}
+        {!loading && activeTab === "deck_presentations" && (
+          <div className="bg-black/20 backdrop-blur-sm rounded-lg border border-white/10 overflow-hidden">
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead className="bg-white/5">
+                  <tr>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                      Deck ID
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                      Presentation ID
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                      Order
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                      Created
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-white/10">
+                  {deckPresentations.length === 0 ? (
+                    <tr>
+                      <td colSpan={4} className="px-6 py-8 text-center text-gray-400">
+                        No deck presentations found
+                      </td>
+                    </tr>
+                  ) : (
+                    deckPresentations.map((dp) => (
+                      <tr key={dp.id} className="hover:bg-white/5 transition-colors">
+                        <td className="px-6 py-4 whitespace-nowrap text-xs text-gray-500 font-mono">
+                          {dp.deck_id.slice(0, 8)}...
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-xs text-gray-500 font-mono">
+                          {dp.presentation_id.slice(0, 8)}...
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <span className="text-lg font-bold text-blue-400">
+                            #{dp.order_index}
+                          </span>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
+                          {formatDate(dp.created_at)}
+                        </td>
+                      </tr>
+                    ))
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+
+        {/* Presentation Shares Table */}
+        {!loading && activeTab === "presentation_shares" && (
+          <div className="bg-black/20 backdrop-blur-sm rounded-lg border border-white/10 overflow-hidden">
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead className="bg-white/5">
+                  <tr>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                      Presentation ID
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                      Shared By
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                      Shared With
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                      Permission
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                      Created
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-white/10">
+                  {presentationShares.length === 0 ? (
+                    <tr>
+                      <td colSpan={5} className="px-6 py-8 text-center text-gray-400">
+                        No presentation shares found
+                      </td>
+                    </tr>
+                  ) : (
+                    presentationShares.map((share) => (
+                      <tr key={share.id} className="hover:bg-white/5 transition-colors">
+                        <td className="px-6 py-4 whitespace-nowrap text-xs text-gray-500 font-mono">
+                          {share.presentation_id.slice(0, 8)}...
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-xs text-gray-500 font-mono">
+                          {share.shared_by_user_id.slice(0, 8)}...
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-xs text-gray-500 font-mono">
+                          {share.shared_with_user_id.slice(0, 8)}...
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <span className="px-2 py-1 text-xs font-medium bg-purple-500/20 text-purple-300 rounded-full">
+                            {share.permission_level}
+                          </span>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
+                          {formatDate(share.created_at)}
+                        </td>
+                      </tr>
+                    ))
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+
+        {/* API Keys Table */}
+        {!loading && activeTab === "api_keys" && (
+          <div className="bg-black/20 backdrop-blur-sm rounded-lg border border-white/10 overflow-hidden">
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead className="bg-white/5">
+                  <tr>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                      Name
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                      User ID
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                      Status
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                      Last Used
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                      Created
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                      Revoked
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-white/10">
+                  {apiKeys.length === 0 ? (
+                    <tr>
+                      <td colSpan={6} className="px-6 py-8 text-center text-gray-400">
+                        No API keys found
+                      </td>
+                    </tr>
+                  ) : (
+                    apiKeys.map((key) => (
+                      <tr key={key.id} className="hover:bg-white/5 transition-colors">
+                        <td className="px-6 py-4">
+                          <div className="text-sm font-medium text-white">
+                            {key.key_name}
+                          </div>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-xs text-gray-500 font-mono">
+                          {key.user_id.slice(0, 8)}...
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <span
+                            className={`px-2 py-1 text-xs font-medium rounded-full ${
+                              key.is_active
+                                ? "bg-green-500/20 text-green-300"
+                                : "bg-red-500/20 text-red-300"
+                            }`}
+                          >
+                            {key.is_active ? "Active" : "Revoked"}
+                          </span>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
+                          {formatDate(key.last_used_at)}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
+                          {formatDate(key.created_at)}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
+                          {formatDate(key.revoked_at)}
+                        </td>
+                      </tr>
+                    ))
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+
         {/* Stats Footer */}
-        <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="bg-black/20 backdrop-blur-sm rounded-lg border border-white/10 p-4">
-            <div className="text-sm text-gray-400 mb-1">Total Users</div>
-            <div className="text-2xl font-bold text-white">{users.length}</div>
-          </div>
-          <div className="bg-black/20 backdrop-blur-sm rounded-lg border border-white/10 p-4">
-            <div className="text-sm text-gray-400 mb-1">Total Transactions</div>
-            <div className="text-2xl font-bold text-white">
-              {transactions.length}
+        {!loading && activeTab !== "overview" && (
+          <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-black/20 backdrop-blur-sm rounded-lg border border-white/10 p-4">
+              <div className="text-sm text-gray-400 mb-1">Current Table</div>
+              <div className="text-2xl font-bold text-white capitalize">
+                {activeTab === "deck_presentations" ? "Deck Links" : 
+                 activeTab === "presentation_shares" ? "Shares" :
+                 activeTab === "api_keys" ? "API Keys" :
+                 activeTab}
+              </div>
+            </div>
+            <div className="bg-black/20 backdrop-blur-sm rounded-lg border border-white/10 p-4">
+              <div className="text-sm text-gray-400 mb-1">Rows Loaded</div>
+              <div className="text-2xl font-bold text-white">
+                {activeTab === "users" ? users.length :
+                 activeTab === "transactions" ? transactions.length :
+                 activeTab === "presentations" ? presentations.length :
+                 activeTab === "slides" ? slides.length :
+                 activeTab === "decks" ? decks.length :
+                 activeTab === "deck_presentations" ? deckPresentations.length :
+                 activeTab === "presentation_shares" ? presentationShares.length :
+                 activeTab === "api_keys" ? apiKeys.length : 0}
+              </div>
+            </div>
+            <div className="bg-black/20 backdrop-blur-sm rounded-lg border border-white/10 p-4">
+              <div className="text-sm text-gray-400 mb-1">Total Database Records</div>
+              <div className="text-2xl font-bold text-white">
+                {databaseStatus?.total_records || 0}
+              </div>
             </div>
           </div>
-          <div className="bg-black/20 backdrop-blur-sm rounded-lg border border-white/10 p-4">
-            <div className="text-sm text-gray-400 mb-1">Total Presentations</div>
-            <div className="text-2xl font-bold text-white">
-              {presentations.length}
-            </div>
-          </div>
-        </div>
+        )}
 
         {/* Refresh Button */}
         <div className="mt-6 flex justify-center">
