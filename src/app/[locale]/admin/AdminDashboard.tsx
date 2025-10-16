@@ -165,6 +165,9 @@ export default function DatabaseViewer() {
   const [showUserModal, setShowUserModal] = useState(false);
   const [bulkAction, setBulkAction] = useState<string>("");
   const [selectedItems, setSelectedItems] = useState<Set<string>>(new Set());
+  const [showAddCreditsModal, setShowAddCreditsModal] = useState(false);
+  const [creditsAmount, setCreditsAmount] = useState("");
+  const [creditsTargetUser, setCreditsTargetUser] = useState<User | null>(null);
 
   const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "http://localhost:8000";
 
@@ -353,6 +356,42 @@ export default function DatabaseViewer() {
     } catch (err: any) {
       alert('Error: ' + err.message);
     }
+  };
+
+  const handleAddCredits = async () => {
+    if (!creditsTargetUser || !creditsAmount) return;
+    
+    const amount = parseInt(creditsAmount);
+    if (isNaN(amount) || amount <= 0) {
+      alert('Please enter a valid amount');
+      return;
+    }
+
+    try {
+      const response = await fetch(`${API_BASE}/api/admin/users/${creditsTargetUser.id}/add_credits/${amount}`, {
+        method: 'POST',
+      });
+
+      if (response.ok) {
+        alert(`Successfully added ${amount} credits to ${creditsTargetUser.username}`);
+        setShowAddCreditsModal(false);
+        setCreditsAmount("");
+        setCreditsTargetUser(null);
+        setShowUserModal(false);
+        fetchData();
+      } else {
+        const error = await response.json();
+        throw new Error(error.message || 'Failed to add credits');
+      }
+    } catch (err: any) {
+      alert('Error: ' + err.message);
+    }
+  };
+
+  const openAddCreditsModal = (user: User) => {
+    setCreditsTargetUser(user);
+    setCreditsAmount("");
+    setShowAddCreditsModal(true);
   };
 
   const handleUpdateSettings = async (newSettings: Partial<SystemSettings>) => {
@@ -1228,10 +1267,7 @@ export default function DatabaseViewer() {
                             {user.is_active ? '🔒 Suspend' : '✅ Activate'}
                           </button>
                           <button
-                            onClick={() => {
-                              const amount = prompt('Add credits amount:');
-                              if (amount) handleUserAction(user.id, `add_credits/${amount}`);
-                            }}
+                            onClick={() => openAddCreditsModal(user)}
                             className="text-yellow-400 hover:text-yellow-300 transition-colors"
                             title="Add Credits"
                           >
@@ -1333,13 +1369,7 @@ export default function DatabaseViewer() {
                   {selectedUser.is_active ? '🔒 Suspend User' : '✅ Activate User'}
                 </button>
                 <button
-                  onClick={() => {
-                    const amount = prompt('Add credits amount:');
-                    if (amount) {
-                      handleUserAction(selectedUser.id, `add_credits/${amount}`);
-                      setShowUserModal(false);
-                    }
-                  }}
+                  onClick={() => openAddCreditsModal(selectedUser)}
                   className="flex-1 px-4 py-2 bg-yellow-600 hover:bg-yellow-700 text-white rounded-lg font-medium transition-colors"
                 >
                   💰 Add Credits
@@ -1349,6 +1379,63 @@ export default function DatabaseViewer() {
                   className="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-lg font-medium transition-colors"
                 >
                   Close
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Add Credits Modal */}
+        {showAddCreditsModal && creditsTargetUser && (
+          <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+            <div className="bg-white rounded-lg max-w-md w-full p-6 shadow-2xl">
+              <div className="mb-4">
+                <h3 className="text-xl font-bold text-gray-900 mb-2">Add Credits</h3>
+                <p className="text-sm text-gray-600">
+                  Add credits to <span className="font-semibold">{creditsTargetUser.username}</span>
+                </p>
+                <p className="text-xs text-gray-500 mt-1">
+                  Current balance: <span className="font-semibold text-yellow-600">{creditsTargetUser.credits.toLocaleString()}</span> credits
+                </p>
+              </div>
+              
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Add credits amount:
+                </label>
+                <input
+                  type="number"
+                  min="1"
+                  value={creditsAmount}
+                  onChange={(e) => setCreditsAmount(e.target.value)}
+                  placeholder="Enter amount"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
+                  autoFocus
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      handleAddCredits();
+                    }
+                  }}
+                />
+              </div>
+
+              <div className="flex gap-3">
+                <button
+                  onClick={() => {
+                    setShowAddCreditsModal(false);
+                    setCreditsAmount("");
+                    setCreditsTargetUser(null);
+                  }}
+                  className="flex-1 px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg font-medium transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleAddCredits}
+                  disabled={!creditsAmount || parseInt(creditsAmount) <= 0}
+                  className="flex-1 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  OK
                 </button>
               </div>
             </div>

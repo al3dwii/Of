@@ -206,7 +206,7 @@ export default function PublicViewPresentationPage() {
               <Sparkles className="w-4 h-4 text-white" />
             </div>
             <span className="text-gray-800 font-semibold text-base">
-              Presentation Viewer
+              Sharayeh.com
             </span>
           </div>
 

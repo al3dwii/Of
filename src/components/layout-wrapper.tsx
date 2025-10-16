@@ -13,7 +13,7 @@ export function LayoutWrapper({ children }: { children: React.ReactNode }) {
   const isEditor = pathname?.includes('/editor')
   
   // Check if we're on a presentation route (no navbar/footer)
-  const presentationRoutes = ['/agentic', '/credits', '/database', '/editor', '/view', '/admin', '/dashboard' ]
+  const presentationRoutes = ['/agentic', '/credits', '/database', '/editor', '/view', '/admin', '/dashboard', '/public-view' ]
   const isPresentation = presentationRoutes.some(route => pathname?.includes(route))
   
   // Prevent scrolling ONLY on editor page
