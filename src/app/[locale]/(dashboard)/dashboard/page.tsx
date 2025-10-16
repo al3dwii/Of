@@ -223,7 +223,7 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      {/* API Status Banner */}
+      {/* API Status Banner
       {!stats.apiConnected && (
         <div className="bg-gradient-to-r from-yellow-50 to-orange-50 border border-yellow-200 rounded-xl p-4">
           <div className="flex items-start gap-3">
@@ -236,7 +236,7 @@ export default function DashboardPage() {
             </div>
           </div>
         </div>
-      )}
+      )} */}
 
       {/* Stats Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">

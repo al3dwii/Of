@@ -34,13 +34,11 @@ const navigationSections: NavigationSection[] = [
     items: [
       { name: 'Overview', href: '/dashboard', icon: LayoutDashboard },
       { name: 'Presentations', href: '/dashboard/presentations', icon: Presentation },
-      { name: 'Analytics', href: '/dashboard/analytics', icon: BarChart3 },
     ]
   },
   {
     title: 'Resources',
     items: [
-      { name: 'Changelog', href: '/dashboard/changelog', icon: Clock, badge: 'New', badgeColor: 'bg-blue-100 text-blue-700' },
       { name: 'Help & Support', href: '/dashboard/help', icon: HelpCircle },
     ]
   },
@@ -63,7 +61,7 @@ export function DashboardSidebar() {
     <div className="w-64 bg-white border-r border-gray-200 min-h-screen flex flex-col">
       {/* Logo */}
       <div className="p-6 border-b border-gray-200">
-        <Link href={`/${locale}/dashboard`} className="flex items-center space-x-2 group">
+        <Link href={`/${locale}/`} className="flex items-center space-x-2 group">
           <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center shadow-lg group-hover:shadow-xl transition-shadow">
             <Sparkles className="w-5 h-5 text-white" />
           </div>
@@ -127,10 +125,7 @@ export function DashboardSidebar() {
             </div>
           </div>
         ))}
-      </nav>
-      
-      {/* Footer */}
-      <div className="p-4 border-t border-gray-200">
+          <div className="p-4 border-t border-gray-200">
         <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-lg p-4">
           <div className="flex items-center justify-between mb-2">
             <span className="text-xs font-medium text-gray-700">AI Credits</span>
@@ -146,6 +141,25 @@ export function DashboardSidebar() {
           </Link>
         </div>
       </div>
+      </nav>
+      
+      {/* Footer */}
+      {/* <div className="p-4 border-t border-gray-200">
+        <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-lg p-4">
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-xs font-medium text-gray-700">AI Credits</span>
+            <span className="text-xs font-bold text-blue-600">750 / 1000</span>
+          </div>
+          <div className="w-full bg-gray-200 rounded-full h-1.5">
+            <div className="bg-gradient-to-r from-blue-500 to-purple-500 h-1.5 rounded-full" style={{ width: '75%' }}></div>
+          </div>
+          <Link href={`/${locale}/pricing`} className="block mt-3">
+            <Button variant="outline" size="sm" className="w-full text-xs">
+              Upgrade Plan
+            </Button>
+          </Link>
+        </div>
+      </div> */}
     </div>
   )
 }
