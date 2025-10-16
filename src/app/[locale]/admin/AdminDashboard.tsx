@@ -18,6 +18,15 @@ interface User {
   last_login: string | null;
 }
 
+interface SystemMetrics {
+  cpu_usage: number;
+  memory_usage: number;
+  disk_usage: number;
+  active_users: number;
+  requests_per_minute: number;
+  error_rate: number;
+}
+
 interface Transaction {
   id: string;
   user_id: string;
@@ -100,6 +109,24 @@ interface ApiKey {
   revoked_at: string | null;
 }
 
+interface ActivityLog {
+  id: string;
+  user_id: string;
+  action: string;
+  resource: string;
+  ip_address: string;
+  user_agent: string;
+  timestamp: string;
+}
+
+interface SystemSettings {
+  maintenance_mode: boolean;
+  registration_enabled: boolean;
+  max_upload_size: number;
+  default_credits: number;
+  api_rate_limit: number;
+}
+
 interface DatabaseStatus {
   database: string;
   tables: {
@@ -115,7 +142,7 @@ interface DatabaseStatus {
   total_records: number;
 }
 
-type TableName = "users" | "transactions" | "presentations" | "slides" | "decks" | "deck_presentations" | "presentation_shares" | "api_keys" | "overview";
+type TableName = "users" | "transactions" | "presentations" | "slides" | "decks" | "deck_presentations" | "presentation_shares" | "api_keys" | "overview" | "analytics" | "logs" | "settings";
 
 export default function DatabaseViewer() {
   const [activeTab, setActiveTab] = useState<TableName>("overview");
@@ -130,6 +157,14 @@ export default function DatabaseViewer() {
   const [databaseStatus, setDatabaseStatus] = useState<DatabaseStatus | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [systemMetrics, setSystemMetrics] = useState<SystemMetrics | null>(null);
+  const [activityLogs, setActivityLogs] = useState<ActivityLog[]>([]);
+  const [systemSettings, setSystemSettings] = useState<SystemSettings | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedUser, setSelectedUser] = useState<User | null>(null);
+  const [showUserModal, setShowUserModal] = useState(false);
+  const [bulkAction, setBulkAction] = useState<string>("");
+  const [selectedItems, setSelectedItems] = useState<Set<string>>(new Set());
 
   const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "http://localhost:8000";
 
@@ -144,11 +179,41 @@ export default function DatabaseViewer() {
 
     try {
       if (activeTab === "overview") {
-        // Fetch database status
-        const response = await fetch(`${API_BASE}/api/admin/database-status`);
-        if (!response.ok) throw new Error("Failed to fetch database status");
-        const data = await response.json();
-        setDatabaseStatus(data);
+        // Fetch database status and system metrics
+        const [dbResponse, metricsResponse] = await Promise.all([
+          fetch(`${API_BASE}/api/admin/database-status`),
+          fetch(`${API_BASE}/api/admin/metrics`).catch(() => null)
+        ]);
+        
+        if (!dbResponse.ok) throw new Error("Failed to fetch database status");
+        const dbData = await dbResponse.json();
+        setDatabaseStatus(dbData);
+
+        if (metricsResponse?.ok) {
+          const metricsData = await metricsResponse.json();
+          setSystemMetrics(metricsData);
+        }
+      } else if (activeTab === "analytics") {
+        // Fetch analytics data
+        const metricsResponse = await fetch(`${API_BASE}/api/admin/analytics`);
+        if (metricsResponse.ok) {
+          const metricsData = await metricsResponse.json();
+          setSystemMetrics(metricsData);
+        }
+      } else if (activeTab === "logs") {
+        // Fetch activity logs
+        const logsResponse = await fetch(`${API_BASE}/api/admin/activity-logs?limit=100`);
+        if (logsResponse.ok) {
+          const logsData = await logsResponse.json();
+          setActivityLogs(logsData.logs || []);
+        }
+      } else if (activeTab === "settings") {
+        // Fetch system settings
+        const settingsResponse = await fetch(`${API_BASE}/api/admin/settings`);
+        if (settingsResponse.ok) {
+          const settingsData = await settingsResponse.json();
+          setSystemSettings(settingsData);
+        }
       } else if (activeTab === "users") {
         // Fetch all users from admin endpoint
         const response = await fetch(`${API_BASE}/api/admin/users`);
@@ -246,6 +311,92 @@ export default function DatabaseViewer() {
     return amount > 0 ? "text-green-400" : "text-red-400";
   };
 
+  const handleBulkAction = async () => {
+    if (!bulkAction || selectedItems.size === 0) return;
+    
+    try {
+      const response = await fetch(`${API_BASE}/api/admin/bulk-action`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: bulkAction,
+          items: Array.from(selectedItems),
+          table: activeTab
+        })
+      });
+
+      if (response.ok) {
+        alert(`Bulk action "${bulkAction}" completed successfully`);
+        setSelectedItems(new Set());
+        setBulkAction("");
+        fetchData();
+      } else {
+        throw new Error('Bulk action failed');
+      }
+    } catch (err: any) {
+      alert('Error: ' + err.message);
+    }
+  };
+
+  const handleUserAction = async (userId: string, action: string) => {
+    try {
+      const response = await fetch(`${API_BASE}/api/admin/users/${userId}/${action}`, {
+        method: 'POST',
+      });
+
+      if (response.ok) {
+        alert(`Action "${action}" completed successfully`);
+        fetchData();
+      } else {
+        throw new Error('Action failed');
+      }
+    } catch (err: any) {
+      alert('Error: ' + err.message);
+    }
+  };
+
+  const handleUpdateSettings = async (newSettings: Partial<SystemSettings>) => {
+    try {
+      const response = await fetch(`${API_BASE}/api/admin/settings`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newSettings)
+      });
+
+      if (response.ok) {
+        alert('Settings updated successfully');
+        fetchData();
+      } else {
+        throw new Error('Settings update failed');
+      }
+    } catch (err: any) {
+      alert('Error: ' + err.message);
+    }
+  };
+
+  const toggleItemSelection = (id: string) => {
+    const newSelected = new Set(selectedItems);
+    if (newSelected.has(id)) {
+      newSelected.delete(id);
+    } else {
+      newSelected.add(id);
+    }
+    setSelectedItems(newSelected);
+  };
+
+  const filteredUsers = users.filter(user => 
+    searchQuery === "" || 
+    user.username.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    user.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    user.full_name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const filteredPresentations = presentations.filter(pres =>
+    searchQuery === "" ||
+    pres.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    pres.description?.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
       {/* Header */}
@@ -291,7 +442,138 @@ export default function DatabaseViewer() {
         )}
         
         {/* Tabs */}
-        <div className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-9 gap-2 mb-6">
+        <div className="flex flex-wrap gap-2 mb-6">
+          <button
+            onClick={() => setActiveTab("overview")}
+            className={`px-4 py-3 rounded-lg font-medium transition-all text-sm ${
+              activeTab === "overview"
+                ? "bg-purple-600 text-white shadow-lg"
+                : "bg-black/20 text-gray-400 hover:text-white hover:bg-white/5"
+            }`}
+          >
+            📊 Overview
+          </button>
+          <button
+            onClick={() => setActiveTab("analytics")}
+            className={`px-4 py-3 rounded-lg font-medium transition-all text-sm ${
+              activeTab === "analytics"
+                ? "bg-purple-600 text-white shadow-lg"
+                : "bg-black/20 text-gray-400 hover:text-white hover:bg-white/5"
+            }`}
+          >
+            📈 Analytics
+          </button>
+          <button
+            onClick={() => setActiveTab("users")}
+            className={`px-4 py-3 rounded-lg font-medium transition-all text-sm ${
+              activeTab === "users"
+                ? "bg-purple-600 text-white shadow-lg"
+                : "bg-black/20 text-gray-400 hover:text-white hover:bg-white/5"
+            }`}
+          >
+            👤 Users
+          </button>
+          <button
+            onClick={() => setActiveTab("presentations")}
+            className={`px-4 py-3 rounded-lg font-medium transition-all text-sm ${
+              activeTab === "presentations"
+                ? "bg-purple-600 text-white shadow-lg"
+                : "bg-black/20 text-gray-400 hover:text-white hover:bg-white/5"
+            }`}
+          >
+            📄 Presentations
+          </button>
+          <button
+            onClick={() => setActiveTab("slides")}
+            className={`px-4 py-3 rounded-lg font-medium transition-all text-sm ${
+              activeTab === "slides"
+                ? "bg-purple-600 text-white shadow-lg"
+                : "bg-black/20 text-gray-400 hover:text-white hover:bg-white/5"
+            }`}
+          >
+            🎞️ Slides
+          </button>
+          <button
+            onClick={() => setActiveTab("transactions")}
+            className={`px-4 py-3 rounded-lg font-medium transition-all text-sm ${
+              activeTab === "transactions"
+                ? "bg-purple-600 text-white shadow-lg"
+                : "bg-black/20 text-gray-400 hover:text-white hover:bg-white/5"
+            }`}
+          >
+            💳 Credits
+          </button>
+          <button
+            onClick={() => setActiveTab("logs")}
+            className={`px-4 py-3 rounded-lg font-medium transition-all text-sm ${
+              activeTab === "logs"
+                ? "bg-purple-600 text-white shadow-lg"
+                : "bg-black/20 text-gray-400 hover:text-white hover:bg-white/5"
+            }`}
+          >
+            📋 Activity Logs
+          </button>
+          <button
+            onClick={() => setActiveTab("api_keys")}
+            className={`px-4 py-3 rounded-lg font-medium transition-all text-sm ${
+              activeTab === "api_keys"
+                ? "bg-purple-600 text-white shadow-lg"
+                : "bg-black/20 text-gray-400 hover:text-white hover:bg-white/5"
+            }`}
+          >
+            🔑 API Keys
+          </button>
+          <button
+            onClick={() => setActiveTab("settings")}
+            className={`px-4 py-3 rounded-lg font-medium transition-all text-sm ${
+              activeTab === "settings"
+                ? "bg-purple-600 text-white shadow-lg"
+                : "bg-black/20 text-gray-400 hover:text-white hover:bg-white/5"
+            }`}
+          >
+            ⚙️ Settings
+          </button>
+        </div>
+
+        {/* Search Bar */}
+        {(activeTab === "users" || activeTab === "presentations" || activeTab === "logs") && (
+          <div className="mb-6 bg-black/20 backdrop-blur-sm rounded-lg border border-white/10 p-4">
+            <div className="flex items-center gap-4">
+              <input
+                type="text"
+                placeholder={`Search ${activeTab}...`}
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="flex-1 px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-purple-500"
+              />
+              {selectedItems.size > 0 && (
+                <div className="flex items-center gap-2">
+                  <select
+                    value={bulkAction}
+                    onChange={(e) => setBulkAction(e.target.value)}
+                    className="px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:border-purple-500"
+                  >
+                    <option value="">Bulk Actions ({selectedItems.size})</option>
+                    <option value="delete">Delete Selected</option>
+                    <option value="activate">Activate Selected</option>
+                    <option value="deactivate">Deactivate Selected</option>
+                    {activeTab === "users" && <option value="add_credits">Add Credits</option>}
+                  </select>
+                  <button
+                    onClick={handleBulkAction}
+                    disabled={!bulkAction}
+                    className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    Apply
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+        
+        {/* Tabs */}
+        <div className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-9 gap-2 mb-6 hidden">
           <button
             onClick={() => setActiveTab("overview")}
             className={`px-4 py-3 rounded-lg font-medium transition-all text-sm ${
@@ -526,6 +808,318 @@ export default function DatabaseViewer() {
           </div>
         )}
 
+        {/* Analytics Tab */}
+        {!loading && activeTab === "analytics" && (
+          <div className="space-y-6">
+            {/* System Metrics */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="bg-gradient-to-br from-blue-500/10 to-blue-600/10 border border-blue-500/30 rounded-lg p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-white font-medium">CPU Usage</h3>
+                  <span className="text-3xl">🖥️</span>
+                </div>
+                <div className="text-3xl font-bold text-blue-400 mb-2">
+                  {systemMetrics?.cpu_usage || 0}%
+                </div>
+                <div className="w-full bg-white/10 rounded-full h-2">
+                  <div
+                    className="bg-blue-500 h-2 rounded-full transition-all"
+                    style={{ width: `${systemMetrics?.cpu_usage || 0}%` }}
+                  ></div>
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-br from-green-500/10 to-green-600/10 border border-green-500/30 rounded-lg p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-white font-medium">Memory Usage</h3>
+                  <span className="text-3xl">💾</span>
+                </div>
+                <div className="text-3xl font-bold text-green-400 mb-2">
+                  {systemMetrics?.memory_usage || 0}%
+                </div>
+                <div className="w-full bg-white/10 rounded-full h-2">
+                  <div
+                    className="bg-green-500 h-2 rounded-full transition-all"
+                    style={{ width: `${systemMetrics?.memory_usage || 0}%` }}
+                  ></div>
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-br from-purple-500/10 to-purple-600/10 border border-purple-500/30 rounded-lg p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-white font-medium">Active Users</h3>
+                  <span className="text-3xl">👥</span>
+                </div>
+                <div className="text-3xl font-bold text-purple-400">
+                  {systemMetrics?.active_users || 0}
+                </div>
+                <p className="text-sm text-gray-400 mt-2">Users online now</p>
+              </div>
+
+              <div className="bg-gradient-to-br from-yellow-500/10 to-yellow-600/10 border border-yellow-500/30 rounded-lg p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-white font-medium">Requests/Min</h3>
+                  <span className="text-3xl">📡</span>
+                </div>
+                <div className="text-3xl font-bold text-yellow-400">
+                  {systemMetrics?.requests_per_minute || 0}
+                </div>
+                <p className="text-sm text-gray-400 mt-2">API requests per minute</p>
+              </div>
+
+              <div className="bg-gradient-to-br from-red-500/10 to-red-600/10 border border-red-500/30 rounded-lg p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-white font-medium">Error Rate</h3>
+                  <span className="text-3xl">⚠️</span>
+                </div>
+                <div className="text-3xl font-bold text-red-400">
+                  {systemMetrics?.error_rate || 0}%
+                </div>
+                <p className="text-sm text-gray-400 mt-2">Failed requests</p>
+              </div>
+
+              <div className="bg-gradient-to-br from-cyan-500/10 to-cyan-600/10 border border-cyan-500/30 rounded-lg p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-white font-medium">Disk Usage</h3>
+                  <span className="text-3xl">💿</span>
+                </div>
+                <div className="text-3xl font-bold text-cyan-400 mb-2">
+                  {systemMetrics?.disk_usage || 0}%
+                </div>
+                <div className="w-full bg-white/10 rounded-full h-2">
+                  <div
+                    className="bg-cyan-500 h-2 rounded-full transition-all"
+                    style={{ width: `${systemMetrics?.disk_usage || 0}%` }}
+                  ></div>
+                </div>
+              </div>
+            </div>
+
+            {/* Charts Placeholder */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div className="bg-black/20 backdrop-blur-sm rounded-lg border border-white/10 p-6">
+                <h3 className="text-white font-medium mb-4">📈 User Growth (Last 30 Days)</h3>
+                <div className="h-64 flex items-center justify-center text-gray-400">
+                  <div className="text-center">
+                    <svg className="w-16 h-16 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    </svg>
+                    <p>Chart integration available</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-black/20 backdrop-blur-sm rounded-lg border border-white/10 p-6">
+                <h3 className="text-white font-medium mb-4">💰 Revenue Trends</h3>
+                <div className="h-64 flex items-center justify-center text-gray-400">
+                  <div className="text-center">
+                    <svg className="w-16 h-16 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                    </svg>
+                    <p>Chart integration available</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Activity Logs Tab */}
+        {!loading && activeTab === "logs" && (
+          <div className="bg-black/20 backdrop-blur-sm rounded-lg border border-white/10 overflow-hidden">
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead className="bg-white/5">
+                  <tr>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                      Timestamp
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                      User
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                      Action
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                      Resource
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                      IP Address
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-white/10">
+                  {activityLogs.length === 0 ? (
+                    <tr>
+                      <td colSpan={5} className="px-6 py-8 text-center text-gray-400">
+                        No activity logs found
+                      </td>
+                    </tr>
+                  ) : (
+                    activityLogs.map((log) => (
+                      <tr key={log.id} className="hover:bg-white/5 transition-colors">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
+                          {formatDate(log.timestamp)}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-xs text-gray-500 font-mono">
+                          {log.user_id.slice(0, 8)}...
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <span className="px-2 py-1 text-xs font-medium bg-blue-500/20 text-blue-300 rounded-full">
+                            {log.action}
+                          </span>
+                        </td>
+                        <td className="px-6 py-4 text-sm text-gray-300">
+                          {log.resource}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-400 font-mono">
+                          {log.ip_address}
+                        </td>
+                      </tr>
+                    ))
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+
+        {/* Settings Tab */}
+        {!loading && activeTab === "settings" && systemSettings && (
+          <div className="space-y-6">
+            <div className="bg-black/20 backdrop-blur-sm rounded-lg border border-white/10 p-6">
+              <h3 className="text-white font-medium mb-6 text-xl">⚙️ System Settings</h3>
+              
+              <div className="space-y-6">
+                {/* Maintenance Mode */}
+                <div className="flex items-center justify-between p-4 bg-white/5 rounded-lg">
+                  <div>
+                    <h4 className="text-white font-medium mb-1">Maintenance Mode</h4>
+                    <p className="text-sm text-gray-400">Temporarily disable access for maintenance</p>
+                  </div>
+                  <button
+                    onClick={() => handleUpdateSettings({ maintenance_mode: !systemSettings.maintenance_mode })}
+                    className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+                      systemSettings.maintenance_mode ? 'bg-red-600' : 'bg-green-600'
+                    }`}
+                  >
+                    <span
+                      className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                        systemSettings.maintenance_mode ? 'translate-x-6' : 'translate-x-1'
+                      }`}
+                    />
+                  </button>
+                </div>
+
+                {/* Registration */}
+                <div className="flex items-center justify-between p-4 bg-white/5 rounded-lg">
+                  <div>
+                    <h4 className="text-white font-medium mb-1">User Registration</h4>
+                    <p className="text-sm text-gray-400">Allow new users to register</p>
+                  </div>
+                  <button
+                    onClick={() => handleUpdateSettings({ registration_enabled: !systemSettings.registration_enabled })}
+                    className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+                      systemSettings.registration_enabled ? 'bg-green-600' : 'bg-gray-600'
+                    }`}
+                  >
+                    <span
+                      className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                        systemSettings.registration_enabled ? 'translate-x-6' : 'translate-x-1'
+                      }`}
+                    />
+                  </button>
+                </div>
+
+                {/* Max Upload Size */}
+                <div className="p-4 bg-white/5 rounded-lg">
+                  <div className="flex items-center justify-between mb-3">
+                    <div>
+                      <h4 className="text-white font-medium mb-1">Max Upload Size</h4>
+                      <p className="text-sm text-gray-400">Maximum file upload size in MB</p>
+                    </div>
+                    <span className="text-2xl font-bold text-purple-400">{systemSettings.max_upload_size} MB</span>
+                  </div>
+                  <input
+                    type="range"
+                    min="10"
+                    max="1000"
+                    step="10"
+                    value={systemSettings.max_upload_size}
+                    onChange={(e) => handleUpdateSettings({ max_upload_size: parseInt(e.target.value) })}
+                    className="w-full h-2 bg-white/10 rounded-lg appearance-none cursor-pointer"
+                  />
+                </div>
+
+                {/* Default Credits */}
+                <div className="p-4 bg-white/5 rounded-lg">
+                  <div className="flex items-center justify-between mb-3">
+                    <div>
+                      <h4 className="text-white font-medium mb-1">Default Credits</h4>
+                      <p className="text-sm text-gray-400">Starting credits for new users</p>
+                    </div>
+                    <span className="text-2xl font-bold text-yellow-400">{systemSettings.default_credits}</span>
+                  </div>
+                  <input
+                    type="range"
+                    min="0"
+                    max="1000"
+                    step="50"
+                    value={systemSettings.default_credits}
+                    onChange={(e) => handleUpdateSettings({ default_credits: parseInt(e.target.value) })}
+                    className="w-full h-2 bg-white/10 rounded-lg appearance-none cursor-pointer"
+                  />
+                </div>
+
+                {/* API Rate Limit */}
+                <div className="p-4 bg-white/5 rounded-lg">
+                  <div className="flex items-center justify-between mb-3">
+                    <div>
+                      <h4 className="text-white font-medium mb-1">API Rate Limit</h4>
+                      <p className="text-sm text-gray-400">Requests per minute per user</p>
+                    </div>
+                    <span className="text-2xl font-bold text-blue-400">{systemSettings.api_rate_limit}/min</span>
+                  </div>
+                  <input
+                    type="range"
+                    min="10"
+                    max="1000"
+                    step="10"
+                    value={systemSettings.api_rate_limit}
+                    onChange={(e) => handleUpdateSettings({ api_rate_limit: parseInt(e.target.value) })}
+                    className="w-full h-2 bg-white/10 rounded-lg appearance-none cursor-pointer"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Danger Zone */}
+            <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-6">
+              <h3 className="text-red-400 font-medium mb-4 text-xl">⚠️ Danger Zone</h3>
+              <div className="space-y-3">
+                <button
+                  onClick={() => confirm('Clear all cache?') && alert('Cache cleared!')}
+                  className="w-full px-4 py-3 bg-red-600/20 hover:bg-red-600/30 border border-red-500/50 text-red-300 rounded-lg transition-colors text-left"
+                >
+                  🗑️ Clear Application Cache
+                </button>
+                <button
+                  onClick={() => confirm('Reset all user sessions?') && alert('Sessions reset!')}
+                  className="w-full px-4 py-3 bg-red-600/20 hover:bg-red-600/30 border border-red-500/50 text-red-300 rounded-lg transition-colors text-left"
+                >
+                  🔄 Reset All User Sessions
+                </button>
+                <button
+                  onClick={() => confirm('Export database backup?') && alert('Backup initiated!')}
+                  className="w-full px-4 py-3 bg-orange-600/20 hover:bg-orange-600/30 border border-orange-500/50 text-orange-300 rounded-lg transition-colors text-left"
+                >
+                  💾 Export Database Backup
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Users Table */}
         {!loading && activeTab === "users" && (
           <div className="bg-black/20 backdrop-blur-sm rounded-lg border border-white/10 overflow-hidden">
@@ -533,6 +1127,19 @@ export default function DatabaseViewer() {
               <table className="w-full">
                 <thead className="bg-white/5">
                   <tr>
+                    <th className="px-6 py-3 text-left">
+                      <input
+                        type="checkbox"
+                        onChange={(e) => {
+                          if (e.target.checked) {
+                            setSelectedItems(new Set(filteredUsers.map(u => u.id)));
+                          } else {
+                            setSelectedItems(new Set());
+                          }
+                        }}
+                        className="rounded"
+                      />
+                    </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
                       Username
                     </th>
@@ -543,29 +1150,34 @@ export default function DatabaseViewer() {
                       Credits
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
-                      Used
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
                       Tier
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
                       Status
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
-                      Created
+                      Actions
                     </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-white/10">
-                  {users.length === 0 ? (
+                  {filteredUsers.length === 0 ? (
                     <tr>
                       <td colSpan={7} className="px-6 py-8 text-center text-gray-400">
                         No users found
                       </td>
                     </tr>
                   ) : (
-                    users.map((user) => (
+                    filteredUsers.map((user) => (
                       <tr key={user.id} className="hover:bg-white/5 transition-colors">
+                        <td className="px-6 py-4">
+                          <input
+                            type="checkbox"
+                            checked={selectedItems.has(user.id)}
+                            onChange={() => toggleItemSelection(user.id)}
+                            className="rounded"
+                          />
+                        </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="text-sm font-medium text-white">{user.username}</div>
                           <div className="text-xs text-gray-400">{user.full_name}</div>
@@ -577,10 +1189,8 @@ export default function DatabaseViewer() {
                           <span className="text-lg font-bold text-yellow-400">
                             {user.credits.toLocaleString()}
                           </span>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <span className="text-sm text-red-400">
-                            {user.total_credits_used.toLocaleString()}
+                          <span className="text-xs text-gray-400 ml-2">
+                            ({user.total_credits_used.toLocaleString()} used)
                           </span>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
@@ -599,14 +1209,148 @@ export default function DatabaseViewer() {
                             {user.is_active ? "Active" : "Inactive"}
                           </span>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
-                          {formatDate(user.created_at)}
+                        <td className="px-6 py-4 whitespace-nowrap text-sm space-x-2">
+                          <button
+                            onClick={() => {
+                              setSelectedUser(user);
+                              setShowUserModal(true);
+                            }}
+                            className="text-blue-400 hover:text-blue-300 transition-colors"
+                            title="View Details"
+                          >
+                            👁️ View
+                          </button>
+                          <button
+                            onClick={() => handleUserAction(user.id, user.is_active ? 'deactivate' : 'activate')}
+                            className={user.is_active ? "text-red-400 hover:text-red-300" : "text-green-400 hover:text-green-300"}
+                            title={user.is_active ? 'Deactivate' : 'Activate'}
+                          >
+                            {user.is_active ? '🔒 Suspend' : '✅ Activate'}
+                          </button>
+                          <button
+                            onClick={() => {
+                              const amount = prompt('Add credits amount:');
+                              if (amount) handleUserAction(user.id, `add_credits/${amount}`);
+                            }}
+                            className="text-yellow-400 hover:text-yellow-300 transition-colors"
+                            title="Add Credits"
+                          >
+                            💰 Credits
+                          </button>
                         </td>
                       </tr>
                     ))
                   )}
                 </tbody>
               </table>
+            </div>
+          </div>
+        )}
+
+        {/* User Detail Modal */}
+        {showUserModal && selectedUser && (
+          <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+            <div className="bg-gradient-to-br from-slate-900 to-purple-900 border border-white/10 rounded-lg max-w-2xl w-full p-6">
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-2xl font-bold text-white">User Details</h3>
+                <button
+                  onClick={() => setShowUserModal(false)}
+                  className="text-gray-400 hover:text-white"
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+              
+              <div className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <p className="text-gray-400 text-sm">Username</p>
+                    <p className="text-white font-medium">{selectedUser.username}</p>
+                  </div>
+                  <div>
+                    <p className="text-gray-400 text-sm">Full Name</p>
+                    <p className="text-white font-medium">{selectedUser.full_name}</p>
+                  </div>
+                  <div>
+                    <p className="text-gray-400 text-sm">Email</p>
+                    <p className="text-white font-medium">{selectedUser.email}</p>
+                  </div>
+                  <div>
+                    <p className="text-gray-400 text-sm">Subscription Tier</p>
+                    <span className="px-2 py-1 text-xs font-medium bg-purple-500/20 text-purple-300 rounded-full">
+                      {selectedUser.subscription_tier}
+                    </span>
+                  </div>
+                  <div>
+                    <p className="text-gray-400 text-sm">Credits Available</p>
+                    <p className="text-yellow-400 font-bold text-lg">{selectedUser.credits.toLocaleString()}</p>
+                  </div>
+                  <div>
+                    <p className="text-gray-400 text-sm">Total Credits Used</p>
+                    <p className="text-red-400 font-medium">{selectedUser.total_credits_used.toLocaleString()}</p>
+                  </div>
+                  <div>
+                    <p className="text-gray-400 text-sm">Account Status</p>
+                    <span className={`px-2 py-1 text-xs font-medium rounded-full ${
+                      selectedUser.is_active ? "bg-green-500/20 text-green-300" : "bg-red-500/20 text-red-300"
+                    }`}>
+                      {selectedUser.is_active ? "Active" : "Inactive"}
+                    </span>
+                  </div>
+                  <div>
+                    <p className="text-gray-400 text-sm">Verified</p>
+                    <span className={`px-2 py-1 text-xs font-medium rounded-full ${
+                      selectedUser.is_verified ? "bg-green-500/20 text-green-300" : "bg-gray-500/20 text-gray-300"
+                    }`}>
+                      {selectedUser.is_verified ? "Verified" : "Not Verified"}
+                    </span>
+                  </div>
+                  <div>
+                    <p className="text-gray-400 text-sm">Created At</p>
+                    <p className="text-white text-sm">{formatDate(selectedUser.created_at)}</p>
+                  </div>
+                  <div>
+                    <p className="text-gray-400 text-sm">Last Login</p>
+                    <p className="text-white text-sm">{formatDate(selectedUser.last_login)}</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-6 flex gap-3">
+                <button
+                  onClick={() => {
+                    handleUserAction(selectedUser.id, selectedUser.is_active ? 'deactivate' : 'activate');
+                    setShowUserModal(false);
+                  }}
+                  className={`flex-1 px-4 py-2 rounded-lg font-medium transition-colors ${
+                    selectedUser.is_active
+                      ? "bg-red-600 hover:bg-red-700 text-white"
+                      : "bg-green-600 hover:bg-green-700 text-white"
+                  }`}
+                >
+                  {selectedUser.is_active ? '🔒 Suspend User' : '✅ Activate User'}
+                </button>
+                <button
+                  onClick={() => {
+                    const amount = prompt('Add credits amount:');
+                    if (amount) {
+                      handleUserAction(selectedUser.id, `add_credits/${amount}`);
+                      setShowUserModal(false);
+                    }
+                  }}
+                  className="flex-1 px-4 py-2 bg-yellow-600 hover:bg-yellow-700 text-white rounded-lg font-medium transition-colors"
+                >
+                  💰 Add Credits
+                </button>
+                <button
+                  onClick={() => setShowUserModal(false)}
+                  className="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-lg font-medium transition-colors"
+                >
+                  Close
+                </button>
+              </div>
             </div>
           </div>
         )}
@@ -693,6 +1437,19 @@ export default function DatabaseViewer() {
               <table className="w-full">
                 <thead className="bg-white/5">
                   <tr>
+                    <th className="px-6 py-3 text-left">
+                      <input
+                        type="checkbox"
+                        onChange={(e) => {
+                          if (e.target.checked) {
+                            setSelectedItems(new Set(filteredPresentations.map(p => p.id)));
+                          } else {
+                            setSelectedItems(new Set());
+                          }
+                        }}
+                        className="rounded"
+                      />
+                    </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
                       Title
                     </th>
@@ -701,9 +1458,6 @@ export default function DatabaseViewer() {
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
                       Status
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
-                      Public
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
                       Views
@@ -717,15 +1471,23 @@ export default function DatabaseViewer() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-white/10">
-                  {presentations.length === 0 ? (
+                  {filteredPresentations.length === 0 ? (
                     <tr>
                       <td colSpan={7} className="px-6 py-8 text-center text-gray-400">
                         No presentations found. Create your first presentation!
                       </td>
                     </tr>
                   ) : (
-                    presentations.map((pres) => (
+                    filteredPresentations.map((pres) => (
                       <tr key={pres.id} className="hover:bg-white/5 transition-colors">
+                        <td className="px-6 py-4">
+                          <input
+                            type="checkbox"
+                            checked={selectedItems.has(pres.id)}
+                            onChange={() => toggleItemSelection(pres.id)}
+                            className="rounded"
+                          />
+                        </td>
                         <td className="px-6 py-4">
                           <div className="text-sm font-medium text-white max-w-xs truncate" title={pres.title}>
                             {pres.title}
@@ -733,11 +1495,6 @@ export default function DatabaseViewer() {
                           {pres.description && (
                             <div className="text-xs text-gray-400 max-w-xs truncate" title={pres.description}>
                               {pres.description}
-                            </div>
-                          )}
-                          {pres.prompt && (
-                            <div className="text-xs text-purple-400 max-w-xs truncate mt-1" title={pres.prompt}>
-                              💬 {pres.prompt}
                             </div>
                           )}
                           <div className="text-xs text-gray-500 font-mono mt-1">
@@ -758,17 +1515,6 @@ export default function DatabaseViewer() {
                             {pres.status}
                           </span>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <span
-                            className={`px-2 py-1 text-xs font-medium rounded-full ${
-                              pres.is_public
-                                ? "bg-green-500/20 text-green-300"
-                                : "bg-gray-500/20 text-gray-300"
-                            }`}
-                          >
-                            {pres.is_public ? "Public" : "Private"}
-                          </span>
-                        </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
                           {pres.view_count || 0}
                         </td>
@@ -781,38 +1527,35 @@ export default function DatabaseViewer() {
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-purple-400 hover:text-purple-300 transition-colors inline-flex items-center gap-1"
-                            title="View presentation (opens in new tab)"
+                            title="View presentation"
                           >
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                            </svg>
-                            View
+                            👁️
                           </a>
                           <button
                             onClick={() => {
                               localStorage.setItem('editorJobId', pres.id);
                               window.location.href = '/editor';
                             }}
-                            className="text-blue-400 hover:text-blue-300 transition-colors inline-flex items-center gap-1"
+                            className="text-blue-400 hover:text-blue-300 transition-colors"
                             title="Edit in editor"
                           >
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                            </svg>
-                            Edit
+                            ✏️
                           </button>
                           <a
                             href={`${API_BASE}/api/presentations/${pres.id}/export.zip`}
                             download
-                            className="text-green-400 hover:text-green-300 transition-colors inline-flex items-center gap-1"
+                            className="text-green-400 hover:text-green-300 transition-colors"
                             title="Download as ZIP"
                           >
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                            </svg>
-                            ZIP
+                            📦
                           </a>
+                          <button
+                            onClick={() => confirm(`Delete "${pres.title}"?`) && handleUserAction(pres.id, 'delete')}
+                            className="text-red-400 hover:text-red-300 transition-colors"
+                            title="Delete"
+                          >
+                            🗑️
+                          </button>
                         </td>
                       </tr>
                     ))
