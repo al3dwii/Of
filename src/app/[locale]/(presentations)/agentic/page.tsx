@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import NextLink from 'next/link';
 
 // API URL from environment variable, fallback to localhost for development
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+const API_URL = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:8000';
 
 interface StatusEvent {
   job_id: string;

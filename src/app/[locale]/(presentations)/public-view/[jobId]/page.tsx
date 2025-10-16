@@ -5,7 +5,7 @@ import { useParams } from 'next/navigation';
 import { ChevronLeft, ChevronRight, Maximize2, Minimize2, Sparkles } from 'lucide-react';
 
 // API URL from environment variable, fallback to localhost for development
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+const API_URL = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:8000';
 
 export default function PublicViewPresentationPage() {
   const params = useParams();
