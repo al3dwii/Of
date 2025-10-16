@@ -4,6 +4,8 @@ import { useState, useRef, useEffect } from 'react';
 import { Presentation, Home, Settings, HelpCircle, Plus, Sparkles, Maximize2, Download, Share2, Link, FileText, Edit3, Coins } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import NextLink from 'next/link';
+import { useUser } from '@clerk/nextjs';
+import { SignIn } from '@clerk/nextjs';
 
 // API URL from environment variable, fallback to localhost for development
 const API_URL = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:8000';
@@ -63,6 +65,8 @@ interface ErrorEvent {
 
 export default function TestAgenticPage() {
   const router = useRouter();
+  const { isSignedIn, isLoaded } = useUser();
+  const [showAuthModal, setShowAuthModal] = useState(false);
   const [prompt, setPrompt] = useState('AI in Healthcare: 5 slides covering applications, benefits, and challenges');
   const [isGenerating, setIsGenerating] = useState(false);
   const [jobId, setJobId] = useState<string | null>(null);
@@ -81,6 +85,13 @@ export default function TestAgenticPage() {
   useEffect(() => {
     scrollToBottom();
   }, [logs]);
+
+  // Check authentication on mount
+  useEffect(() => {
+    if (isLoaded && !isSignedIn) {
+      setShowAuthModal(true);
+    }
+  }, [isLoaded, isSignedIn]);
 
   // Fetch credits on mount and after generation
   const fetchCredits = async () => {
@@ -227,6 +238,12 @@ export default function TestAgenticPage() {
   };
 
   const handleGenerate = async () => {
+    // Check authentication first
+    if (!isSignedIn) {
+      setShowAuthModal(true);
+      return;
+    }
+
     if (!prompt.trim()) return;
 
     // Check if we have an existing presentation - if yes, edit it; if no, create new
@@ -443,6 +460,12 @@ export default function TestAgenticPage() {
   };
 
   const handleEdit = async (command: string) => {
+    // Check authentication first
+    if (!isSignedIn) {
+      setShowAuthModal(true);
+      return;
+    }
+    
     if (!jobId) return;
     
     setIsGenerating(true);
@@ -552,7 +575,37 @@ export default function TestAgenticPage() {
   };
 
   return (
-    <div className="flex h-screen bg-gray-50">
+    <>
+      {/* Authentication Modal */}
+      {showAuthModal && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-in fade-in duration-200">
+          <div className="bg-white rounded-lg shadow-2xl max-w-md w-full relative animate-in zoom-in-95 duration-200">
+            <div className="p-6">
+              <h2 className="text-2xl font-bold mb-2">Sign in to continue</h2>
+              <p className="text-gray-600 mb-4">You need to be signed in to generate presentations</p>
+              <SignIn 
+                routing="hash"
+                afterSignInUrl="/agentic"
+                appearance={{
+                  elements: {
+                    rootBox: "mx-auto",
+                    card: "shadow-none"
+                  }
+                }}
+              />
+              <button
+                onClick={() => router.back()}
+                className="w-full mt-4 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg font-medium transition-colors"
+              >
+                ← Go Back
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Main Page Content */}
+      <div className="flex h-screen bg-gray-50">
       {/* Left Sidebar - Icons */}
       <div className="w-16 bg-gradient-to-b from-purple-700 to-blue-700 flex flex-col items-center py-6 space-y-6">
         <div className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
@@ -812,5 +865,6 @@ export default function TestAgenticPage() {
 
 
     </div>
+    </>
   );
 }
