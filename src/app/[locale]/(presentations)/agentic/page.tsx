@@ -67,6 +67,7 @@ export default function TestAgenticPage() {
   const router = useRouter();
   const { isSignedIn, isLoaded } = useUser();
   const [showAuthModal, setShowAuthModal] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
   const [prompt, setPrompt] = useState('AI in Healthcare: 5 slides covering applications, benefits, and challenges');
   const [isGenerating, setIsGenerating] = useState(false);
   const [jobId, setJobId] = useState<string | null>(null);
@@ -90,6 +91,13 @@ export default function TestAgenticPage() {
   useEffect(() => {
     if (isLoaded && !isSignedIn) {
       setShowAuthModal(true);
+      // Delay the visibility for smooth animation
+      setTimeout(() => {
+        setModalVisible(true);
+      }, 50);
+    } else {
+      setModalVisible(false);
+      setShowAuthModal(false);
     }
   }, [isLoaded, isSignedIn]);
 
@@ -241,6 +249,9 @@ export default function TestAgenticPage() {
     // Check authentication first
     if (!isSignedIn) {
       setShowAuthModal(true);
+      setTimeout(() => {
+        setModalVisible(true);
+      }, 50);
       return;
     }
 
@@ -463,6 +474,9 @@ export default function TestAgenticPage() {
     // Check authentication first
     if (!isSignedIn) {
       setShowAuthModal(true);
+      setTimeout(() => {
+        setModalVisible(true);
+      }, 50);
       return;
     }
     
@@ -578,8 +592,16 @@ export default function TestAgenticPage() {
     <>
       {/* Authentication Modal */}
       {showAuthModal && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-in fade-in duration-200">
-          <div className="bg-white rounded-lg shadow-2xl max-w-md w-full relative animate-in zoom-in-95 duration-200">
+        <div 
+          className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 transition-opacity duration-500 ease-out ${
+            modalVisible ? 'opacity-100' : 'opacity-0'
+          }`}
+        >
+          <div 
+            className={`bg-white rounded-lg shadow-2xl max-w-md w-full relative transition-all duration-500 ease-out ${
+              modalVisible ? 'scale-100 opacity-100 translate-y-0' : 'scale-95 opacity-0 translate-y-4'
+            }`}
+          >
             <div className="p-6">
               <h2 className="text-2xl font-bold mb-2">Sign in to continue</h2>
               <p className="text-gray-600 mb-4">You need to be signed in to generate presentations</p>
