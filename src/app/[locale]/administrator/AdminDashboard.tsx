@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useAuth } from "@clerk/nextjs";
 
 interface User {
   id: string;
@@ -145,6 +146,7 @@ interface DatabaseStatus {
 type TableName = "users" | "transactions" | "presentations" | "slides" | "decks" | "deck_presentations" | "presentation_shares" | "api_keys" | "overview" | "analytics" | "logs" | "settings";
 
 export default function DatabaseViewer() {
+  const { getToken } = useAuth();
   const [activeTab, setActiveTab] = useState<TableName>("overview");
   const [users, setUsers] = useState<User[]>([]);
   const [transactions, setTransactions] = useState<Transaction[]>([]);
@@ -181,11 +183,20 @@ export default function DatabaseViewer() {
     setError(null);
 
     try {
+      // Get auth token from Clerk
+      const token = await getToken();
+      const headers: HeadersInit = {
+        'Content-Type': 'application/json',
+      };
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+      }
+
       if (activeTab === "overview") {
         // Fetch database status and system metrics
         const [dbResponse, metricsResponse] = await Promise.all([
-          fetch(`${API_BASE}/api/admin/database-status`),
-          fetch(`${API_BASE}/api/admin/metrics`).catch(() => null)
+          fetch(`${API_BASE}/api/admin/database-status`, { headers }),
+          fetch(`${API_BASE}/api/admin/metrics`, { headers }).catch(() => null)
         ]);
         
         if (!dbResponse.ok) throw new Error("Failed to fetch database status");
@@ -198,31 +209,31 @@ export default function DatabaseViewer() {
         }
       } else if (activeTab === "analytics") {
         // Fetch analytics data
-        const metricsResponse = await fetch(`${API_BASE}/api/admin/analytics`);
+        const metricsResponse = await fetch(`${API_BASE}/api/admin/analytics`, { headers });
         if (metricsResponse.ok) {
           const metricsData = await metricsResponse.json();
           setSystemMetrics(metricsData);
         }
       } else if (activeTab === "logs") {
         // Fetch activity logs
-        const logsResponse = await fetch(`${API_BASE}/api/admin/activity-logs?limit=100`);
+        const logsResponse = await fetch(`${API_BASE}/api/admin/activity-logs?limit=100`, { headers });
         if (logsResponse.ok) {
           const logsData = await logsResponse.json();
           setActivityLogs(logsData.logs || []);
         }
       } else if (activeTab === "settings") {
         // Fetch system settings
-        const settingsResponse = await fetch(`${API_BASE}/api/admin/settings`);
+        const settingsResponse = await fetch(`${API_BASE}/api/admin/settings`, { headers });
         if (settingsResponse.ok) {
           const settingsData = await settingsResponse.json();
           setSystemSettings(settingsData);
         }
       } else if (activeTab === "users") {
         // Fetch all users from admin endpoint
-        const response = await fetch(`${API_BASE}/api/admin/users`);
+        const response = await fetch(`${API_BASE}/api/admin/users`, { headers });
         if (!response.ok) {
           // Fallback to getting default user from credits
-          const creditsResponse = await fetch(`${API_BASE}/api/credits`);
+          const creditsResponse = await fetch(`${API_BASE}/api/credits`, { headers });
           if (!creditsResponse.ok) throw new Error("Failed to fetch users");
           const data = await creditsResponse.json();
           setUsers([
@@ -246,37 +257,37 @@ export default function DatabaseViewer() {
           setUsers(data.users || []);
         }
       } else if (activeTab === "transactions") {
-        const response = await fetch(`${API_BASE}/api/credits/transactions?limit=100`);
+        const response = await fetch(`${API_BASE}/api/credits/transactions?limit=100`, { headers });
         if (!response.ok) throw new Error("Failed to fetch transactions");
         const data = await response.json();
         setTransactions(data.transactions || []);
       } else if (activeTab === "presentations") {
-        const response = await fetch(`${API_BASE}/api/presentations/list?limit=100`);
+        const response = await fetch(`${API_BASE}/api/presentations/list?limit=100`, { headers });
         if (!response.ok) throw new Error("Failed to fetch presentations");
         const data = await response.json();
         setPresentations(data.presentations || []);
       } else if (activeTab === "slides") {
-        const response = await fetch(`${API_BASE}/api/admin/slides?limit=100`);
+        const response = await fetch(`${API_BASE}/api/admin/slides?limit=100`, { headers });
         if (!response.ok) throw new Error("Failed to fetch slides");
         const data = await response.json();
         setSlides(data.slides || []);
       } else if (activeTab === "decks") {
-        const response = await fetch(`${API_BASE}/api/admin/decks?limit=100`);
+        const response = await fetch(`${API_BASE}/api/admin/decks?limit=100`, { headers });
         if (!response.ok) throw new Error("Failed to fetch decks");
         const data = await response.json();
         setDecks(data.decks || []);
       } else if (activeTab === "deck_presentations") {
-        const response = await fetch(`${API_BASE}/api/admin/deck-presentations?limit=100`);
+        const response = await fetch(`${API_BASE}/api/admin/deck-presentations?limit=100`, { headers });
         if (!response.ok) throw new Error("Failed to fetch deck presentations");
         const data = await response.json();
         setDeckPresentations(data.deck_presentations || []);
       } else if (activeTab === "presentation_shares") {
-        const response = await fetch(`${API_BASE}/api/admin/presentation-shares?limit=100`);
+        const response = await fetch(`${API_BASE}/api/admin/presentation-shares?limit=100`, { headers });
         if (!response.ok) throw new Error("Failed to fetch presentation shares");
         const data = await response.json();
         setPresentationShares(data.presentation_shares || []);
       } else if (activeTab === "api_keys") {
-        const response = await fetch(`${API_BASE}/api/admin/api-keys?limit=100`);
+        const response = await fetch(`${API_BASE}/api/admin/api-keys?limit=100`, { headers });
         if (!response.ok) throw new Error("Failed to fetch API keys");
         const data = await response.json();
         setApiKeys(data.api_keys || []);
@@ -318,9 +329,13 @@ export default function DatabaseViewer() {
     if (!bulkAction || selectedItems.size === 0) return;
     
     try {
+      const token = await getToken();
       const response = await fetch(`${API_BASE}/api/admin/bulk-action`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          ...(token && { 'Authorization': `Bearer ${token}` })
+        },
         body: JSON.stringify({
           action: bulkAction,
           items: Array.from(selectedItems),
@@ -343,8 +358,12 @@ export default function DatabaseViewer() {
 
   const handleUserAction = async (userId: string, action: string) => {
     try {
+      const token = await getToken();
       const response = await fetch(`${API_BASE}/api/admin/users/${userId}/${action}`, {
         method: 'POST',
+        headers: {
+          ...(token && { 'Authorization': `Bearer ${token}` })
+        },
       });
 
       if (response.ok) {
@@ -368,8 +387,12 @@ export default function DatabaseViewer() {
     }
 
     try {
+      const token = await getToken();
       const response = await fetch(`${API_BASE}/api/admin/users/${creditsTargetUser.id}/add_credits/${amount}`, {
         method: 'POST',
+        headers: {
+          ...(token && { 'Authorization': `Bearer ${token}` })
+        },
       });
 
       if (response.ok) {
@@ -396,9 +419,13 @@ export default function DatabaseViewer() {
 
   const handleUpdateSettings = async (newSettings: Partial<SystemSettings>) => {
     try {
+      const token = await getToken();
       const response = await fetch(`${API_BASE}/api/admin/settings`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          ...(token && { 'Authorization': `Bearer ${token}` })
+        },
         body: JSON.stringify(newSettings)
       });
 
