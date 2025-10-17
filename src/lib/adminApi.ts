@@ -48,7 +48,7 @@ class AdminAPI {
         if (error.response?.status === 401) {
           // Unauthorized - redirect to sign-in
           if (typeof window !== 'undefined') {
-            window.location.href = '/en/admin/sign-in';
+            window.location.href = '/sign-in?redirect_url=/en/admin';
           }
         }
         return Promise.reject(error);

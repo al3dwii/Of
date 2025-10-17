@@ -41,13 +41,13 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   useEffect(() => {
     // Redirect to sign-in if not authenticated
     if (!isSignedIn && !pathname.includes('/sign-in') && !pathname.includes('/sign-up')) {
-      router.push('/en/admin/sign-in');
+      router.push('/sign-in?redirect_url=/en/admin');
     }
   }, [isSignedIn, pathname, router]);
 
   const handleLogout = async () => {
     await signOut();
-    router.push('/en/admin/sign-in');
+    router.push('/sign-in');
   };
 
   // Don't show layout on login/sign-in/sign-up pages

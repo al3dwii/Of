@@ -13,7 +13,7 @@ export default function AdminLoginPage() {
 
   useEffect(() => {
     // Redirect to new Clerk sign-in page
-    router.replace('/en/admin/sign-in');
+    router.replace('/sign-in?redirect_url=/en/admin');
   }, [router]);
 
   return (
