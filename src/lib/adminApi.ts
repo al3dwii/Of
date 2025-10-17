@@ -1,5 +1,5 @@
-// Admin API Client
-import axios, { AxiosInstance } from 'axios';
+// Admin API Client with Clerk Authentication
+import axios, { AxiosInstance, InternalAxiosRequestConfig } from 'axios';
 import type {
   AdminMetrics,
   AdminAnalytics,
@@ -13,7 +13,7 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://presentation-ap
 
 class AdminAPI {
   private client: AxiosInstance;
-  private adminEmail: string | null = null;
+  private getTokenFn: (() => Promise<string | null>) | null = null;
 
   constructor() {
     this.client = axios.create({
@@ -23,11 +23,18 @@ class AdminAPI {
       },
     });
 
-    // Request interceptor to add auth token
+    // Request interceptor to add Clerk JWT token
     this.client.interceptors.request.use(
-      (config) => {
-        if (this.adminEmail) {
-          config.headers.Authorization = `Bearer ${this.adminEmail}`;
+      async (config: InternalAxiosRequestConfig) => {
+        if (this.getTokenFn) {
+          try {
+            const token = await this.getTokenFn();
+            if (token) {
+              config.headers.Authorization = `Bearer ${token}`;
+            }
+          } catch (error) {
+            console.error('Failed to get Clerk token:', error);
+          }
         }
         return config;
       },
@@ -39,10 +46,9 @@ class AdminAPI {
       (response) => response,
       (error) => {
         if (error.response?.status === 401) {
-          // Unauthorized - clear auth
-          this.clearAuth();
+          // Unauthorized - redirect to sign-in
           if (typeof window !== 'undefined') {
-            window.location.href = '/admin/login';
+            window.location.href = '/en/admin/sign-in';
           }
         }
         return Promise.reject(error);
@@ -50,47 +56,9 @@ class AdminAPI {
     );
   }
 
-  setAuth(email: string) {
-    this.adminEmail = email;
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('admin_email', email);
-    }
-  }
-
-  clearAuth() {
-    this.adminEmail = null;
-    if (typeof window !== 'undefined') {
-      localStorage.removeItem('admin_email');
-    }
-  }
-
-  loadAuth() {
-    if (typeof window !== 'undefined') {
-      const email = localStorage.getItem('admin_email');
-      if (email) {
-        this.adminEmail = email;
-      }
-    }
-  }
-
-  // Admin authentication
-  async login(email: string, password: string): Promise<boolean> {
-    try {
-      // For now, just check if user exists and is admin
-      // TODO: Implement proper password verification
-      this.setAuth(email);
-      
-      // Verify by trying to fetch metrics
-      await this.getMetrics();
-      return true;
-    } catch (error) {
-      this.clearAuth();
-      throw error;
-    }
-  }
-
-  logout() {
-    this.clearAuth();
+  // Set the token getter function from Clerk's useAuth hook
+  setTokenGetter(getToken: () => Promise<string | null>) {
+    this.getTokenFn = getToken;
   }
 
   // Get system metrics

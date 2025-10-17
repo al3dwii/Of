@@ -13,8 +13,8 @@ import {
   X,
 } from 'lucide-react';
 import { useState } from 'react';
-import { useAdminStore } from '@/stores/adminStore';
-import { adminApi } from '@/lib/adminApi';
+import { useAuth, useUser } from '@clerk/nextjs';
+import { useAdminApi } from '@/hooks/useAdminApi';
 
 interface AdminLayoutProps {
   children: React.ReactNode;
@@ -32,28 +32,26 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
-  const { isAuthenticated, adminEmail, logout } = useAdminStore();
+  
+  // Use Clerk authentication
+  const { isSignedIn, signOut } = useAuth();
+  const { user } = useUser();
+  const adminApi = useAdminApi();
 
   useEffect(() => {
-    // Check authentication on mount
-    adminApi.loadAuth();
-    const email = typeof window !== 'undefined' ? localStorage.getItem('admin_email') : null;
-    
-    if (email && !isAuthenticated) {
-      useAdminStore.getState().setAuth(email);
-    } else if (!email && !pathname.includes('/login')) {
-      router.push('/admin/login');
+    // Redirect to sign-in if not authenticated
+    if (!isSignedIn && !pathname.includes('/sign-in') && !pathname.includes('/sign-up')) {
+      router.push('/en/admin/sign-in');
     }
-  }, [isAuthenticated, pathname, router]);
+  }, [isSignedIn, pathname, router]);
 
-  const handleLogout = () => {
-    logout();
-    adminApi.logout();
-    router.push('/admin/login');
+  const handleLogout = async () => {
+    await signOut();
+    router.push('/en/admin/sign-in');
   };
 
-  // Don't show layout on login page
-  if (pathname.includes('/login')) {
+  // Don't show layout on login/sign-in/sign-up pages
+  if (pathname.includes('/login') || pathname.includes('/sign-in') || pathname.includes('/sign-up')) {
     return <>{children}</>;
   }
 
@@ -136,7 +134,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
             <div className="flex-1 flex items-center">
               <div className="flex-1">
                 <p className="text-sm font-medium text-white truncate">
-                  {adminEmail || 'Admin'}
+                  {user?.primaryEmailAddress?.emailAddress || 'Admin'}
                 </p>
                 <p className="text-xs text-gray-400">Administrator</p>
               </div>

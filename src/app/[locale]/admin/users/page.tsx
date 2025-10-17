@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { adminApi } from '@/lib/adminApi';
+import { useAdminApi } from '@/hooks/useAdminApi';
 import {
   Users as UsersIcon,
   Search,
@@ -28,6 +28,9 @@ interface UsersResponse {
 }
 
 export default function UsersPage() {
+  // Initialize admin API with Clerk authentication
+  const adminApi = useAdminApi();
+  
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [debouncedSearch, setDebouncedSearch] = useState('');
