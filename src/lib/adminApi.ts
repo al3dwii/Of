@@ -23,34 +23,20 @@ class AdminAPI {
       },
     });
 
-    // Request interceptor to add Clerk JWT token
+    // Request interceptor - NO AUTHENTICATION
     this.client.interceptors.request.use(
       async (config: InternalAxiosRequestConfig) => {
-        if (this.getTokenFn) {
-          try {
-            const token = await this.getTokenFn();
-            if (token) {
-              config.headers.Authorization = `Bearer ${token}`;
-            }
-          } catch (error) {
-            console.error('Failed to get Clerk token:', error);
-          }
-        }
+        // No authentication required
         return config;
       },
       (error) => Promise.reject(error)
     );
 
-    // Response interceptor to handle errors
+    // Response interceptor - NO AUTHENTICATION
     this.client.interceptors.response.use(
       (response) => response,
       (error) => {
-        if (error.response?.status === 401) {
-          // Unauthorized - redirect to sign-in
-          if (typeof window !== 'undefined') {
-            window.location.href = '/sign-in?redirect_url=/en/admin';
-          }
-        }
+        // Don't redirect on errors
         return Promise.reject(error);
       }
     );
@@ -59,6 +45,20 @@ class AdminAPI {
   // Set the token getter function from Clerk's useAuth hook
   setTokenGetter(getToken: () => Promise<string | null>) {
     this.getTokenFn = getToken;
+  }
+
+  // Login with username/password
+  async login(username: string, password: string): Promise<{ access_token: string; refresh_token: string }> {
+    const response = await this.client.post('/api/auth/login', {
+      username,
+      password,
+    });
+    // Store the access token
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('admin_token', response.data.access_token);
+      localStorage.setItem('admin_email', username);
+    }
+    return response.data;
   }
 
   // Get system metrics
