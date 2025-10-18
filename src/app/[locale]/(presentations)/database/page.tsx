@@ -6,16 +6,11 @@ import Link from "next/link";
 interface User {
   id: string;
   email: string;
-  username: string;
-  full_name: string;
+  name: string;
   credits: number;
-  total_credits_used: number;
-  subscription_tier: string;
   is_active: boolean;
-  is_verified: boolean;
   created_at: string;
   updated_at: string;
-  last_login: string | null;
 }
 
 interface Transaction {
@@ -144,11 +139,25 @@ export default function DatabaseViewer() {
 
     try {
       if (activeTab === "overview") {
-        // Fetch database status
-        const response = await fetch(`${API_BASE}/api/admin/database-status`);
+        // Fetch metrics from admin API
+        const response = await fetch(`${API_BASE}/api/admin/metrics`);
         if (!response.ok) throw new Error("Failed to fetch database status");
         const data = await response.json();
-        setDatabaseStatus(data);
+        // Transform metrics to database status format
+        setDatabaseStatus({
+          database: "neondb",
+          tables: {
+            users: data.total_users || 0,
+            presentations: data.total_presentations || 0,
+            slides: 0,
+            credit_transactions: 0,
+            decks: 0,
+            deck_presentations: 0,
+            presentation_shares: 0,
+            api_keys: 0,
+          },
+          total_records: (data.total_users || 0) + (data.total_presentations || 0)
+        });
       } else if (activeTab === "users") {
         // Fetch all users from admin endpoint
         const response = await fetch(`${API_BASE}/api/admin/users`);
@@ -161,16 +170,11 @@ export default function DatabaseViewer() {
             {
               id: data.user_id,
               email: "default@example.com",
-              username: "default_user",
-              full_name: "Default User",
+              name: "Default User",
               credits: data.credits,
-              total_credits_used: data.total_credits_used,
-              subscription_tier: "free",
               is_active: true,
-              is_verified: false,
               created_at: new Date().toISOString(),
               updated_at: data.last_activity,
-              last_login: null,
             },
           ]);
         } else {
@@ -534,19 +538,13 @@ export default function DatabaseViewer() {
                 <thead className="bg-white/5">
                   <tr>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
-                      Username
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
                       Email
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                      Name
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
                       Credits
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
-                      Used
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
-                      Tier
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
                       Status
@@ -559,33 +557,27 @@ export default function DatabaseViewer() {
                 <tbody className="divide-y divide-white/10">
                   {users.length === 0 ? (
                     <tr>
-                      <td colSpan={7} className="px-6 py-8 text-center text-gray-400">
+                      <td colSpan={5} className="px-6 py-8 text-center text-gray-400">
                         No users found
                       </td>
                     </tr>
                   ) : (
                     users.map((user) => (
-                      <tr key={user.id} className="hover:bg-white/5 transition-colors">
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="text-sm font-medium text-white">{user.username}</div>
-                          <div className="text-xs text-gray-400">{user.full_name}</div>
-                        </td>
+                      <tr 
+                        key={user.id} 
+                        onClick={() => window.location.href = `/admin/users/${user.id}`}
+                        className="hover:bg-white/5 transition-colors cursor-pointer"
+                      >
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
                           {user.email}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
+                          <div className="text-sm font-medium text-white">{user.name || 'N/A'}</div>
+                          <div className="text-xs text-gray-400">ID: {user.id.slice(0, 8)}...</div>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
                           <span className="text-lg font-bold text-yellow-400">
                             {user.credits.toLocaleString()}
-                          </span>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <span className="text-sm text-red-400">
-                            {user.total_credits_used.toLocaleString()}
-                          </span>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <span className="px-2 py-1 text-xs font-medium bg-purple-500/20 text-purple-300 rounded-full">
-                            {user.subscription_tier}
                           </span>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
