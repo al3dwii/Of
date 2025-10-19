@@ -2,9 +2,10 @@
 import type { MetadataRoute } from "next";
 import { LOCALES } from "@/data/locales";
 import { slidesLandings } from "@/data/landings.slides";
+import { getConverters } from "@/lib/server/converters";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://example.com";
+  const base = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://sharayeh.com";
   const now = new Date();
   const items: MetadataRoute.Sitemap = [];
 
@@ -94,6 +95,40 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.85,
     });
   }
+
+  // Tool/Converter pages - VERY high priority for SEO
+  const converters = getConverters();
+  for (const converter of converters) {
+    // Add English version
+    items.push({
+      url: `${base}/en/tools/${converter.slug_en}`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.9, // Very high - these are key SEO pages
+    });
+    
+    // Add Arabic version
+    items.push({
+      url: `${base}/ar/tools/${converter.slug_ar}`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    });
+  }
+
+  // Tools index pages
+  items.push({
+    url: `${base}/en/tools`,
+    lastModified: now,
+    changeFrequency: "weekly",
+    priority: 0.85,
+  });
+  items.push({
+    url: `${base}/ar/tools`,
+    lastModified: now,
+    changeFrequency: "weekly",
+    priority: 0.85,
+  });
 
   // Dedupe
   const seen = new Set<string>();

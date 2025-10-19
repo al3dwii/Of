@@ -180,9 +180,10 @@ Add to your backend:
 ```python
 from fastapi.middleware.cors import CORSMiddleware
 
+```python
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "https://of-xi.vercel.app"],
+    allow_origins=["http://localhost:3000", "https://sharayeh.com"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

@@ -197,11 +197,10 @@ class Settings(BaseSettings):
     PROJECT_NAME: str = "Admin Dashboard API"
     
     # CORS
-    BACKEND_CORS_ORIGINS: list = [
+    allow_origins=[
         "http://localhost:3000",
-        "https://of-xi.vercel.app",
-        "https://*.vercel.app"
-    ]
+        "https://sharayeh.com",
+    ],
     
     # Rate Limiting
     RATE_LIMIT_PER_MINUTE: int = 60

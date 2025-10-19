@@ -465,9 +465,9 @@ https://presentation-api-production.up.railway.app
 
 ### Frontend Access
 ```
-https://of-xi.vercel.app/en/administrator
-https://of-xi.vercel.app/ar/administrator
-https://of-xi.vercel.app/es/administrator
+https://sharayeh.com/en/administrator
+https://sharayeh.com/ar/administrator
+https://sharayeh.com/es/administrator
 ```
 
 ### CORS Configuration
@@ -475,7 +475,7 @@ Backend must allow requests from:
 ```python
 BACKEND_CORS_ORIGINS = [
     "http://localhost:3000",
-    "https://of-xi.vercel.app"
+    "https://sharayeh.com"
 ]
 ```
 

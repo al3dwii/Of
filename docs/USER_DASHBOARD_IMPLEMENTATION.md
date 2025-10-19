@@ -1,7 +1,7 @@
 # User Dashboard Implementation Guide - Basic Setup
 
 ## Overview
-Simple guide to connect the dashboard at `https://of-xi.vercel.app/en/dashboard` to the backend with essential features only.
+Simple guide to connect the dashboard at `https://sharayeh.com/en/dashboard` to the backend with essential features only.
 
 ## What Users Will See
 
@@ -239,7 +239,7 @@ WHERE table_name = 'presentation_mirrors'
 - [ ] Deploy to Vercel (auto-deploys on git push)
 
 ### Verification (5 minutes)
-- [ ] Visit `https://of-xi.vercel.app/en/dashboard`
+- [ ] Visit `https://sharayeh.com/en/dashboard`
 - [ ] Check browser console for API calls
 - [ ] Verify stats show real numbers
 - [ ] Create a test presentation
